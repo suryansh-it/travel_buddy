@@ -2,7 +2,8 @@ from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Destination  # To be created later
-
+from algoliasearch import SearchClient
+import os
 
 @api_view(['GET'])
 def homepage_view(request):
@@ -32,3 +33,12 @@ def homepage_view(request):
         }
     }
     return Response(data)
+
+
+@api_view(['GET'])
+def search_destinations(request):
+    query = request.GET.get('query', '')
+    client = SearchClient.create(os.getenv("ALGOLIA_APP_ID"), os.getenv("ALGOLIA_API_KEY"))
+    index = client.init_index("popular_destinations")
+    results = index.search(query)
+    return Response(results['hits'])
