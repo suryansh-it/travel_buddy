@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import homepage_view
+from .views import country_page_view
 
 urlpatterns = [
-    path('', homepage_view, name='homepage')
+    path('<str:country_code>/', country_page_view, name='country_page')
 ]
