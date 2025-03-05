@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django_celery_results',  # Celery Results Storage
     'django_celery_beat',  # Celery Periodic Tasks
     'homepage',  # Homepage App
+    'country',  # Country-Specific App Page
+    'personalized_list',  # Personalized App List Page
 ]
 
 MIDDLEWARE = [

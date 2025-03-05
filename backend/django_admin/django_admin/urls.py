@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/homepage/', include('homepage.urls')),
     path('api/country/', include('country.urls')),
+    path('api/personalized_list/', include('personalized_list.urls')),
 ]
