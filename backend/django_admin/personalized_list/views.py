@@ -15,5 +15,5 @@ def personalized_list_view(request):
 @api_view(['POST'])
 def generate_qr_code_view(request):
     app_links = request.data.get("app_links", [])
-    qr_base64 = generate_qr_code(app_links)
+    qr_base64 = generate_qr_code.delay(app_links).get()
     return Response({"qr_code": qr_base64})
