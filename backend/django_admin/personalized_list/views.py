@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-import qrcode
-from io import BytesIO
-import base64
+from services.qrcode_service import generate_qr_code
 
 @api_view(['GET'])
 def personalized_list_view(request):
@@ -14,4 +12,8 @@ def personalized_list_view(request):
     return Response({"selected_apps": selected_apps})
 
 
-
+@api_view(['POST'])
+def generate_qr_code_view(request):
+    app_links = request.data.get("app_links", [])
+    qr_base64 = generate_qr_code(app_links)
+    return Response({"qr_code": qr_base64})

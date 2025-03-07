@@ -143,8 +143,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALGOLIA = {
-    'APPLICATION_ID': os.getenv("ALGOLIA_APP_ID"),
-    'API_KEY': os.getenv("ALGOLIA_API_KEY"),
-    'INDEX_NAME': "popular_destinations"
-}

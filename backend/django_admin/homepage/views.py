@@ -2,7 +2,7 @@ from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Destination  # To be created later
-from algoliasearch import SearchClient
+from services.algolia_service import search_apps
 import os
 
 @api_view(['GET'])
@@ -34,3 +34,8 @@ def homepage_view(request):
     }
     return Response(data)
 
+@api_view(['GET'])
+def homepage_search_view(request):
+    query = request.GET.get("query", "")
+    results = search_apps(query)
+    return Response({"results": results})
