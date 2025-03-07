@@ -34,11 +34,3 @@ def homepage_view(request):
     }
     return Response(data)
 
-
-@api_view(['GET'])
-def search_destinations(request):
-    query = request.GET.get('query', '')
-    client = SearchClient.create(os.getenv("ALGOLIA_APP_ID"), os.getenv("ALGOLIA_API_KEY"))
-    index = client.init_index("popular_destinations")
-    results = index.search(query)
-    return Response(results['hits'])

@@ -13,12 +13,5 @@ def personalized_list_view(request):
     ]
     return Response({"selected_apps": selected_apps})
 
-@api_view(['POST'])
-def generate_qr_code(request):
-    data = request.data.get("app_links", [])
-    qr = qrcode.make("\n".join(data))
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-    return Response({"qr_code": qr_base64})
+
 
