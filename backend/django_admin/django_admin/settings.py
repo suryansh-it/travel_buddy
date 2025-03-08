@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+import redis
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -94,6 +95,10 @@ DATABASES = {
 REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
 REDIS_PORT = os.getenv("REDIS_PORT", "6379")
 REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+
+# This avoids conflicts with Algolia caching, ensuring the two functionalities do not overwrite each other.
+REDIS_DB_PERSONAL_LISTS = 1  # Separate from Algolia caching
+
 
 
 
