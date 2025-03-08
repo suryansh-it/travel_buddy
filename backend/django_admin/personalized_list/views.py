@@ -13,7 +13,7 @@ from rest_framework import status
 from qrcode import make as qr_make
 from io import BytesIO
 import base64
-# from apps.models import App  # Assuming App model exists
+from personalized_list.models import App  # Assuming App model exists
 
 # Redis connection for personal lists
 redis_client = redis.StrictRedis(
@@ -41,3 +41,21 @@ class PersonalAppListView(APIView):
         redis_client.setex(session_id, 86400, json.dumps(selected_apps))
 
         return Response({"session_id": session_id}, status=status.HTTP_201_CREATED)
+    
+
+    def get(self, request, session_id):
+        """
+        Retrieve selected apps using session ID.
+        """
+        selected_apps_json = redis_client.get(session_id)
+
+        if not selected_apps_json:
+            return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
+
+        selected_app_ids = json.loads(selected_apps_json)
+        apps = get_list_or_404(App, id__in=selected_app_ids)
+
+        # Serialize app data
+        app_data = [{"id": app.id, "name": app.name, "description": app.description, "icon_url": app.icon.url} for app in apps]
+
+        return Response({"session_id": session_id, "selected_apps": app_data}, status=status.HTTP_200_OK)
