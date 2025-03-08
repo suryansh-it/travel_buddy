@@ -10,10 +10,8 @@ from django.shortcuts import get_list_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from qrcode import make as qr_make
-from io import BytesIO
-import base64
 from personalized_list.models import App  # Assuming App model exists
+from services.qrcode_service import generate_qr_code  # Import the QR service
 
 # Redis connection for personal lists
 redis_client = redis.StrictRedis(
@@ -59,3 +57,31 @@ class PersonalAppListView(APIView):
         app_data = [{"id": app.id, "name": app.name, "description": app.description, "icon_url": app.icon.url} for app in apps]
 
         return Response({"session_id": session_id, "selected_apps": app_data}, status=status.HTTP_200_OK)
+
+
+
+class GenerateQRCodeView(APIView):
+    """
+    API to generate a QR code for the selected apps.
+    """
+
+    def get(self, request, session_id):
+        """
+        Generate and return a QR code for the selected app list.
+        """
+        selected_apps_json = redis_client.get(session_id)
+
+        if not selected_apps_json:
+            return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
+
+        selected_app_ids = json.loads(selected_apps_json)
+        apps = get_list_or_404(App, id__in=selected_app_ids)
+
+        # Generate a URL with selected app details (could be a frontend deep link)
+        app_links = [app.download_url for app in apps]  # Assuming download_url field exists
+        qr_data = {"session_id": session_id, "apps": app_links}
+
+        # Use the QR Code Service to generate the QR code
+        qr_base64 = generate_qr_code(qr_data)
+
+        return Response({"qr_code": qr_base64}, status=status.HTTP_200_OK)
