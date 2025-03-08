@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import personalized_list_view, generate_qr_code
+from .views import PersonalAppListView, GenerateQRCodeView
 
 urlpatterns = [
-    path('', personalized_list_view, name='personalized_list'),
-    path('generate_qr/', generate_qr_code, name='generate_qr_code')
+    path("api/personal-list/", PersonalAppListView.as_view(), name="create_personal_list"),
+    path("api/personal-list/<str:session_id>/", PersonalAppListView.as_view(), name="get_personal_list"),
+    path("api/personal-list/<str:session_id>/qr/", GenerateQRCodeView.as_view(), name="generate_qr"),
 ]
