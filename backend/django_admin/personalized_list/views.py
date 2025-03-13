@@ -10,7 +10,7 @@ from django.shortcuts import get_list_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from personalized_list.models import App  # Assuming App model exists
+# from personalized_list.models import App  # Assuming App model exists
 from services.qrcode_service import generate_qr_code  # Import the QR service
 
 # Redis connection for personal lists

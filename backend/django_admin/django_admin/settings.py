@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+
+
+
 #django will load .env file at the beginning 
 from dotenv import load_dotenv
 load_dotenv()

@@ -1,7 +1,7 @@
 from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from backend.services.algolia_service import search_countries
+# from services.algolia_service import search_countries
 from rest_framework.decorators import api_view
 from country.models import Country
 from country.serializers import CountrySerializer
