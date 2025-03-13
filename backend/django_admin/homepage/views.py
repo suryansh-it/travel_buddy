@@ -1,13 +1,15 @@
 from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Destination  # To be created later
 from services.algolia_service import search_apps
-import os
+from rest_framework.decorators import api_view
+from country.models import Country
+from country.serializers import CountrySerializer
 
 @api_view(['GET'])
 def homepage_view(request):
-    destinations = get_list_or_404(Destination.objects.all())  # Fetch from DB
+    countries = Country.objects.all()
+    serializer = CountrySerializer(countries, many=True)
 
     data = {
         "hero_section": {
@@ -19,9 +21,7 @@ def homepage_view(request):
             "Select the best travel apps",
             "Generate your QR code"
         ],
-        "popular_destinations": [
-            {"name": d.name, "image": d.image_url} for d in destinations
-        ],
+        "popular_destinations": serializer.data,
         "footer": {
             "about": "About Travel App Curator",
             "contact": "Contact Us",
@@ -36,6 +36,11 @@ def homepage_view(request):
 
 @api_view(['GET'])
 def homepage_search_view(request):
-    query = request.GET.get("query", "")
-    results = search_apps(query)
+    query = request.GET.get("query", "").strip()
+    
+    # Search countries by name or code
+    countries = Country.objects.filter(name__icontains=query) | Country.objects.filter(code__icontains=query)
+
+    results = [{"name": c.name, "code": c.code, "flag": c.flag.url if c.flag else None} for c in countries]
+
     return Response({"results": results})
