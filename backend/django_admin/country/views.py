@@ -1,31 +1,36 @@
-from django.shortcuts import get_list_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
-from .models import AppCategory, TravelApp
-from .serializers import AppCategorySerializer, TravelAppSerializer
+from .models import AppCategory, TravelApp, Country
+from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer
 
 @api_view(['GET'])
 def country_page_view(request, country_code):
-    """
-    Fetch travel apps and categories dynamically for the selected country.
-    """
-    categories = AppCategory.objects.all()
-    apps = TravelApp.objects.all()
+    country = get_object_or_404(Country, code=country_code.upper())
+    serializer = CountrySerializer(country)
+
+    # Fetch all categories available in this country
+    categories = AppCategory.objects.filter(apps__country=country).distinct()
+
+    # Fetch all apps for this country
+    apps = TravelApp.objects.filter(country=country)
 
     data = {
         "country_header": {
-            "flag": f"{country_code}.png",
-            "name": country_code.upper(),
-            "description": f"Explore top apps for {country_code.capitalize()}"
+            "flag": country.flag.url if country.flag else None,
+            "name": country.name,
+            "description": country.description
         },
         "curated_app_categories": [category.name for category in categories],
         "app_cards": [
             {
                 "name": app.name,
                 "description": app.description,
-                "platforms": ["iOS" if app.ios_link else "", "Android" if app.android_link else ""],
-                "icon": app.icon_url
+                "platforms": ["iOS" if app.ios_link else None, "Android" if app.android_link else None],
+                "icon": app.icon_url,
+                "ios_link": app.ios_link,
+                "android_link": app.android_link,
             }
             for app in apps
         ],
@@ -38,7 +43,7 @@ def country_page_view(request, country_code):
             "generate_qr_button": "Generate QR Code"
         }
     }
-    return Response(data)
+    return Response(serializer.data)
 
 # ✅ API to fetch all categories
 class AppCategoryListView(generics.ListAPIView):

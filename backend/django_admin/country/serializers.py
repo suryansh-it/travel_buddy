@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AppCategory, TravelApp
+from .models import AppCategory, TravelApp,Country
 
 class AppCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,3 +12,10 @@ class TravelAppSerializer(serializers.ModelSerializer):
     class Meta:
         model = TravelApp
         fields = '__all__'
+
+class CountrySerializer(serializers.ModelSerializer):
+    apps = TravelAppSerializer(many=True, read_only=True, source="travelapp_set")
+
+    class Meta:
+        model = Country
+        fields = ["id", "name", "code", "flag", "description", "apps"]
