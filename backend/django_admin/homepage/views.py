@@ -1,10 +1,11 @@
 from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from services.algolia_service import search_apps
+from backend.services.algolia_service import search_countries
 from rest_framework.decorators import api_view
 from country.models import Country
 from country.serializers import CountrySerializer
+from django.urls import reverse  # ✅ For generating URLs dynamically
 
 @api_view(['GET'])
 def homepage_view(request):
@@ -34,13 +35,37 @@ def homepage_view(request):
     }
     return Response(data)
 
+
 @api_view(['GET'])
 def homepage_search_view(request):
     query = request.GET.get("query", "").strip()
-    
-    # Search countries by name or code
+
+    if not query:
+        return Response({"error": "Query parameter is required"}, status=400)
+
+    # 🔍 Search countries by name or code in DB
     countries = Country.objects.filter(name__icontains=query) | Country.objects.filter(code__icontains=query)
-
-    results = [{"name": c.name, "code": c.code, "flag": c.flag.url if c.flag else None} for c in countries]
-
+    
+    results = [
+        {
+            "name": c.name,
+            "code": c.code,
+            "flag": c.flag.url if c.flag else None,
+            "url": reverse("country_page", kwargs={"country_code": c.code.lower()})  # ✅ Add URL to country page
+        } 
+        for c in countries
+    ]
     return Response({"results": results})
+
+
+#----------- if implementing algolia search -------------
+# @api_view(['GET'])
+# def homepage_search_view(request):
+#     query = request.GET.get("query", "").strip()
+
+#     if not query:
+#         return Response({"error": "Query parameter is required"}, status=400)
+
+#     results = search_countries(query)  # Fetch from Algolia
+
+#     return Response({"results": results})

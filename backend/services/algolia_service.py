@@ -13,13 +13,14 @@ ALGOLIA_INDEX_NAME = "travel_apps"
 client = algolia.SearchClient.create(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
 index = client.init_index(ALGOLIA_INDEX_NAME)
 
-def search_apps(query):
-    cache_key = f"search:{query}"
-    cached_result = redis_client.get(cache_key)
+def search_countries(query):
+    results = index.search(query)  # Perform Algolia search
     
-    if cached_result:
-        return eval(cached_result)
-    
-    results = index.search(query).get("hits", [])
-    redis_client.setex(cache_key, 300, str(results))  # Cache for 5 minutes
-    return results
+    return [
+        {
+            "name": hit["name"],
+            "code": hit["code"],
+            "flag": hit.get("flag")
+        }
+        for hit in results.get("hits", [])
+    ]
