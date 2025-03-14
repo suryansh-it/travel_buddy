@@ -1,15 +1,13 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from services.qrcode_service import generate_qr_code
-import uuid
-import json
-import redis
-from django.conf import settings
 from django.shortcuts import get_list_or_404
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import status
+import redis
+import json
+import uuid
+from django.conf import settings
+from country.models import TravelApp
+from .serializers import TravelAppSerializer
 # from personalized_list.models import App  # Assuming App model exists
 from services.qrcode_service import generate_qr_code  # Import the QR service
 
@@ -51,12 +49,12 @@ class PersonalAppListView(APIView):
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
         selected_app_ids = json.loads(selected_apps_json)
-        apps = get_list_or_404(App, id__in=selected_app_ids)
+        apps = TravelApp.objects.filter(id__in=selected_app_ids)
 
-        # Serialize app data
-        app_data = [{"id": app.id, "name": app.name, "description": app.description, "icon_url": app.icon.url} for app in apps]
+               # Serialize app data
+        serializer = TravelAppSerializer(apps, many=True)
 
-        return Response({"session_id": session_id, "selected_apps": app_data}, status=status.HTTP_200_OK)
+        return Response({"session_id": session_id, "selected_apps": serializer.data}, status=status.HTTP_200_OK)
 
 
 
@@ -75,7 +73,10 @@ class GenerateQRCodeView(APIView):
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
         selected_app_ids = json.loads(selected_apps_json)
-        apps = get_list_or_404(App, id__in=selected_app_ids)
+        apps = TravelApp.objects.filter(id__in=selected_app_ids)
+
+                # Serialize app data
+        serializer = TravelAppSerializer(apps, many=True)
 
         # Generate a URL with selected app details (could be a frontend deep link)
         app_links = [app.download_url for app in apps]  # Assuming download_url field exists
@@ -84,4 +85,4 @@ class GenerateQRCodeView(APIView):
         # Use the QR Code Service to generate the QR code
         qr_base64 = generate_qr_code(qr_data)
 
-        return Response({"qr_code": qr_base64}, status=status.HTTP_200_OK)
+        return Response({"qr_code": qr_base64, "selected_apps": serializer.data}, status=status.HTTP_200_OK)
