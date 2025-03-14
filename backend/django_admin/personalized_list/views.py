@@ -8,6 +8,10 @@ import uuid
 from django.conf import settings
 from country.models import TravelApp
 from .serializers import TravelAppSerializer
+import io
+from PIL import Image
+from django.http import HttpResponse
+import base64
 # from personalized_list.models import App  # Assuming App model exists
 from services.qrcode_service import generate_qr_code  # Import the QR service
 
@@ -110,4 +114,30 @@ class DownloadAppListTextView(APIView):
 
         response = Response(app_list_text, content_type="text/plain")
         response["Content-Disposition"] = f"attachment; filename=app_list_{session_id}.txt"
+        return response
+
+
+class DownloadQRCodeView(APIView):
+    """
+    API to download the QR code as an image.
+    """
+
+    def get(self, request, session_id):
+        """
+        Serve the QR code as a downloadable image.
+        """
+        selected_apps_json = redis_client.get(session_id)
+
+        if not selected_apps_json:
+            return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
+
+    
+        # Convert Base64 to an image
+        qr_image_data = base64.b64decode(GenerateQRCodeView.qr_base64)
+        image = Image.open(io.BytesIO(qr_image_data))
+
+        # Serve as a downloadable PNG file
+        response = HttpResponse(content_type="image/png")
+        response["Content-Disposition"] = f'attachment; filename="qr_code_{session_id}.png"'
+        image.save(response, "PNG")
         return response
