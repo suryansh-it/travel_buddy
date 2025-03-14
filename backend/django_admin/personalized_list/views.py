@@ -78,11 +78,36 @@ class GenerateQRCodeView(APIView):
                 # Serialize app data
         serializer = TravelAppSerializer(apps, many=True)
 
-        # Generate a URL with selected app details (could be a frontend deep link)
-        app_links = [app.download_url for app in apps]  # Assuming download_url field exists
-        qr_data = {"session_id": session_id, "apps": app_links}
+        # Generate a shareable link
+        base_url = settings.FRONTEND_URL
+        shareable_url = f"{base_url}/personalized-list/{session_id}"
 
-        # Use the QR Code Service to generate the QR code
+        # Generate QR Code
+        qr_data = {"session_id": session_id, "apps": shareable_url}
         qr_base64 = generate_qr_code(qr_data)
 
-        return Response({"qr_code": qr_base64, "selected_apps": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"qr_code": qr_base64, "selected_apps": serializer.data,"shareable_url": shareable_url}, status=status.HTTP_200_OK)
+    
+
+class DownloadAppListTextView(APIView):
+    """
+    API to download the selected app list as a text file.
+    """
+
+    def get(self, request, session_id):
+        """
+        Serve the selected app list as a downloadable text file.
+        """
+        selected_apps_json = redis_client.get(session_id)
+
+        if not selected_apps_json:
+            return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
+
+        selected_app_ids = json.loads(selected_apps_json)
+        apps = TravelApp.objects.filter(id__in=selected_app_ids)
+
+        app_list_text = "\n".join([f"{app.name} - {app.description} (Download: {app.ios_link if app.ios_link else app.android_link})" for app in apps])
+
+        response = Response(app_list_text, content_type="text/plain")
+        response["Content-Disposition"] = f"attachment; filename=app_list_{session_id}.txt"
+        return response
