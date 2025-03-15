@@ -1,21 +1,33 @@
 from rest_framework import serializers
-from .models import AppCategory, TravelApp,Country
-
-class AppCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AppCategory
-        fields = '__all__'
+from .models import Country, TravelApp, AppCategory
 
 class TravelAppSerializer(serializers.ModelSerializer):
-    category = AppCategorySerializer(read_only=True)
+    platforms = serializers.SerializerMethodField()
 
     class Meta:
         model = TravelApp
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'icon_url', 'ios_link', 'android_link', 'platforms']
+
+    def get_platforms(self, obj):
+        return [
+            "iOS" if obj.ios_link else None,
+            "Android" if obj.android_link else None
+        ]
+
+class AppCategorySerializer(serializers.ModelSerializer):
+    apps = TravelAppSerializer(many=True, source='apps')  # Fetch related apps
+
+    class Meta:
+        model = AppCategory
+        fields = ['name', 'apps']  # Each category will have a name and its apps
 
 class CountrySerializer(serializers.ModelSerializer):
-    apps = TravelAppSerializer(many=True, read_only=True, source="travelapp_set")
+    curated_app_categories = AppCategorySerializer(many=True, source='categories')  # Include category data
+    flag = serializers.SerializerMethodField()
 
     class Meta:
         model = Country
-        fields = ["id", "name", "code", "flag", "description", "apps"]
+        fields = ['name', 'flag', 'description', 'curated_app_categories']
+
+    def get_flag(self, obj):
+        return obj.flag.url if obj.flag else None  # Ensure flag URL is returned properly

@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'homepage',  # Homepage App
     'country',  # Country-Specific App Page
     'personalized_list',  # Personalized App List Page
-    'django_admin'
-    "django_celery_beat"
+    'django_admin',
+    
 ]
 
 MIDDLEWARE = [

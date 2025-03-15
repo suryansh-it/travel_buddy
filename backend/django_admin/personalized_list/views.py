@@ -14,7 +14,7 @@ from django.http import HttpResponse
 import base64
 # from personalized_list.models import App  # Assuming App model exists
 from services.qrcode_service import generate_qr_code  # Import the QR service
-import tasks
+from .tasks import redis_client
 
 
 class PersonalAppListView(APIView):
@@ -35,7 +35,7 @@ class PersonalAppListView(APIView):
         session_id = str(uuid.uuid4())
 
         # Store data in Redis (expires in 24 hours)
-        tasks.redis_client.setex(session_id, 86400, json.dumps(selected_apps))
+        redis_client.setex(session_id, 86400, json.dumps(selected_apps))
 
         return Response({"session_id": session_id}, status=status.HTTP_201_CREATED)
     
@@ -44,7 +44,7 @@ class PersonalAppListView(APIView):
         """
         Retrieve selected apps using session ID.
         """
-        selected_apps_json = tasks.redis_client.get(session_id)
+        selected_apps_json = redis_client.get(session_id)
 
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
@@ -68,7 +68,7 @@ class GenerateQRCodeView(APIView):
         """
         Generate and return a QR code for the selected app list.
         """
-        selected_apps_json = tasks.redis_client.get(session_id)
+        selected_apps_json = redis_client.get(session_id)
 
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
@@ -99,7 +99,7 @@ class DownloadAppListTextView(APIView):
         """
         Serve the selected app list as a downloadable text file.
         """
-        selected_apps_json = tasks.redis_client.get(session_id)
+        selected_apps_json = redis_client.get(session_id)
 
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
@@ -123,7 +123,7 @@ class DownloadQRCodeView(APIView):
         """
         Serve the QR code as a downloadable image.
         """
-        selected_apps_json = tasks.redis_client.get(session_id)
+        selected_apps_json = redis_client.get(session_id)
 
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
