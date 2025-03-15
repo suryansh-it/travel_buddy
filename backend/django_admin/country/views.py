@@ -22,7 +22,8 @@ def country_page_view(request, country_code):
         "selected_apps_panel": {
             "selected_apps": [],
             "generate_qr_button": "Generate QR Code"
-        }
+        },
+        "add_to_list_url": "/api/personalized_list/personalized-list/" # ✅ API to send selected apps
     })
 
     return Response(data)
