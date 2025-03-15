@@ -2,7 +2,6 @@ from django.shortcuts import get_list_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-import redis
 import json
 import uuid
 from django.conf import settings
@@ -15,6 +14,7 @@ import base64
 # from personalized_list.models import App  # Assuming App model exists
 from services.qrcode_service import generate_qr_code  # Import the QR service
 from .tasks import redis_client
+from rest_framework import status
 
 
 class PersonalAppListView(APIView):
@@ -24,21 +24,30 @@ class PersonalAppListView(APIView):
 
     def post(self, request):
         """
-        Store selected app IDs in Redis with a unique session ID.
+        Store selected apps in Redis with a unique session ID.
         """
-        selected_apps = request.data.get("selected_apps", [])
+        selected_app_ids = request.data.get("selected_apps", [])
 
-        if not selected_apps:
+        if not selected_app_ids:
             return Response({"error": "No apps selected"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validate if apps exist in DB
+        valid_apps = TravelApp.objects.filter(id__in=selected_app_ids)
+        if not valid_apps.exists():
+            return Response({"error": "Invalid apps selected"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Generate a unique session ID
         session_id = str(uuid.uuid4())
 
-        # Store data in Redis (expires in 24 hours)
-        redis_client.setex(session_id, 86400, json.dumps(selected_apps))
+        # Serialize app data and store in Redis (expires in 24 hours)
+        serialized_apps = TravelAppSerializer(valid_apps, many=True).data
+        redis_client.setex(session_id, 86400, json.dumps(serialized_apps))
 
-        return Response({"session_id": session_id}, status=status.HTTP_201_CREATED)
-    
+        return Response({
+            "session_id": session_id,
+            "message": "Apps added successfully!",
+            "selected_apps": serialized_apps
+        }, status=status.HTTP_201_CREATED)
 
     def get(self, request, session_id):
         """
@@ -49,14 +58,9 @@ class PersonalAppListView(APIView):
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
-        selected_app_ids = json.loads(selected_apps_json)
-        apps = TravelApp.objects.filter(id__in=selected_app_ids)
+        selected_apps = json.loads(selected_apps_json)
 
-               # Serialize app data
-        serializer = TravelAppSerializer(apps, many=True)
-
-        return Response({"session_id": session_id, "selected_apps": serializer.data}, status=status.HTTP_200_OK)
-
+        return Response({"session_id": session_id, "selected_apps": selected_apps}, status=status.HTTP_200_OK)
 
 
 class GenerateQRCodeView(APIView):
