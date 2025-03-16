@@ -4,8 +4,8 @@ import uuid
 # Database connection parameters
 conn = psycopg2.connect(
     dbname="travel_buddy_db",
-    user="travel_buddy",  # Replace with your PostgreSQL username
-    password="anujjainbatu",  # Replace with your PostgreSQL password
+    user="travel_bud",  # Replace with your PostgreSQL username
+    password="suryansh",  # Replace with your PostgreSQL password
     host="localhost"
 )
 
