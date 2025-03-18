@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Country, TravelApp, AppCategory
+from .models import Country, TravelApp, AppCategory, Review, AppScreenshot
 
 class TravelAppSerializer(serializers.ModelSerializer):
     platforms = serializers.SerializerMethodField()
