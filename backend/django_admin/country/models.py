@@ -37,3 +37,20 @@ class TravelApp(models.Model):
     def __str__(self):
         return self.name
 
+class AppScreenshot(models.Model):
+    app = models.ForeignKey(TravelApp, on_delete=models.CASCADE, related_name="screenshots")
+    image_url = models.URLField()
+
+    def __str__(self):
+        return f"Screenshot for {self.app.name}"
+
+
+class Review(models.Model):
+    app = models.ForeignKey(TravelApp, on_delete=models.CASCADE, related_name="reviews")
+    user_id = models.UUIDField()
+    rating = models.DecimalField(max_digits=2, decimal_places=1)  # 1.0 - 5.0
+    review_text = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review by {self.user_id} for {self.app.name}"
