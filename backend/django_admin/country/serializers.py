@@ -6,7 +6,8 @@ class TravelAppSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TravelApp
-        fields = ['id', 'name', 'description', 'icon_url', 'ios_link', 'android_link', 'platforms']
+        fields = ['id', 'name', 'description', 'icon_url', 'ios_link', 'android_link', 'platforms'
+                  , "screenshots", "reviews"]
 
     def get_platforms(self, obj):
         return [
@@ -31,3 +32,14 @@ class CountrySerializer(serializers.ModelSerializer):
 
     def get_flag(self, obj):
         return obj.flag.url if obj.flag else None  # Ensure flag URL is returned properly
+
+
+class AppScreenshotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppScreenshot
+        fields = ["image_url"]
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["user_id", "rating", "review_text", "created_at"]
