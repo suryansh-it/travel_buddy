@@ -16,14 +16,15 @@ class TravelAppSerializer(serializers.ModelSerializer):
         ]
 
 class AppCategorySerializer(serializers.ModelSerializer):
-    apps = TravelAppSerializer(many=True, source='apps')  # Fetch related apps
+    apps = TravelAppSerializer(many=True)  # Fetch related apps
 
     class Meta:
         model = AppCategory
         fields = ['name', 'apps']  # Each category will have a name and its apps
 
 class CountrySerializer(serializers.ModelSerializer):
-    curated_app_categories = AppCategorySerializer(many=True, source='categories')  # Include category data
+     # categories are added dynamically based on available apps
+    curated_app_categories = serializers.SerializerMethodField() 
     flag = serializers.SerializerMethodField()
 
     class Meta:
@@ -32,6 +33,17 @@ class CountrySerializer(serializers.ModelSerializer):
 
     def get_flag(self, obj):
         return obj.flag.url if obj.flag else None  # Ensure flag URL is returned properly
+
+
+    def get_curated_app_categories(self, obj):
+        """
+        Get distinct categories from TravelApps related to the country.
+        """
+        categories = AppCategory.objects.filter(
+            apps__country=obj
+        ).distinct()
+        
+        return AppCategorySerializer(categories, many=True).data
 
 
 class AppScreenshotSerializer(serializers.ModelSerializer):
