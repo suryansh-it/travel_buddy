@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'personalized_list',  # Personalized App List Page
     'django_admin',
     'rest_framework_simplejwt',
-    'django_admin.auth',  # authentication app
+    'auth_app',  # authentication app
     
 ]
 
