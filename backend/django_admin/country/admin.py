@@ -1,23 +1,42 @@
-
-
-# Register your models here.
 from django.contrib import admin
-from .models import Country, AppCategory, TravelApp
+from django.utils.html import format_html
+from .models import Country, AppCategory, TravelApp, AppScreenshot, Review
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    list_display = ("name", "code", "flag")
-    search_fields = ("name", "code")
-
+    list_display = ('name', 'code', 'flag_preview', 'description')
+    search_fields = ('name', 'code')
+    list_filter = ('name',)
+    
+    def flag_preview(self, obj):
+        if obj.flag:
+            return format_html('<img src="{}" width="40" height="25" style="border:1px solid #ddd"/>', obj.flag.url)
+        return "No Flag"
+    flag_preview.short_description = "Flag"
 
 @admin.register(AppCategory)
 class AppCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    search_fields = ("name",)
-
+    list_display = ('name', 'description')
+    search_fields = ('name',)
 
 @admin.register(TravelApp)
 class TravelAppAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "country", "ios_link", "android_link")
-    list_filter = ("category", "country")
-    search_fields = ("name", "country__name", "category__name")
+    list_display = ('name', 'category', 'country', 'supports_foreign_cards', 'works_offline')
+    search_fields = ('name', 'category__name', 'country__name')
+    list_filter = ('category', 'country', 'supports_foreign_cards', 'works_offline')
+    list_editable = ('supports_foreign_cards', 'works_offline')
+    raw_id_fields = ('category', 'country')  # Optimized selection for large data
+
+@admin.register(AppScreenshot)
+class AppScreenshotAdmin(admin.ModelAdmin):
+    list_display = ('app', 'image_preview')
+
+    def image_preview(self, obj):
+        return format_html('<img src="{}" width="100" height="60" style="border:1px solid #ddd"/>', obj.image_url)
+    image_preview.short_description = "Screenshot"
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('app', 'user_id', 'rating', 'created_at')
+    search_fields = ('app__name', 'user_id')
+    list_filter = ('rating', 'created_at')
