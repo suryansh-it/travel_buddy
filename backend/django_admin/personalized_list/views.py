@@ -77,7 +77,8 @@ class GenerateQRCodeView(APIView):
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
-        selected_app_ids = json.loads(selected_apps_json)
+        selected_app_dicts = json.loads(selected_apps_json)
+        selected_app_ids = [app["id"] for app in selected_app_dicts]  # Extract only IDs
         apps = TravelApp.objects.filter(id__in=selected_app_ids)
 
                 # Serialize app data
@@ -108,7 +109,8 @@ class DownloadAppListTextView(APIView):
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
-        selected_app_ids = json.loads(selected_apps_json)
+        selected_app_dicts = json.loads(selected_apps_json)
+        selected_app_ids = [app["id"] for app in selected_app_dicts]  # Extract only IDs
         apps = TravelApp.objects.filter(id__in=selected_app_ids)
 
         app_list_text = "\n".join([f"{app.name} - {app.description} (Download: {app.ios_link if app.ios_link else app.android_link})" for app in apps])
@@ -133,8 +135,13 @@ class DownloadQRCodeView(APIView):
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
     
+         # Just generate QR code from session_id
+        qr_data = {"session_id": session_id}
+        qr_base64 = generate_qr_code(qr_data)  # Regenerate the QR code
+
+
         # Convert Base64 to an image
-        qr_image_data = base64.b64decode(GenerateQRCodeView.qr_base64)
+        qr_image_data = base64.b64decode(qr_base64)
         image = Image.open(io.BytesIO(qr_image_data))
 
         # Serve as a downloadable PNG file

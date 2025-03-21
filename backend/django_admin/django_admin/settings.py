@@ -155,3 +155,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")  # Default fallback
