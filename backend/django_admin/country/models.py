@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
     code = models.CharField(max_length=10, unique=True)  # e.g., "CN" for China, "US" for USA
@@ -36,6 +37,7 @@ class TravelApp(models.Model):
 
     def __str__(self):
         return self.name
+    
 
 class AppScreenshot(models.Model):
     app = models.ForeignKey(TravelApp, on_delete=models.CASCADE, related_name="screenshots")

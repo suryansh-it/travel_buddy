@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import Country, AppCategory, TravelApp, AppScreenshot, Review
+from django.urls import reverse
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
@@ -13,6 +14,8 @@ class CountryAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="40" height="25" style="border:1px solid #ddd"/>', obj.flag.url)
         return "No Flag"
     flag_preview.short_description = "Flag"
+
+
 
 @admin.register(AppCategory)
 class AppCategoryAdmin(admin.ModelAdmin):

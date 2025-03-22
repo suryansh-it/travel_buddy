@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_admin',
     'rest_framework_simplejwt',
     'auth_app',  # authentication app
+    'corsheaders',
     
 ]
 
@@ -75,7 +76,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (for development)
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies/auth headers
 
 ROOT_URLCONF = 'django_admin.urls'
 
