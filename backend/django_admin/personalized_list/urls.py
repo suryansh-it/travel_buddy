@@ -3,12 +3,17 @@ from .views import (
     PersonalAppListView,
     GenerateQRCodeView,
     DownloadQRCodeView,
-    DownloadAppListTextView
+    DownloadAppListTextView,
+    InitSessionView
 )
 
 urlpatterns = [
+
+    path("personalized-list/init-session/", InitSessionView.as_view(), name="init_session"),
     # Create and retrieve personalized app lists
     path("personalized-list/", PersonalAppListView.as_view(), name="personal_app_list"),
+
+  
     path("personalized-list/<str:session_id>/", PersonalAppListView.as_view(), name="retrieve_personal_list"),
 
     # Generate QR Code

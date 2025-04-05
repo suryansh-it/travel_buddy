@@ -82,6 +82,10 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (for development)
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies/auth headers
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Allow frontend
+]
+
 ROOT_URLCONF = 'django_admin.urls'
 
 TEMPLATES = [

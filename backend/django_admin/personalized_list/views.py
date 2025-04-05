@@ -17,6 +17,22 @@ from .tasks import redis_client
 from rest_framework import status
 
 
+class InitSessionView(APIView):
+    """
+    API to initialize a new session and store it in Redis.
+    """
+
+    def post(self, request):
+        """
+        Generate a session ID and store an empty app list in Redis (expires in 24 hours).
+        """
+        session_id = str(uuid.uuid4())  # Generate unique session ID
+        redis_client.setex(session_id, 86400, json.dumps([]))  # Store empty list in Redis
+        
+        return Response({"session_id": session_id, "message": "Session initialized successfully!"}, status=status.HTTP_201_CREATED)
+
+
+
 class PersonalAppListView(APIView):
     """
     API to create and retrieve a temporary personal app list.
