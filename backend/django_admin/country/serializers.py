@@ -3,17 +3,17 @@ from .models import Country, TravelApp, AppCategory, Review, AppScreenshot
 
 class TravelAppSerializer(serializers.ModelSerializer):
     platforms = serializers.SerializerMethodField()
+    is_sponsored = serializers.BooleanField()
 
     class Meta:
         model = TravelApp
         fields = ['id', 'name', 'description', 'icon_url', 'ios_link', 'android_link', 'platforms'
-                  , "screenshots", "reviews"]
+                  , "screenshots", "reviews","is_sponsored", ]
 
     def get_platforms(self, obj):
-        return [
-            "iOS" if obj.ios_link else None,
-            "Android" if obj.android_link else None
-        ]
+        return {
+            "download": obj.get_download_url(),
+        }
 
 class AppCategorySerializer(serializers.ModelSerializer):
     apps = TravelAppSerializer(many=True)  # Fetch related apps

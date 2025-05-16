@@ -32,8 +32,19 @@ class TravelApp(models.Model):
     android_link = models.URLField(blank=True, null=True)
     ios_link = models.URLField(blank=True, null=True)
     website_link = models.URLField(blank=True, null=True)
+
+    #affiliate fields
+    is_sponsored = models.BooleanField(default= False, help_text= "Show this app as sponsored")
+    affiliate_url = models.URLField(blank = True , null = True , help_text ="optional affiliate tracking link")
+
     supports_foreign_cards = models.BooleanField(default=False)
-    works_offline = models.BooleanField(default=False)
+    works_offline = models.BooleanField(default=False)    
+
+
+    def get_download_url(self):
+        #if affiliate url is set use it; otherwise fall back to the real store link
+        return self.affiliate_url or self.website_link or self.android_link or self.ios_link
+
 
     def __str__(self):
         return self.name

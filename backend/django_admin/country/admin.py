@@ -24,11 +24,12 @@ class AppCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(TravelApp)
 class TravelAppAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'country', 'supports_foreign_cards', 'works_offline')
-    search_fields = ('name', 'category__name', 'country__name')
-    list_filter = ('category', 'country', 'supports_foreign_cards', 'works_offline')
+    list_display = ('name', 'category', 'country', 'supports_foreign_cards', 'works_offline', "is_sponsored")
+    search_fields = ('name', 'category__name', 'country__name',)
+    list_filter = ('category', 'country', 'supports_foreign_cards', 'works_offline',  "is_sponsored")
     list_editable = ('supports_foreign_cards', 'works_offline')
     raw_id_fields = ('category', 'country')  # Optimized selection for large data
+    ordering = ("-is_sponsored", "name")  # bring sponsored to top
 
 @admin.register(AppScreenshot)
 class AppScreenshotAdmin(admin.ModelAdmin):

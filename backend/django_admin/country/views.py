@@ -39,10 +39,14 @@ class TravelAppListView(generics.ListAPIView):
 
     def get_queryset(self):
         """
-        Fetch apps filtered by category if a query parameter is provided.
-        Example: /api/apps/?category=Navigation
+        Fetch all travel apps for a given country, ordered by is_sponsored.
+        Optionally filter by category via ?category=Navigation
         """
-        category_name = self.request.query_params.get('category', None)
+        country_code = self.kwargs.get("country_code").upper()
+        queryset = TravelApp.objects.filter(country__code=country_code)
+
+        category_name = self.request.query_params.get("category")
         if category_name:
-            return TravelApp.objects.filter(category__name=category_name)
-        return TravelApp.objects.all()
+            queryset = queryset.filter(category__name__iexact=category_name)
+
+        return queryset.order_by("-is_sponsored", "name")
