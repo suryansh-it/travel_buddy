@@ -1,4 +1,4 @@
-from django.shortcuts import get_list_or_404
+from django.shortcuts import get_list_or_404, render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -165,3 +165,45 @@ class DownloadQRCodeView(APIView):
         response["Content-Disposition"] = f'attachment; filename="qr_code_{session_id}.png"'
         image.save(response, "PNG")
         return response
+    
+
+
+class EmbedSnippetView(APIView):
+    """
+    Returns an embeddable <iframe> snippet for a given session.
+    """
+    def get(self, request, session_id):
+        # (Optional) verify the session exists
+        if not redis_client.exists(session_id):
+            return Response({"error": "Session not found"}, status=404)
+
+        iframe_src = f"{settings.FRONTEND_URL}/bundle/{session_id}/"
+        snippet = (
+            f'<iframe '
+            f'src="{iframe_src}" '
+            f'width="320" height="480" '
+            f'style="border:none;overflow:hidden" '
+            f'allowfullscreen>'
+            f'</iframe>'
+        )
+        return Response({"embed_snippet": snippet})
+
+
+def bundle_preview(request, session_id):
+    apps_json = redis_client.get(session_id)
+    if not apps_json:
+        return render(request, "404.html", status=404)
+
+    apps_data = json.loads(apps_json)
+    app_ids = [a['id'] for a in apps_data]
+    apps = TravelApp.objects.filter(id__in=app_ids)
+
+    serializer = TravelAppSerializer(apps, many=True)
+    qr_data = {"session_id": session_id}
+    qr_b64 = generate_qr_code(qr_data)
+
+    return render(request, "bundle_preview.html", {
+        "apps": serializer.data,
+        "qr_code": qr_b64,
+        "session_id": session_id,
+    })
