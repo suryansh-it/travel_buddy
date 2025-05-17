@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Your App Bundle</title>
+    <style>
+        /* minimal styling */
+        body {
+            font-family: sans-serif;
+            max-width: 360px;
+            margin: auto;
+        }
+
+        .app {
+            margin: 1em 0;
+        }
+
+        .app img {
+            width: 40px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Your Travel Apps</h1>
+    <ul>
+        {% for app in apps %}
+        <li class="app">
+            <img src="{{ app.icon_url }}" alt="" />
+            <strong>{{ app.name }}</strong><br />
+            <small>{{ app.description }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Scan to Install</h2>
+    <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+
+    <p style="font-size:.8em;color:#666;">
+        Embed this anywhere with the snippet from /api/personalized-list/embed/{{ session_id }}/
+    </p>
+</body>
+
+</html>

@@ -4,7 +4,9 @@ from .views import (
     GenerateQRCodeView,
     DownloadQRCodeView,
     DownloadAppListTextView,
-    InitSessionView
+    InitSessionView,
+    EmbedSnippetView,
+    bundle_preview,
 )
 
 urlpatterns = [
@@ -24,4 +26,7 @@ urlpatterns = [
 
     # Download selected app list as a text file
     path("personalized-list/download-text/<str:session_id>/", DownloadAppListTextView.as_view(), name="download_app_list_text"),
+
+     path("embed/<str:session_id>/", EmbedSnippetView.as_view(), name="embed_snippet"),
+    path("bundle/<str:session_id>/", bundle_preview, name="bundle_preview"),
 ]
