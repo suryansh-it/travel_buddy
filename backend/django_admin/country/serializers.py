@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Country, TravelApp, AppCategory, Review, AppScreenshot
+from .models import Country, TravelApp, AppCategory, Review, AppScreenshot, EmergencyContact
 
 class TravelAppSerializer(serializers.ModelSerializer):
     platforms = serializers.SerializerMethodField()
@@ -55,3 +55,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ["user_id", "rating", "review_text", "created_at"]
+
+
+class EmergencyContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmergencyContact
+        fields = ["name", "phone", "email", "description"]

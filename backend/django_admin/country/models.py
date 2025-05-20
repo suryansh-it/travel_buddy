@@ -67,3 +67,21 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review by {self.user_id} for {self.app.name}"
+
+
+
+class EmergencyContact(models.Model):
+    """
+    Stores emergency‐related info for each country.
+    """
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="emergencies")
+    name = models.CharField(max_length=100)         # e.g. "US Embassy Beijing"
+    phone = models.CharField(max_length=50)         # e.g. "+86 10 8531 3000"
+    email = models.EmailField(blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        unique_together = ("country", "name")
+
+    def __str__(self):
+        return f"{self.country.code}: {self.name}"

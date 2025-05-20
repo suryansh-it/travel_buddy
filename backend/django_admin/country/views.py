@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
-from .models import AppCategory, TravelApp, Country
-from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer
+from .models import AppCategory, TravelApp, Country, EmergencyContact
+from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer, EmergencyContactSerializer
 
 @api_view(['GET'])
 def country_page_view(request, country_code):
@@ -50,3 +50,10 @@ class TravelAppListView(generics.ListAPIView):
             queryset = queryset.filter(category__name__iexact=category_name)
 
         return queryset.order_by("-is_sponsored", "name")
+
+@api_view(["GET"])
+def emergency_contacts_view(request, country_code):
+    country = get_object_or_404(Country, code=country_code.upper())
+    contacts = EmergencyContact.objects.filter(country=country)
+    serializer = EmergencyContactSerializer(contacts, many=True)
+    return Response({"emergencies": serializer.data})
