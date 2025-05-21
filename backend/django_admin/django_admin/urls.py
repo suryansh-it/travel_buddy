@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/country/', include('country.urls')),
     path('api/personalized_list/', include('personalized_list.urls')),
     path('api/auth/', include('auth_app.urls')),
+    # path('api/itinerary/', include('itinerary.urls')),
 ]

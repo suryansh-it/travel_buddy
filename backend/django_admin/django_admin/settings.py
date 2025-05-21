@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'homepage',  # Homepage App
     'country',  # Country-Specific App Page
     'personalized_list',  # Personalized App List Page
+    'itinerary', #itinerary app for dynamic leg suggestion
     'django_admin',
     'rest_framework_simplejwt',
     'auth_app',  # authentication app
