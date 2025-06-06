@@ -11,21 +11,21 @@ from .views import (
 
 urlpatterns = [
 
-    path("personalized-list/init-session/", InitSessionView.as_view(), name="init_session"),
+    path("init-session/", InitSessionView.as_view(), name="init_session"),
     # Create and retrieve personalized app lists
-    path("personalized-list/", PersonalAppListView.as_view(), name="personal_app_list"),
+    path("", PersonalAppListView.as_view(), name="personal_app_list"),
 
   
-    path("personalized-list/<str:session_id>/", PersonalAppListView.as_view(), name="retrieve_personal_list"),
+    path("<str:session_id>/", PersonalAppListView.as_view(), name="retrieve_personal_list"),
 
     # Generate QR Code
-    path("personalized-list/qr/<str:session_id>/", GenerateQRCodeView.as_view(), name="generate_qr_code"),
+    path("qr/<str:session_id>/", GenerateQRCodeView.as_view(), name="generate_qr_code"),
 
     # Download QR Code as an image
-    path("personalized-list/download-qr/<str:session_id>/", DownloadQRCodeView.as_view(), name="download_qr_code"),
+    path("download-qr/<str:session_id>/", DownloadQRCodeView.as_view(), name="download_qr_code"),
 
     # Download selected app list as a text file
-    path("personalized-list/download-text/<str:session_id>/", DownloadAppListTextView.as_view(), name="download_app_list_text"),
+    path("download-text/<str:session_id>/", DownloadAppListTextView.as_view(), name="download_app_list_text"),
 
      path("embed/<str:session_id>/", EmbedSnippetView.as_view(), name="embed_snippet"),
     path("bundle/<str:session_id>/", bundle_preview, name="bundle_preview"),

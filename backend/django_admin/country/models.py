@@ -24,7 +24,7 @@ class TravelApp(models.Model):
     """
     Travel apps available in a specific country.
     """
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     icon_url = models.URLField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     category = models.ForeignKey(AppCategory, on_delete=models.CASCADE, related_name="apps")
@@ -45,9 +45,13 @@ class TravelApp(models.Model):
         #if affiliate url is set use it; otherwise fall back to the real store link
         return self.affiliate_url or self.website_link or self.android_link or self.ios_link
 
-
+    
     def __str__(self):
         return self.name
+    
+    class Meta:
+        unique_together = ('name', 'country')  # Ensure app names are unique **per country**
+
     
 
 class AppScreenshot(models.Model):
