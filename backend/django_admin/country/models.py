@@ -89,3 +89,27 @@ class EmergencyContact(models.Model):
 
     def __str__(self):
         return f"{self.country.code}: {self.name}"
+
+
+class LocalPhrase(models.Model):
+    """
+    A common phrase + translation for a given country.
+    """
+    country      = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="phrases")
+    original     = models.CharField(max_length=200)
+    translation  = models.CharField(max_length=200, blank=True)
+    context_note = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.country.code}: “{self.original}”"
+
+
+class UsefulTip(models.Model):
+    """
+    A short travel tip for a given country.
+    """
+    country      = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="tips")
+    tip          = models.TextField()
+
+    def __str__(self):
+        return f"{self.country.code} tip"

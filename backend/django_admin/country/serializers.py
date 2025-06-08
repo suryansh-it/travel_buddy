@@ -61,3 +61,4 @@ class EmergencyContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmergencyContact
         fields = ["name", "phone", "email", "description"]
+

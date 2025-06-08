@@ -129,11 +129,18 @@ class DownloadAppListTextView(APIView):
         selected_app_ids = [app["id"] for app in selected_app_dicts]  # Extract only IDs
         apps = TravelApp.objects.filter(id__in=selected_app_ids)
 
-        app_list_text = "\n".join([f"{app.name} - {app.description} (Download: {app.ios_link if app.ios_link else app.android_link})" for app in apps])
+        html = ["<html><head><meta charset='utf-8'><title>Your App Bundle</title></head><body>"]
+        html.append("<h1>Your Travel App Bundle</h1><ul>")
+        for app in apps:
+            android = f"<a href='{app.android_link}'>Android</a>" if app.android_link else ""
+            ios     = f"<a href='{app.ios_link}'>iOS</a>"     if app.ios_link     else ""
+            html.append(f"<li><strong>{app.name}</strong>: {android} {ios}</li>")
+        html.append("</ul></body></html>")
 
-        response = Response(app_list_text, content_type="text/plain")
-        response["Content-Disposition"] = f"attachment; filename=app_list_{session_id}.txt"
+        response = HttpResponse("".join(html), content_type="text/html")
+        response["Content-Disposition"] = f"attachment; filename=bundle_{session_id}.html"
         return response
+
 
 
 class DownloadQRCodeView(APIView):
