@@ -74,10 +74,11 @@ class UsefulTipSerializer(serializers.ModelSerializer):
         fields = ["tip"]
 
 class EssentialsSerializer(serializers.ModelSerializer):
-    emergencies = EmergencyContactSerializer(many=True, source="emergencies")
-    phrases     = LocalPhraseSerializer(many=True, source="phrases")
-    tips        = UsefulTipSerializer(many=True, source="tips")
+    emergencies = EmergencyContactSerializer(many=True)
+    phrases     = LocalPhraseSerializer(many=True)
+    tips        = UsefulTipSerializer(many=True)
 
     class Meta:
         model  = Country
         fields = ["code", "name", "emergencies", "phrases", "tips"]
+        
