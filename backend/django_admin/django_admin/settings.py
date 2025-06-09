@@ -92,7 +92,7 @@ ROOT_URLCONF = 'django_admin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'personalized_list' /'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

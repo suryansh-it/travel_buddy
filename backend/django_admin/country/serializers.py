@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Country, TravelApp, AppCategory, Review, AppScreenshot, EmergencyContact
+from .models import Country, TravelApp, AppCategory, Review, AppScreenshot, EmergencyContact,LocalPhrase, UsefulTip
 
 class TravelAppSerializer(serializers.ModelSerializer):
     platforms = serializers.SerializerMethodField()
@@ -62,3 +62,22 @@ class EmergencyContactSerializer(serializers.ModelSerializer):
         model = EmergencyContact
         fields = ["name", "phone", "email", "description"]
 
+
+class LocalPhraseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocalPhrase
+        fields = ["original", "translation", "context_note"]
+
+class UsefulTipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsefulTip
+        fields = ["tip"]
+
+class EssentialsSerializer(serializers.ModelSerializer):
+    emergencies = EmergencyContactSerializer(many=True, source="emergencies")
+    phrases     = LocalPhraseSerializer(many=True, source="phrases")
+    tips        = UsefulTipSerializer(many=True, source="tips")
+
+    class Meta:
+        model  = Country
+        fields = ["code", "name", "emergencies", "phrases", "tips"]

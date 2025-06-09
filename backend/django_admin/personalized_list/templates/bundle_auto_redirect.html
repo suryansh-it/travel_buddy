@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Your Travel App Bundle</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding-top: 4rem;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 1rem 2rem;
+            background: #2ad2c9;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        // Django passed us a JSON array of URLs in urls_json
+        // We need to JSON‐encode it and then safely inject it:
+        const urls = JSON.parse('{{ urls|escapejs }}');
+        let idx = 0;
+
+        function openNext() {
+            if (idx >= urls.length) {
+                document.getElementById('status').innerText = "✅ Done opening all store pages.";
+                return;
+            }
+            window.open(urls[idx], "_blank");
+            idx++;
+            // spacing between each popup so the browser isn't overwhelmed
+            setTimeout(openNext, 600);
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const status = document.getElementById('status');
+            if (!urls.length) {
+                status.innerText = "❌ No store links found.";
+            } else {
+                status.innerText = `Opening ${urls.length} store page${urls.length > 1 ? 's' : ''}…`;
+                openNext();
+            }
+            // set the fallback button href
+            document.getElementById('firstLink').href = urls[0] || "#";
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Your Travel App Bundle</h1>
+    <p id="status">Preparing…</p>
+    <noscript>
+        <p>Please enable JavaScript to auto-launch each store page.</p>
+    </noscript>
+    <p>
+        <!-- Fallback button to open the first link manually -->
+        <a id="firstLink" class="button" href="#" target="_blank">Open Store</a>
+    </p>
+</body>
+
+</html>

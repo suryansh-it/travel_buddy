@@ -102,7 +102,7 @@ class GenerateQRCodeView(APIView):
 
         # Generate a shareable link
         base_url = settings.FRONTEND_URL
-        shareable_url = f"{base_url}/personalized-list/{session_id}"
+        shareable_url = f"{base_url}/bundle-redirect/{session_id}"
 
         # Generate QR Code
         qr_data = {"session_id": session_id, "apps": shareable_url}
@@ -213,4 +213,33 @@ def bundle_preview(request, session_id):
         "apps": serializer.data,
         "qr_code": qr_b64,
         "session_id": session_id,
+    })
+
+
+
+# personalized_list/views.py
+
+from django.shortcuts import render
+from .tasks import redis_client
+import json
+
+def bundle_auto_redirect(request, session_id):
+    """
+    After scanning the QR, this page will open each store link in turn.
+    """
+    apps_json = redis_client.get(session_id)
+    if not apps_json:
+        return render(request, "404.html", status=404)
+
+    apps_data = json.loads(apps_json)
+    urls = []
+    for a in apps_data:
+        # prefer Android, otherwise iOS
+        if a.get('android_link'):
+            urls.append(a['android_link'])
+        elif a.get('ios_link'):
+            urls.append(a['ios_link'])
+
+    return render(request, "bundle_auto_redirect.html", {
+        "urls_json": json.dumps(urls)
     })

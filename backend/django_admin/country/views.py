@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
 from .models import AppCategory, TravelApp, Country, EmergencyContact
-from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer, EmergencyContactSerializer
+from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer, EssentialsSerializer
 
 @api_view(['GET'])
 def country_page_view(request, country_code):
@@ -52,8 +52,11 @@ class TravelAppListView(generics.ListAPIView):
         return queryset.order_by("-is_sponsored", "name")
 
 @api_view(["GET"])
-def emergency_contacts_view(request, country_code):
+def country_essentials_view(request, country_code):
+    """
+    GET /api/country/<country_code>/essentials/
+    returns emergencies, local phrases and useful tips
+    """
     country = get_object_or_404(Country, code=country_code.upper())
-    contacts = EmergencyContact.objects.filter(country=country)
-    serializer = EmergencyContactSerializer(contacts, many=True)
-    return Response({"emergencies": serializer.data})
+    serializer = EssentialsSerializer(country)
+    return Response(serializer.data)
