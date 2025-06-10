@@ -1,0 +1,124 @@
+country_code,original,translation,context_note
+FR,Help!,Au secours ! / À l’aide !,Emergency
+FR,Call the police,Appelez la police,Emergency
+FR,I need an ambulance,J’ai besoin d’une ambulance,Emergency
+FR,Fire!,Au feu !,Emergency
+FR,Where is the nearest hospital?,Où est l’hôpital le plus proche ?,Health
+FR,I am injured,Je suis blessé(e),Health
+FR,I am lost,Je suis perdu(e),Safety
+FR,I do not speak French,Je ne parle pas français,Language
+FR,Do you speak English?,Parlez-vous anglais ?,Language
+FR,My name is…,Je m’appelle…,Personal
+FR,My address is…,Mon adresse est…,Personal
+FR,My phone number is…,Mon numéro de téléphone est…,Personal
+FR,Please help me,"S’il vous plaît, aidez-moi",Emergency
+FR,I am allergic to…,Je suis allergique à…,Health
+FR,I need a doctor,J’ai besoin d’un médecin,Health
+FR,It’s an emergency,C’est une urgence,Emergency
+JP,Help!,Tasukete! (助けて！),Emergency
+JP,Call the police,Keisatsu o yonde kudasai (警察を呼んでください),Emergency
+JP,Fire!,Kaji desu! (火事です！),Emergency
+JP,Ambulance!,Kyūkyūsha o yonde kudasai (救急車を呼んでください),Emergency
+JP,It’s an emergency,Kinkyu desu (緊急です),Emergency
+JP,I am injured,Kega o shimashita (けがをしました),Health
+JP,I feel sick,Kibun ga warui desu (気分が悪いです),Health
+JP,I am lost,Michi ni mayoimashita (道に迷いました),Safety
+JP,Do you speak English?,Eigo o hanasemasu ka? (英語を話せますか？),Language
+JP,My name is…,Watashi no namae wa ... desu (私の名前は…です),Personal
+JP,My address is…,Watashi no jusho wa ... desu (私の住所は…です),Personal
+JP,Please help me,Tasukete kudasai (助けてください),Emergency
+JP,I am allergic to…,... ni arerugī ga arimasu (…にアレルギーがあります),Health
+JP,I need a doctor,Isha ga hitsuyou desu (医者が必要です),Health
+TH,Help!,Chuay duay! (ช่วยด้วย!),Emergency
+TH,Call the police,Riak tamruat hai noi (เรียกตำรวจให้หน่อย),Emergency
+TH,Call an ambulance,Riak rot pa-ya-ban hai noi (เรียกรถพยาบาลให้หน่อย),Emergency
+TH,Fire!,Fai mai! (ไฟไหม้!),Emergency
+TH,I am injured,Chan/Phom dai rap bat-chet (ฉัน/ผมได้รับบาดเจ็บ),Health
+TH,I am lost,Chan/Phom long tang (ฉัน/ผมหลงทาง),Safety
+TH,Do you speak English?,Khun phut phasa angkrit dai mai? (คุณพูดภาษาอังกฤษได้ไหม),Language
+TH,My name is…,Chan/Phom chue... (ฉัน/ผมชื่อ...),Personal
+TH,My address is…,Tee yuu khong chan/Phom kue... (ที่อยู่ของฉัน/ผมคือ...),Personal
+TH,Please help me,Chuay duay ka/krap (ช่วยด้วยค่ะ/ครับ),Emergency
+TH,I am allergic to…,Chan/Phom phae... (ฉัน/ผมแพ้...),Health
+TH,I need a doctor,Chan/Phom tongการแพทย์ (ฉัน/ผมต้องการแพทย์),Health
+TH,It’s an emergency,Bpen heuang duan (เป็นเหตุฉุกเฉิน),Emergency
+US,Help!,Help!,Emergency
+US,Call the police,Call the police!,Emergency
+US,Call an ambulance,Call an ambulance!,Emergency
+US,Fire!,Fire!,Emergency
+US,I am injured,I am injured,Health
+US,I am lost,I am lost,Safety
+US,Do you speak Spanish?,¿Habla español?,Language
+US,My name is…,My name is…,Personal
+US,My address is…,My address is…,Personal
+US,Please help me,Please help me,Emergency
+US,I am allergic to…,I am allergic to…,Health
+US,I need a doctor,I need a doctor,Health
+US,It’s an emergency,It’s an emergency,Emergency
+IT,Help!,Aiuto!,Emergency
+IT,Call the police,Chiama la polizia!,Emergency
+IT,Call an ambulance,Chiama un'ambulanza!,Emergency
+IT,Fire!,Fuoco!,Emergency
+IT,I am injured,Sono ferito/a,Health
+IT,I am lost,Mi sono perso/a,Safety
+IT,Do you speak English?,Parla inglese?,Language
+IT,My name is…,Mi chiamo…,Personal
+IT,My address is…,Il mio indirizzo è…,Personal
+IT,Please help me,"Per favore, aiutami",Emergency
+IT,I am allergic to…,Sono allergico/a a…,Health
+IT,I need a doctor,Ho bisogno di un dottore,Health
+IT,It’s an emergency,È un'emergenza,Emergency
+ES,Help!,¡Socorro!,Emergency
+ES,Fire!,¡Fuego!,Emergency
+ES,Police,Policía,Emergency
+ES,I need an ambulance,Necesito una ambulancia,Emergency
+ES,I am lost,Estoy perdido/a,Emergency
+ES,Please help me,"Por favor, ayúdeme",Emergency
+ES,I am injured,Estoy herido/a,Health
+ES,I am allergic to…,Soy alérgico/a a…,Health
+ES,I need a doctor,Necesito un médico,Health
+ES,Do you speak English?,¿Habla inglés?,Language
+ES,My name is…,Me llamo…,Personal
+ES,My address is…,Mi dirección es…,Personal
+TR,Help!,Bana yardım edin!,Emergency
+TR,Emergency,Acil!,Emergency
+TR,Fire!,Ateş!,Emergency
+TR,Call the police,Polisi çağırın!,Emergency
+TR,Call an ambulance,Ambulans çağırın!,Emergency
+TR,I need a doctor,Doktora ihtiyaç var!,Emergency
+TR,I am injured,Yaralıyım,Emergency
+TR,I feel sick,Kendimi hasta hissediyorum,Health
+TR,I am lost,Kayboldum,Safety
+TR,Do you speak English?,İngilizce biliyor musunuz?,Language
+TR,My name is…,Benim adım…,Personal
+TR,My address is…,Adresim…,Personal
+TR,Please help me,Lütfen bana yardım edin,Emergency
+TR,I am allergic to…,...'ya alerjim var,Health
+DE,Help!,Hilfe!,Emergency
+DE,Call the police,Rufen Sie die Polizei!,Emergency
+DE,Call an ambulance,Rufen Sie einen Krankenwagen!,Emergency
+DE,Fire!,Feuer!,Emergency
+DE,I am injured,Ich bin verletzt,Health
+DE,I am lost,Ich habe mich verlaufen,Safety
+DE,Do you speak English?,Sprechen Sie Englisch?,Language
+DE,My name is…,Ich heiße…,Personal
+DE,My address is…,Meine Adresse ist…,Personal
+DE,Please help me,Bitte helfen Sie mir,Emergency
+DE,I am allergic to…,Ich bin allergisch gegen…,Health
+DE,I need a doctor,Ich brauche einen Arzt,Health
+DE,It’s an emergency,Es ist ein Notfall,Emergency
+MX,Help!,¡Ayuda!,Emergency
+MX,Police,Policía,Emergency
+MX,Ambulance,Ambulancia,Emergency
+MX,Fire!,¡Fuego!,Emergency
+MX,Call the police,Llame a la policía,Emergency
+MX,Call an ambulance,Llame a una ambulancia,Emergency
+MX,I am injured,Estoy herido/a,Health
+MX,I am lost,Estoy perdido/a,Safety
+MX,Do you speak English?,¿Habla inglés?,Language
+MX,My name is…,Me llamo…,Personal
+MX,My address is…,Mi dirección es…,Personal
+MX,Please help me,"Por favor, ayúdeme",Emergency
+MX,I am allergic to…,Soy alérgico/a a…,Health
+MX,I need a doctor,Necesito un médico,Health
+MX,It’s an emergency,Es una emergencia,Emergency

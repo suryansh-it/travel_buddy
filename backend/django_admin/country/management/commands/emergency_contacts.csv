@@ -1,0 +1,49 @@
+country_code,name,phone,email,description
+FR,Police (National),17,,Police
+FR,Ambulance (SAMU),15,,Ambulance
+FR,Fire Brigade,18,,Fire
+FR,European Emergency Number,112,,General
+FR,Emergency SMS (deaf/hard of hearing),114,,General
+JP,Police (National),110,,Police
+JP,Ambulance,119,,Ambulance
+JP,Fire Brigade,119,,Fire
+JP,Coast Guard,118,,General
+JP,Non-urgent Medical,#7119,,General
+JP,Disaster Safety Confirmation,171,,General
+TH,Police (National),191,,Police
+TH,Ambulance (Public),1669,,Ambulance
+TH,Ambulance & Rescue,1554,,Ambulance
+TH,Fire Brigade,199,,Fire
+TH,Tourist Police,1155,,Police
+TH,Highway Police,1193,,Police
+TH,National Disaster Warning Center,1860,,General
+US,Police (National),911,,Police
+US,Ambulance,911,,Ambulance
+US,Fire Brigade,911,,Fire
+US,Poison Control Center,1-800-222-1222,,General
+US,Non-Emergency Municipal Services,311,,General
+IT,Police (National - Polizia),113,,Police
+IT,Police (Carabinieri),112,,Police
+IT,Ambulance (Emergenza Sanitaria),118,,Ambulance
+IT,Fire Brigade (Vigili del Fuoco),115,,Fire
+IT,European Emergency Number,112,,General
+IT,Roadside Assistance (ACI),803116,,General
+IT,Sea Rescue,1530,,General
+ES,"All Emergencies (Police, Fire, Ambulance)",112,,General
+ES,National Police,091,,Police
+ES,Local Police,092,,Police
+ES,Ambulance,061,,Ambulance
+ES,Fire Brigade,080,,Fire
+ES,Road Emergencies,011,,Road
+ES,Gender Violence Helpline,016,,Gender Violence
+DE,Police (National),110,,Police
+DE,Ambulance,112,,Ambulance
+DE,Fire Brigade,112,,Fire
+DE,Medical Emergency Service,116117,,Medical
+DE,Dental Emergency Service,+49 1805 05 05 18,,Dental
+DE,Poison Control Center,+49 551 19240,,Poison Control
+MX,National Emergency Number,911,,General
+MX,Police (Direct),"911 (primary), '066 (alternate)",,Police
+MX,Ambulance (Red Cross),"911 (primary), '065 (direct Red Cross)",,Ambulance
+MX,Fire Brigade,"911 (primary), '068 (alternate)",,Fire
+MX,Civil Protection,089,,Civil Protection

@@ -2,13 +2,14 @@ from rest_framework import serializers
 from .models import Country, TravelApp, AppCategory, Review, AppScreenshot, EmergencyContact,LocalPhrase, UsefulTip
 
 class TravelAppSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source="category.name", read_only=True)
     platforms = serializers.SerializerMethodField()
     is_sponsored = serializers.BooleanField()
 
     class Meta:
         model = TravelApp
         fields = ['id', 'name', 'description', 'icon_url', 'ios_link', 'android_link', 'platforms'
-                  , "screenshots", "reviews","is_sponsored", ]
+                  , "screenshots", "reviews","is_sponsored","category", ]
 
     def get_platforms(self, obj):
         return {
