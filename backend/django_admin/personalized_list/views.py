@@ -104,9 +104,8 @@ class GenerateQRCodeView(APIView):
         base_url = settings.FRONTEND_URL
         shareable_url = f"{base_url}/bundle-redirect/{session_id}"
 
-        # Generate QR Code
-        qr_data = {"session_id": session_id, "apps": shareable_url}
-        qr_base64 = generate_qr_code(qr_data)
+                # Generate QR Code from the single shareable URL
+        qr_base64 = generate_qr_code([shareable_url])
 
         return Response({"qr_code": qr_base64, "selected_apps": serializer.data,"shareable_url": shareable_url}, status=status.HTTP_200_OK)
     
@@ -241,5 +240,5 @@ def bundle_auto_redirect(request, session_id):
             urls.append(a['ios_link'])
 
     return render(request, "bundle_auto_redirect.html", {
-        "urls_json": json.dumps(urls)
+        "urls": json.dumps(urls)
     })
