@@ -216,7 +216,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 FRONTEND_URL = os.getenv("FRONTEND_URL")  # Default fallback
-
+BACKEND_URL= os.getenv("BACKEND_URL")
 
 # JWT Configuration
 from datetime import timedelta

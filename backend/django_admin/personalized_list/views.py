@@ -101,7 +101,7 @@ class GenerateQRCodeView(APIView):
         serializer = TravelAppSerializer(apps, many=True)
 
         # Generate a shareable link
-        base_url = settings.FRONTEND_URL
+        base_url = settings.BACKEND_URL
         shareable_url = f"{base_url}/bundle-redirect/{session_id}"
 
                 # Generate QR Code from the single shareable URL
