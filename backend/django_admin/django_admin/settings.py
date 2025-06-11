@@ -85,10 +85,25 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (for development)
+# CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (for development)
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies/auth headers
 
-CORS_ALLOWED_ORIGINS = ALLOWED_HOSTS
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000",  # Allow local frontend
+        "http://127.0.0.1:3000",
+    ]
+else:
+    # In production, read from the environment variable
+    # This assumes CORS_ALLOWED_FRONTENDS will be a comma-separated string
+    # e.g., "https://tripbozo.com,https://tripbozo.vercel.app"
+    cors_allowed_frontends_str = os.getenv("CORS_ALLOWED_FRONTENDS", "")
+    if cors_allowed_frontends_str:
+        CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_allowed_frontends_str.split(',')]
+    else:
+        # Fallback if the environment variable is not set in production
+        # You might want to log a warning here or raise an error for strictness
+        CORS_ALLOWED_ORIGINS = []
 
 ROOT_URLCONF = 'django_admin.urls'
 
