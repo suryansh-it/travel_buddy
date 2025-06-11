@@ -126,19 +126,27 @@ DATABASES = {
  
 }
 
-# Redis Configuration
-REDIS_HOST = os.getenv("REDIS_HOST")
-REDIS_PORT = os.getenv("REDIS_PORT")
-REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+# # Redis Configuration
+# REDIS_HOST = os.getenv("REDIS_HOST")
+# REDIS_PORT = os.getenv("REDIS_PORT")
+# REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
-# This avoids conflicts with Algolia caching, ensuring the two functionalities do not overwrite each other.
-REDIS_DB_PERSONAL_LISTS = 1  # Separate from Algolia caching
+# # This avoids conflicts with Algolia caching, ensuring the two functionalities do not overwrite each other.
+# REDIS_DB_PERSONAL_LISTS = 1  # Separate from Algolia caching
 
+
+#### Redis Configuration via single URL ####
+# e.g. REDIS_URL=redis://:password@hostname:6379/0
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+
+# If you want to isolate your “personal list” DB, you can supply REDIS_URL_PER_LISTS
+# e.g. redis://:password@hostname:6379/1
+REDIS_URL_PERSONAL_LISTS = os.getenv("REDIS_URL_PER_LISTS") or REDIS_URL
 
 
 
 # Celery Configuration
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER")
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'django-db'

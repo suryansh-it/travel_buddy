@@ -5,10 +5,15 @@ import redis
 from django.conf import settings
 
 # Redis connection for personal lists
-redis_client = redis.StrictRedis(
-    host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB_PERSONAL_LISTS, decode_responses=True
-)
+# redis_client = redis.StrictRedis(
+#     host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB_PERSONAL_LISTS, decode_responses=True
+# )
 
+# Redis connection for personal lists, using the REDIS_URL or REDIS_URL_PERSONAL_LISTS
+redis_client = redis.from_url(
+    settings.REDIS_URL_PERSONAL_LISTS,
+    decode_responses=True
+)
 
 @shared_task
 def clean_expired_sessions():
