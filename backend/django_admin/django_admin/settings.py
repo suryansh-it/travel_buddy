@@ -74,6 +74,7 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,7 +83,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 # CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (for development)
@@ -94,16 +95,14 @@ if DEBUG:
         "http://127.0.0.1:3000",
     ]
 else:
-    # In production, read from the environment variable
-    # This assumes CORS_ALLOWED_FRONTENDS will be a comma-separated string
-    # e.g., "https://tripbozo.com,https://tripbozo.vercel.app"
-    cors_allowed_frontends_str = os.getenv("CORS_ALLOWED_FRONTENDS", "")
-    if cors_allowed_frontends_str:
-        CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_allowed_frontends_str.split(',')]
-    else:
-        # Fallback if the environment variable is not set in production
-        # You might want to log a warning here or raise an error for strictness
-        CORS_ALLOWED_ORIGINS = []
+    # Read your single comma-separated env var...
+    cors_env = os.getenv("CORS_ALLOWED_FRONTENDS", "")
+    # Split on commas, strip whitespace, drop any empty strings:
+    CORS_ALLOWED_ORIGINS = [
+        origin.strip()
+        for origin in cors_env.split(",")
+        if origin.strip()
+    ]
 
 ROOT_URLCONF = 'django_admin.urls'
 
