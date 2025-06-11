@@ -21,8 +21,8 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key")
-DEBUG = os.getenv("DEBUG", "True") == "True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+DEBUG = os.getenv("DEBUG", "False") == "True"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -36,6 +36,7 @@ SECRET_KEY = SECRET_KEY
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic"
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,6 +72,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -114,17 +116,19 @@ WSGI_APPLICATION = 'django_admin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME", "travel_db"),
-        'USER': os.getenv("DB_USER", "travel_user"),
-        'PASSWORD': os.getenv("DB_PASSWORD", "password"),
-        'HOST': os.getenv("DB_HOST", "localhost"),
-        'PORT': os.getenv("DB_PORT", "5432"),
-    }
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER",),
+        'PASSWORD': os.getenv("DB_PASSWORD",),
+        'HOST': os.getenv("DB_HOST", ),
+        'PORT': os.getenv("DB_PORT", ),
+        
+    },
+ 
 }
 
 # Redis Configuration
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
-REDIS_PORT = os.getenv("REDIS_PORT", "6379")
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT")
 REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 
 # This avoids conflicts with Algolia caching, ensuring the two functionalities do not overwrite each other.
@@ -134,7 +138,7 @@ REDIS_DB_PERSONAL_LISTS = 1  # Separate from Algolia caching
 
 
 # Celery Configuration
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER", "redis://localhost:6379/0")
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER")
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'django-db'
@@ -181,7 +185,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")  # Default fallback
+FRONTEND_URL = os.getenv("FRONTEND_URL")  # Default fallback
 
 
 # JWT Configuration
@@ -196,3 +200,15 @@ SIMPLE_JWT = {
     'SIGNING_KEY': 'SECRET_KEY',  # Replace with a secure key (use ENV variables)
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
