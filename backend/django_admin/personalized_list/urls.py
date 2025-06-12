@@ -8,6 +8,7 @@ from .views import (
     EmbedSnippetView,
     bundle_preview,
     bundle_auto_redirect,
+    get_bundle_urls
 )
 
 urlpatterns = [
@@ -31,4 +32,5 @@ urlpatterns = [
      path("embed/<str:session_id>/", EmbedSnippetView.as_view(), name="embed_snippet"),
     path("bundle/<str:session_id>/", bundle_preview, name="bundle_preview"),
     path("bundle-redirect/<str:session_id>/", bundle_auto_redirect, name="bundle_auto_redirect"),
+    path("bundle-urls/<str:session_id>/", get_bundle_urls, name="bundle_urls"),
 ]

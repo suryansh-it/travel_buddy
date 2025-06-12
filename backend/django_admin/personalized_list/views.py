@@ -17,6 +17,25 @@ from .tasks import redis_client
 from rest_framework import status
 
 
+@api_view(['GET'])
+def get_bundle_urls(request, session_id):
+    """
+    Return the list of store URLs for a given session ID as JSON.
+    """
+    data = redis_client.get(session_id)
+    if not data:
+        return Response({'urls': []}, status=status.HTTP_404_NOT_FOUND)
+
+    apps = json.loads(data)
+    urls = [
+        a.get('android_link') or a.get('ios_link')
+        for a in apps
+        if a.get('android_link') or a.get('ios_link')
+    ]
+    return Response({'urls': urls})
+
+
+
 class InitSessionView(APIView):
     """
     API to initialize a new session and store it in Redis.
@@ -101,7 +120,7 @@ class GenerateQRCodeView(APIView):
         serializer = TravelAppSerializer(apps, many=True)
 
         # Generate a shareable link
-        base_url = settings.BACKEND_URL
+        base_url = settings.FRONTEND_URL
         shareable_url = f"{base_url}/bundle-redirect/{session_id}"
 
                 # Generate QR Code from the single shareable URL
