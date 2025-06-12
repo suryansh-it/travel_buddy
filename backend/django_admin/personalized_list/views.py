@@ -15,6 +15,7 @@ import base64
 from services.qrcode_service import generate_qr_code  # Import the QR service
 from .tasks import redis_client
 from rest_framework import status
+from rest_framework.decorators import api_view
 
 
 @api_view(['GET'])
