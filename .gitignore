@@ -169,3 +169,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+backend/django_admin/country/management/commands/~$TRIPBOZO.xlsx
+backend/django_admin/country/management/commands/~$TRIPBOZO1.xlsx
+
+
+backend/django_admin/country/management/commands/~$country_essentials_dataset.xlsx
+
+frontend
+frontend/.git

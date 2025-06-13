@@ -20,20 +20,18 @@ from rest_framework.decorators import api_view
 
 @api_view(['GET'])
 def get_bundle_urls(request, session_id):
-    """
-    Return the list of store URLs for a given session ID as JSON.
-    """
     data = redis_client.get(session_id)
     if not data:
-        return Response({'urls': []}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'items': []}, status=status.HTTP_404_NOT_FOUND)
 
     apps = json.loads(data)
-    urls = [
-        a.get('android_link') or a.get('ios_link')
-        for a in apps
-        if a.get('android_link') or a.get('ios_link')
-    ]
-    return Response({'urls': urls})
+    # now return list of {name, url}
+    items = []
+    for a in apps:
+        url = a.get('android_link') or a.get('ios_link')
+        if url:
+            items.append({'name': a.get('name', 'App'), 'url': url})
+    return Response({'items': items})
 
 
 
