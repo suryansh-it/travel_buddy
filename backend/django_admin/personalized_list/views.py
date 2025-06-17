@@ -2,7 +2,7 @@ from django.shortcuts import get_list_or_404, render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-import json,requests
+import json
 import uuid
 from django.conf import settings
 from country.models import TravelApp
@@ -16,7 +16,7 @@ from services.qrcode_service import generate_qr_code  # Import the QR service
 from .tasks import redis_client
 from rest_framework import status
 from rest_framework.decorators import api_view
-from datetime import datetime
+
 
 @api_view(['GET'])
 def get_bundle_urls(request, session_id):
@@ -97,6 +97,49 @@ class PersonalAppListView(APIView):
         return Response({"session_id": session_id, "selected_apps": selected_apps}, status=status.HTTP_200_OK)
 
 
+class GenerateQRCodeView(APIView):
+    """
+    API to generate a QR code for the selected apps.
+    """
+
+    def get(self, request, session_id):
+        """
+        Generate and return a QR code for the selected app list.
+        """
+        selected_apps_json = redis_client.get(session_id)
+
+        if not selected_apps_json:
+            return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
+
+        selected_app_dicts = json.loads(selected_apps_json)
+        selected_app_ids = [app["id"] for app in selected_app_dicts]  # Extract only IDs
+        apps = TravelApp.objects.filter(id__in=selected_app_ids)
+
+                # Serialize app data
+        serializer = TravelAppSerializer(apps, many=True)
+
+        # Generate a shareable link
+        base_url = settings.FRONTEND_URL
+        shareable_url = f"{base_url}/bundle-redirect/{session_id}"
+
+                # Generate QR Code from the single shareable URL
+        qr_base64 = generate_qr_code([shareable_url])
+
+        return Response({"qr_code": qr_base64, "selected_apps": serializer.data,"shareable_url": shareable_url}, status=status.HTTP_200_OK)
+    
+
+# views.py
+
+from django.http import HttpResponse
+from rest_framework import status
+from rest_framework.views import APIView
+import json, requests
+from datetime import datetime
+from .tasks import redis_client
+from django.conf import settings
+from country.models import TravelApp
+from .serializers import TravelAppSerializer
+ 
 class DownloadAppListTextView(APIView):
     """
     API to download the selected app list as a single self‑contained HTML page
