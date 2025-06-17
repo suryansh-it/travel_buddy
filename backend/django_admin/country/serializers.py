@@ -30,7 +30,7 @@ class CountrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ['name', 'flag', 'description', 'curated_app_categories']
+        fields = ['code','name', 'flag', 'description', 'curated_app_categories']
 
     def get_flag(self, obj):
         return obj.flag.url if obj.flag else None  # Ensure flag URL is returned properly
