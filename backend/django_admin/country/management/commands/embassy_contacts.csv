@@ -1,0 +1,932 @@
+country_code,name,phone,email,description
+FR,Embassy of Japan Address,"7 Avenue Hoche, 75008 Paris",,Japan
+FR,Embassy of Japan Phone,+33 1 48 88 62 00,,Japan
+FR,Royal Thai Embassy Address,"8 Rue Greuze, 75116 Paris",,Thailand
+FR,Royal Thai Embassy Phone,+33 1 56 26 50 50,,Thailand
+FR,US Embassy Address,"2 Avenue Gabriel, 75008 Paris",,United States
+FR,US Embassy Phone,+33 1 43 12 22 22,,United States
+FR,Embassy of Italy Address,"73 Rue de Grenelle, 75007 Paris",,Italy
+FR,Embassy of Italy Phone,+33 1 49 54 03 00,,Italy
+FR,Embassy of Spain Address,"22 Rue de Tilsitt, 75017 Paris",,Spain
+FR,Embassy of Spain Phone,+33 1 44 43 18 00,,Spain
+FR,Embassy of Turkey Address,"16 Avenue de Lamballe, 75116 Paris",,Turkey
+FR,Embassy of Turkey Phone,+33 1 53 92 71 11,,Turkey
+FR,Embassy of Germany Address,"13-15 Avenue Franklin D. Roosevelt, 75008 Paris",,Germany
+FR,Embassy of Germany Phone,+33 1 53 83 45 00,,Germany
+FR,Embassy of Mexico Address,"15 Rue de Longchamp, 75116 Paris",,Mexico
+FR,Embassy of Mexico Phone,+33 1 53 42 27 00,,Mexico
+JP,Embassy of France Address,"4-11-44, Minami-Azabu, Minato-ku, Tokyo 106-8514",,France
+JP,Embassy of France Phone,+81 3-5798-6000,,France
+JP,Royal Thai Embassy Address,"3-14-6 Kami-Osaki, Shinagawa-ku, Tokyo 141-0021",,Thailand
+JP,Royal Thai Embassy Phone,+81 3-5789-2433,,Thailand
+JP,US Embassy Address,"1-10-5 Akasaka, Minato-ku, Tokyo 107-8420",,United States
+JP,US Embassy Phone,+81 3-3224-5000,,United States
+JP,Embassy of Italy Address,"2-5-4 Mita, Minato-ku, Tokyo 108-8302",,Italy
+JP,Embassy of Italy Phone,+81 3-3453-5291,,Italy
+JP,Embassy of Spain Address,"1-3-29 Roppongi, Minato-ku, Tokyo 106-0032",,Spain
+JP,Embassy of Spain Phone,+81 3-3583-8531,,Spain
+JP,Embassy of Turkey Address,"2-33-6 Jingumae, Shibuya-ku, Tokyo 150-0001",,Turkey
+JP,Embassy of Turkey Phone,+81 3-6439-5700,,Turkey
+JP,Embassy of Germany Address,"4-5-10 Minami-Azabu, Minato-ku, Tokyo 106-0047",,Germany
+JP,Embassy of Germany Phone,+81 3-5791-7700,,Germany
+JP,Embassy of Mexico Address,"2-15-1 Nagatacho, Chiyoda-ku, Tokyo 100-0014",,Mexico
+JP,Embassy of Mexico Phone,+81 3-3581-1131,,Mexico
+TH,Embassy of Japan Address,"177 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330",,Japan
+TH,Embassy of Japan Phone,+66 2 207 8500,,Japan
+TH,Embassy of France Address,"35 Charoenkrung Soi 36, Bang Rak, Bangkok 10500",,France
+TH,Embassy of France Phone,+66 2 657 5100,,France
+TH,US Embassy Address,"120-122 Wireless Rd, Lumphini, Pathum Wan, Bangkok 10330",,United States
+TH,US Embassy Phone,+66 2 205 4000,,United States
+TH,Embassy of Italy Address,"399 Nang Linchi Rd, Chong Nonsi, Yan Nawa, Bangkok 10120",,Italy
+TH,Embassy of Italy Phone,+66 2 285 4090,,Italy
+TH,Embassy of Spain Address,"93/98 Sathorn Thani 2, North Sathorn Rd, Silom, Bangrak, Bangkok 10500",,Spain
+TH,Embassy of Spain Phone,+66 2 661 8284,,Spain
+TH,Embassy of Turkey Address,"61/1 Soi 5, Ruamrudee, Ploenchit Rd, Lumpini, Pathumwan, Bangkok 10330",,Turkey
+TH,Embassy of Turkey Phone,+66 2 253 0151,,Turkey
+TH,Embassy of Germany Address,"9 South Sathorn Rd, Yannawa, Sathorn, Bangkok 10120",,Germany
+TH,Embassy of Germany Phone,+66 2 287 9000,,Germany
+TH,Embassy of Mexico Address,"20th Floor, Unit 2004, 142 Two Pacific Place, Sukhumvit Rd, Klongtoey, Bangkok 10110",,Mexico
+TH,Embassy of Mexico Phone,+66 2 250 0112,,Mexico
+US,Embassy of Japan Address,"2520 Massachusetts Ave NW, Washington, DC 20008",,Japan
+US,Embassy of Japan Phone,+1 202-238-6700,,Japan
+US,Embassy of France Address,"4101 Reservoir Rd NW, Washington, DC 20007",,France
+US,Embassy of France Phone,+1 202-944-6000,,France
+US,Royal Thai Embassy Address,"1024 Wisconsin Ave NW, Washington, DC 20007",,Thailand
+US,Royal Thai Embassy Phone,+1 202-944-3600,,Thailand
+US,Embassy of Italy Address,"3000 Whitehaven St NW, Washington, DC 20008",,Italy
+US,Embassy of Italy Phone,+1 202-612-4400,,Italy
+US,Embassy of Spain Address,"2375 Pennsylvania Ave NW, Washington, DC 20037",,Spain
+US,Embassy of Spain Phone,+1 202-728-2340,,Spain
+US,Embassy of Turkey Address,"2525 Massachusetts Ave NW, Washington, DC 20008",,Turkey
+US,Embassy of Turkey Phone,+1 202-612-6700,,Turkey
+US,Embassy of Germany Address,"4645 Reservoir Rd NW, Washington, DC 20007",,Germany
+US,Embassy of Germany Phone,+1 202-298-4000,,Germany
+US,Embassy of Mexico Address,"1911 Pennsylvania Ave NW, Washington, DC 20006",,Mexico
+US,Embassy of Mexico Phone,+1 202-728-1600,,Mexico
+IT,Embassy of Japan Address,"Via Quintino Sella, 60, 00187 Roma RM",,Japan
+IT,Embassy of Japan Phone,+39 06 487 991,,Japan
+IT,Embassy of France Address,"Piazza Farnese, 67, 00186 Roma RM",,France
+IT,Embassy of France Phone,+39 06 686011,,France
+IT,Royal Thai Embassy Address,"Via Nomentana, 132, 00162 Roma RM",,Thailand
+IT,Royal Thai Embassy Phone,+39 06 8622 0531,,Thailand
+IT,US Embassy Address,"Via Vittorio Veneto, 121, 00187 Roma RM",,United States
+IT,US Embassy Phone,+39 06 46741,,United States
+IT,Embassy of Spain Address,"Largo dei Lombardi, 21, 00186 Roma RM",,Spain
+IT,Embassy of Spain Phone,+39 06 684 0401,,Spain
+IT,Embassy of Turkey Address,"Via Palestro, 28, 00185 Roma RM",,Turkey
+IT,Embassy of Turkey Phone,+39 06 445 941,,Turkey
+IT,Embassy of Germany Address,"Via San Martino della Battaglia, 4, 00185 Roma RM",,Germany
+IT,Embassy of Germany Phone,+39 06 49213,,Germany
+IT,Embassy of Mexico Address,"Via Lazzaro Spallanzani, 16, 00161 Roma RM",,Mexico
+IT,Embassy of Mexico Phone,+39 06 441 6061,,Mexico
+ES,Embassy of Japan Address,"Calle Serrano, 109, 28006 Madrid",,Japan
+ES,Embassy of Japan Phone,+34 91 590 7600,,Japan
+ES,Embassy of France Address,"Calle Salustiano Olózaga, 9, 28001 Madrid",,France
+ES,Embassy of France Phone,+34 91 423 8900,,France
+ES,Royal Thai Embassy Address,"Calle Joaquín Costa, 29, 28002 Madrid",,Thailand
+ES,Royal Thai Embassy Phone,+34 91 563 2620,,Thailand
+ES,US Embassy Address,"Calle de Serrano, 75, 28006 Madrid",,United States
+ES,US Embassy Phone,+34 91 587 2200,,United States
+ES,Embassy of Italy Address,"Calle de Lagasca, 98, 28006 Madrid",,Italy
+ES,Embassy of Italy Phone,+34 91 423 3300,,Italy
+ES,Embassy of Turkey Address,"Calle Rafael Calvo, 18, 28010 Madrid",,Turkey
+ES,Embassy of Turkey Phone,+34 91 319 8004,,Turkey
+ES,Embassy of Germany Address,"Calle de Fortuny, 8, 28010 Madrid",,Germany
+ES,Embassy of Germany Phone,+34 91 557 9000,,Germany
+ES,Embassy of Mexico Address,"Calle de la Carrera de San Jerónimo, 46, 28014 Madrid",,Mexico
+ES,Embassy of Mexico Phone,+34 91 369 2814,,Mexico
+TR,Royal Thai Embassy Address,"Koza Sokak No:87, Gaziosmanpasa, 06700 Ankara",,Thailand
+TR,Royal Thai Embassy Phone,+90 312 437 4318,,Thailand
+TR,US Embassy Address,"Atatürk Bulvari No:110, Kavaklidere, 06100 Ankara",,United States
+TR,US Embassy Phone,+90 312 455 5555,,United States
+TR,Embassy of Italy Address,"Atatürk Bulvari No:118, Kavaklidere, 06680 Ankara",,Italy
+TR,Embassy of Italy Phone,+90 312 457 4200,,Italy
+TR,Embassy of Spain Address,"Hilal Mahallesi, Rabindranath Tagore Cd. No:58, 06550 Ankara",,Spain
+TR,Embassy of Spain Phone,+90 312 446 8057,,Spain
+TR,Embassy of Germany Address,"Atatürk Bulvari No:114, Kavaklidere, 06680 Ankara",,Germany
+TR,Embassy of Germany Phone,+90 312 455 5100,,Germany
+TR,Embassy of Mexico Address,"Rabindranath Tagore Cd. No:58, 06650 Ankara",,Mexico
+TR,Embassy of Mexico Phone,+90 312 446 6095,,Mexico
+DE,Embassy of Japan Address,"Hiroshimastr. 6, 10785 Berlin",,Japan
+DE,Embassy of Japan Phone,+49 30 210 940,,Japan
+DE,Embassy of France Address,"Pariser Platz 5, 10117 Berlin",,France
+DE,Embassy of France Phone,+49 30 590 039 000,,France
+DE,Royal Thai Embassy Address,"Lepsiusstrasse 64/66, 12163 Berlin",,Thailand
+DE,Royal Thai Embassy Phone,+49 30 794 810,,Thailand
+DE,US Embassy Address,"Pariser Platz 2, 10117 Berlin",,United States
+DE,US Embassy Phone,+49 30 8305 0,,United States
+DE,Embassy of Italy Address,"Hiroshimastr. 1, 10785 Berlin",,Italy
+DE,Embassy of Italy Phone,+49 30 254 400,,Italy
+DE,Embassy of Spain Address,"Lichtensteinallee 1, 10787 Berlin",,Spain
+DE,Embassy of Spain Phone,+49 30 254 0070,,Spain
+DE,Embassy of Turkey Address,"Tiergartenstr. 19-21, 10785 Berlin",,Turkey
+DE,Embassy of Turkey Phone,+49 30 275 850,,Turkey
+DE,Embassy of Mexico Address,"Klingelhöferstr. 3, 10785 Berlin",,Mexico
+DE,Embassy of Mexico Phone,+49 30 269 3230,,Mexico
+MX,Embassy of Japan Address,"Paseo de la Reforma 395, Lomas de Chapultepec, 11000 CDMX",,Japan
+MX,Embassy of Japan Phone,+52 55 5211 0028,,Japan
+MX,Embassy of France Address,"Campos Elíseos 339, Polanco, 11560 CDMX",,France
+MX,Embassy of France Phone,+52 55 9171 9700,,France
+MX,Royal Thai Embassy Address,"Av. Paseo de las Palmas 425, Lomas de Chapultepec, 11000 CDMX",,Thailand
+MX,Royal Thai Embassy Phone,+52 55 5203 9832,,Thailand
+MX,US Embassy Address,"Paseo de la Reforma 305, Colonia Cuauhtémoc, 06500 CDMX",,United States
+MX,US Embassy Phone,+52 55 5080 2000,,United States
+MX,Embassy of Italy Address,"Paseo de las Palmas 1994, Lomas de Chapultepec, 11000 CDMX",,Italy
+MX,Embassy of Italy Phone,+52 55 5596 3655,,Italy
+MX,Embassy of Spain Address,"Galileo 114, Colonia Polanco, 11560 CDMX",,Spain
+MX,Embassy of Spain Phone,+52 55 5520 2010,,Spain
+MX,Embassy of Turkey Address,"Monte Líbano 885, Lomas de Chapultepec, 11000 CDMX",,Turkey
+MX,Embassy of Turkey Phone,+52 55 5280 4614,,Turkey
+MX,Embassy of Germany Address,"Calle Horacio 1506, Polanco, 11510 CDMX",,Germany
+MX,Embassy of Germany Phone,+52 55 5283 2200,,Germany
+GB,Embassy Address,"58 Knightsbridge, London SW1X 7JT",,France
+GB,Embassy Phone,+44 20 7073 1000,,France
+GB,Embassy Address,"101-104 Piccadilly, London W1J 7JT",,Japan
+GB,Embassy Phone,+44 20 7465 6500,,Japan
+GB,Embassy Address,"29-30 Queen's Gate, London SW7 5JB",,Thailand
+GB,Embassy Phone,+44 20 7589 2944,,Thailand
+GB,Embassy Address,"33 Nine Elms Lane, London SW11 7US",,United States
+GB,Embassy Phone,+44 20 7499 9000,,United States
+GB,Embassy Address,"14 Three Kings Yard, London W1K 4EH",,Italy
+GB,Embassy Phone,+44 20 7312 2200,,Italy
+GB,Embassy Address,"39 Chesham Place, London SW1X 8SB",,Spain
+GB,Embassy Phone,+44 20 7235 5555,,Spain
+GB,Embassy Address,"43 Belgrave Square, London SW1X 8PA",,Turkey
+GB,Embassy Phone,+44 20 7393 0202,,Turkey
+GB,Embassy Address,"23 Belgrave Square, London SW1X 8PZ",,Germany
+GB,Embassy Phone,+44 20 7824 1300,,Germany
+GB,Embassy Address,"16 St George Street, London W1S 1FD",,Mexico
+GB,Embassy Phone,+44 20 7907 9494,,Mexico
+GB,Embassy Address,"1A Holland Park, London W11 3TP",,Greece
+GB,Embassy Phone,+44 20 7229 3850,,Greece
+GB,Embassy Address,"49-51 Portland Place, London W1B 1JL",,China
+GB,Embassy Phone,+44 20 7299 4049,,China
+GB,Embassy Address,"18 Belgrave Mews West, London SW1X 8HU",,Austria
+GB,Embassy Phone,+44 20 7344 3250,,Austria
+GB,Embassy Address,"11 Belgrave Square, London SW1X 8PP",,Portugal
+GB,Embassy Phone,+44 20 7235 5331,,Portugal
+GB,Embassy Address,"30 Princes Gate, London SW7 1PT",,UAE
+GB,Embassy Phone,+44 20 7581 1281,,UAE
+GB,Embassy Address,"38 Hyde Park Gate, London SW7 5DP",,Netherlands
+GB,Embassy Phone,+44 20 7590 3200,,Netherlands
+GB,Embassy Address,"21 Conway Street, London W1T 6BN",,Croatia
+GB,Embassy Phone,+44 20 7387 2022,,Croatia
+GB,Embassy Address,"16-18 Montagu Place, London W1H 2BQ",,Switzerland
+GB,Embassy Phone,+44 20 7616 6000,,Switzerland
+GB,Embassy Address,"38 Grosvenor Square, London W1K 2HW",,Indonesia
+GB,Embassy Phone,+44 20 7499 7661,,Indonesia
+GB,Embassy Address,"12-14 Victoria Road, London W8 5RD",,Vietnam
+GB,Embassy Phone,+44 20 7937 1912,,Vietnam
+GB,Embassy Address,"Australia House, Strand, London WC2B 4LA",,Australia
+GB,Embassy Phone,+44 20 7379 4334,,Australia
+GB,Embassy Address,"45 Belgrave Square, London SW1X 8QT",,Malaysia
+GB,Embassy Phone,+44 20 7235 8033,,Malaysia
+GB,Embassy Address,"60 Buckingham Gate, London SW1E 6AJ",,South Korea
+GB,Embassy Phone,+44 20 7227 5500,,South Korea
+GB,Embassy Address,"India House, Aldwych, London WC2B 4NA",,India
+GB,Embassy Phone,+44 20 7836 8484,,India
+GB,Embassy Address,"30 Charles St, London W1J 5DZ",,Saudi Arabia
+GB,Embassy Phone,+44 20 7917 3000,,Saudi Arabia
+GB,Embassy Address,"Canada House, Trafalgar Square, London SW1Y 5BJ",,Canada
+GB,Embassy Phone,+44 20 7004 6000,,Canada
+GB,Embassy Address,"14-16 Cockspur St, London SW1Y 5BL",,Brazil
+GB,Embassy Phone,+44 20 7747 4500,,Brazil
+GB,Embassy Address,"26 South Street, London W1K 1DW",,Egypt
+GB,Embassy Phone,+44 20 7499 3304,,Egypt
+GB,Embassy Address,"49 Queen's Gate Gardens, London SW7 5NE",,Morocco
+GB,Embassy Phone,+44 20 7581 5001,,Morocco
+GR,Embassy Address,"6 Vasilissis Sofias Ave, 10674 Athens",,France
+GR,Embassy Phone,+30 210 339 1000,,France
+GR,Embassy Address,"46 Ethnikis Antistaseos, 15231 Chalandri, Athens",,Japan
+GR,Embassy Phone,+30 210 670 9900,,Japan
+GR,Embassy Address,"23 Vasilissis Sofias Ave, 10674 Athens",,Thailand
+GR,Embassy Phone,+30 210 721 4034,,Thailand
+GR,Embassy Address,"91 Vasilissis Sofias Ave, 10160 Athens",,United States
+GR,Embassy Phone,+30 210 721 2951,,United States
+GR,Embassy Address,"2 Sekeri St, 10674 Athens",,Italy
+GR,Embassy Phone,+30 210 361 7260,,Italy
+GR,Embassy Address,"21 Dionysiou Areopagitou, 11742 Athens",,Spain
+GR,Embassy Phone,+30 210 921 3121,,Spain
+GR,Embassy Address,"Vasilissis Sofias Ave 97, 11521 Athens",,Turkey
+GR,Embassy Phone,+30 210 728 5130,,Turkey
+GR,Embassy Address,"3 Karaoli & Dimitriou St, 10675 Athens",,Germany
+GR,Embassy Phone,+30 210 728 5111,,Germany
+GR,Embassy Address,"2 Vasileos Konstantinou Ave, 11635 Athens",,Mexico
+GR,Embassy Phone,+30 210 729 4780,,Mexico
+GR,Embassy Address,"1 Ploutarchou St, 10675 Athens",,United Kingdom
+GR,Embassy Phone,+30 210 727 2600,,United Kingdom
+GR,Embassy Address,(N/A - Home country),,Greece
+GR,Embassy Address,"10A Faros St, 15452 Psychiko, Athens",,China
+GR,Embassy Phone,+30 210 672 5538,,China
+GR,Embassy Address,"4 Vasilissis Sofias Ave, 10674 Athens",,Austria
+GR,Embassy Phone,+30 210 725 7270,,Austria
+GR,Embassy Address,"6 Vasileos Georgiou II St, 10674 Athens",,Portugal
+GR,Embassy Phone,+30 210 924 4558,,Portugal
+GR,Embassy Address,"5 Kifisias Ave, 11523 Athens",,UAE
+GR,Embassy Phone,+30 210 674 6185,,UAE
+GR,Embassy Address,"64 Kifisias Ave, 11526 Athens",,Netherlands
+GR,Embassy Phone,+30 210 725 4900,,Netherlands
+GR,Embassy Address,"6-8 Filellinon St, 10557 Athens",,Croatia
+GR,Embassy Phone,+30 210 323 9188,,Croatia
+GR,Embassy Address,"3 Irodotou St, 10674 Athens",,Switzerland
+GR,Embassy Phone,+30 210 723 0361,,Switzerland
+GR,Embassy Address,"19 Vasileos Georgiou II St, 10675 Athens",,Indonesia
+GR,Embassy Phone,+30 210 721 4940,,Indonesia
+GR,Embassy Address,"50 Ypsilantou St, 11521 Athens",,Vietnam
+GR,Embassy Phone,+30 210 612 8733,,Vietnam
+GR,Embassy Address,"5 Hatziyianni Mexi St, 11528 Athens",,Australia
+GR,Embassy Phone,+30 210 870 4000,,Australia
+GR,Embassy Address,"23 Vasilissis Sofias Ave, 10674 Athens",,Malaysia
+GR,Embassy Phone,+30 210 729 5127,,Malaysia
+GR,Embassy Address,"48 Ypsilantou St, 11521 Athens",,South Korea
+GR,Embassy Phone,+30 210 698 4080,,South Korea
+GR,Embassy Address,"3 Kleanthous St, 10674 Athens",,India
+GR,Embassy Phone,+30 210 721 6481,,India
+GR,Embassy Address,"26 Vasilissis Sofias Ave, 10676 Athens",,Saudi Arabia
+GR,Embassy Phone,+30 210 671 6171,,Saudi Arabia
+GR,Embassy Address,"50 Ethnikis Antistaseos, 15231 Chalandri, Athens",,Canada
+GR,Embassy Phone,+30 210 727 3400,,Canada
+GR,Embassy Address,"23 Vasilissis Sofias Ave, 10674 Athens",,Brazil
+GR,Embassy Phone,+30 210 721 3039,,Brazil
+GR,Embassy Address,"3 Vasileos Georgiou II St, 10674 Athens",,Egypt
+GR,Embassy Phone,+30 210 361 7462,,Egypt
+GR,Embassy Address,"5 Vasilissis Sofias Ave, 10674 Athens",,Morocco
+GR,Embassy Phone,+30 210 362 2201,,Morocco
+CN,Embassy Address,"60 Tianze Road, Chaoyang, Beijing 100600",,France
+CN,Embassy Phone,+86 10 8531 2000,,France
+CN,Embassy Address,"1 Liangmaqiao Beijie, Chaoyang, Beijing 100600",,Japan
+CN,Embassy Phone,+86 10 8531 9800,,Japan
+CN,Embassy Address,"40 Guanghua Rd, Chaoyang, Beijing 100600",,Thailand
+CN,Embassy Phone,+86 10 6532 1749,,Thailand
+CN,Embassy Address,"55 Anjialou Rd, Chaoyang, Beijing 100600",,United States
+CN,Embassy Phone,+86 10 8531 3000,,United States
+CN,Embassy Address,"2 Dong Er Jie, Sanlitun, Chaoyang, Beijing 100600",,Italy
+CN,Embassy Phone,+86 10 6532 2187,,Italy
+CN,Embassy Address,"9 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,Spain
+CN,Embassy Phone,+86 10 6532 3629,,Spain
+CN,Embassy Address,"9 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,Turkey
+CN,Embassy Phone,+86 10 6532 1715,,Turkey
+CN,Embassy Address,"17 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,Germany
+CN,Embassy Phone,+86 10 8532 9000,,Germany
+CN,Embassy Address,"5-1-1, Ta Yuan Diplomatic Office Building, 1 Xindong Lu, Chaoyang, Beijing 100600",,Mexico
+CN,Embassy Phone,+86 10 8532 1708,,Mexico
+CN,Embassy Address,"11 Guanghua Lu, Chaoyang, Beijing 100600",,United Kingdom
+CN,Embassy Phone,+86 10 5192 4000,,United Kingdom
+CN,Embassy Address,"19 Dongzhimenwai Dajie, Chaoyang, Beijing 100600",,Greece
+CN,Embassy Phone,+86 10 6532 0731,,Greece
+CN,Embassy Address,(N/A - Home country),,China
+CN,Embassy Address,"5 Dong Er Jie, Sanlitun, Chaoyang, Beijing 100600",,Austria
+CN,Embassy Phone,+86 10 6532 2061,,Austria
+CN,Embassy Address,"9 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,Portugal
+CN,Embassy Phone,+86 10 6532 7881,,Portugal
+CN,Embassy Address,"10 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,UAE
+CN,Embassy Phone,+86 10 6532 4242,,UAE
+CN,Embassy Address,"4 Liangmahe Nanlu, Chaoyang, Beijing 100600",,Netherlands
+CN,Embassy Phone,+86 10 8532 0200,,Netherlands
+CN,Embassy Address,"2-3-2, Ta Yuan Diplomatic Office Building, 1 Xindong Lu, Chaoyang, Beijing 100600",,Croatia
+CN,Embassy Phone,+86 10 6532 2216,,Croatia
+CN,Embassy Address,"3 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,Switzerland
+CN,Embassy Phone,+86 10 8532 8888,,Switzerland
+CN,Embassy Address,"4 Dong Zhi Men Wai Da Jie, Chaoyang, Beijing 100600",,Indonesia
+CN,Embassy Phone,+86 10 6532 5481,,Indonesia
+CN,Embassy Address,"32 Guanghua Lu, Chaoyang, Beijing 100600",,Vietnam
+CN,Embassy Phone,+86 10 6532 1155,,Vietnam
+CN,Embassy Address,"21 Dongzhimenwai Dajie, Chaoyang, Beijing 100600",,Australia
+CN,Embassy Phone,+86 10 5140 4111,,Australia
+CN,Embassy Address,"2 Liang Ma Qiao Bei Jie, Chaoyang, Beijing 100600",,Malaysia
+CN,Embassy Phone,+86 10 6532 2531,,Malaysia
+CN,Embassy Address,"20 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,South Korea
+CN,Embassy Phone,+86 10 8531 0700,,South Korea
+CN,Embassy Address,"5 Liang Ma Qiao Bei Jie, Chaoyang, Beijing 100600",,India
+CN,Embassy Phone,+86 10 8531 2500,,India
+CN,Embassy Address,"3 San Li Tun Dong 6 Jie, Chaoyang, Beijing 100600",,Saudi Arabia
+CN,Embassy Phone,+86 10 6532 2820,,Saudi Arabia
+CN,Embassy Address,"19 Dongzhimenwai Dajie, Chaoyang, Beijing 100600",,Canada
+CN,Embassy Phone,+86 10 5139 4000,,Canada
+CN,Embassy Address,"27 Guanghua Lu, Chaoyang, Beijing 100600",,Brazil
+CN,Embassy Phone,+86 10 6532 2881,,Brazil
+CN,Embassy Address,"2 Dong Wu Jie, Sanlitun, Chaoyang, Beijing 100600",,Egypt
+CN,Embassy Phone,+86 10 6532 3152,,Egypt
+CN,Embassy Address,"3-2-1, Ta Yuan Diplomatic Office Building, 1 Xindong Lu, Chaoyang, Beijing 100600",,Morocco
+CN,Embassy Phone,+86 10 6532 2742,,Morocco
+AT,Embassy Address,"Prinz-Eugen-Straße 12-14, 1040 Vienna",,France
+AT,Embassy Phone,+43 1 505 86 0,,France
+AT,Embassy Address,"Rennweg 27, 1030 Vienna",,Japan
+AT,Embassy Phone,+43 1 713 39 10,,Japan
+AT,Embassy Address,"Reisnerstraße 32, 1030 Vienna",,Thailand
+AT,Embassy Phone,+43 1 713 39 25,,Thailand
+AT,Embassy Address,"Boltzmanngasse 16, 1090 Vienna",,United States
+AT,Embassy Phone,+43 1 313 39 0,,United States
+AT,Embassy Address,"Prinz-Eugen-Straße 8-10, 1040 Vienna",,Italy
+AT,Embassy Phone,+43 1 505 28 0,,Italy
+AT,Embassy Address,"Rennweg 27, 1030 Vienna",,Spain
+AT,Embassy Phone,+43 1 713 39 30,,Spain
+AT,Embassy Address,"Rennweg 27, 1030 Vienna",,Turkey
+AT,Embassy Phone,+43 1 713 39 40,,Turkey
+AT,Embassy Address,"Prinz-Eugen-Straße 12-14, 1040 Vienna",,Germany
+AT,Embassy Phone,+43 1 505 86 0,,Germany
+AT,Embassy Address,"Seilerstätte 16, 1010 Vienna",,Mexico
+AT,Embassy Phone,+43 1 512 31 0,,Mexico
+AT,Embassy Address,"18 Belgrave Mews West, London SW1X 8HU (UK Embassy in Austria)",,United Kingdom
+PT,Embassy Address,"Avenida das Descobertas 15, 1400-092 Lisboa",,France
+PT,Embassy Phone,+351 21 392 2600,,France
+PT,Embassy Address,"Avenida das Descobertas 71, 1400-092 Lisboa",,Japan
+PT,Embassy Phone,+351 21 392 2600,,Japan
+PT,Embassy Address,"Avenida da Liberdade 245, 1250-143 Lisboa",,Thailand
+PT,Embassy Phone,+351 21 392 2600,,Thailand
+PT,Embassy Address,Avenida das Forças Armadas 1600-081 Lisboa,,United States
+PT,Embassy Phone,+351 21 727 3300,,United States
+PT,Embassy Address,"Avenida da Liberdade 180, 1250-146 Lisboa",,Italy
+PT,Embassy Phone,+351 21 392 2600,,Italy
+PT,Embassy Address,"Avenida da Liberdade 38, 1250-140 Lisboa",,Spain
+PT,Embassy Phone,+351 21 392 2600,,Spain
+PT,Embassy Address,"Avenida da Liberdade 150, 1250-140 Lisboa",,Turkey
+PT,Embassy Phone,+351 21 392 2600,,Turkey
+PT,Embassy Address,"Avenida das Descobertas 142, 1400-092 Lisboa",,Germany
+PT,Embassy Phone,+351 21 392 2600,,Germany
+PT,Embassy Address,"Avenida das Descobertas 15, 1400-092 Lisboa",,Mexico
+PT,Embassy Phone,+351 21 392 2600,,Mexico
+PT,Embassy Address,"11 Belgrave Square, London SW1X 8PP (UK Embassy in Portugal)",,United Kingdom
+AE,Embassy Address,"15 Corniche Rd, Abu Dhabi",,France
+AE,Embassy Phone,+971 2 681 8800,,France
+AE,Embassy Address,"Abu Dhabi, Al Bateen Area",,Japan
+AE,Embassy Phone,+971 2 681 1300,,Japan
+AE,Embassy Address,"Abu Dhabi, Khalifa City",,Thailand
+AE,Embassy Phone,+971 2 444 4880,,Thailand
+AE,Embassy Address,"17th St, Abu Dhabi",,United States
+AE,Embassy Phone,+971 2 414 2200,,United States
+AE,Embassy Address,Abu Dhabi,,Italy
+AE,Embassy Phone,+971 2 681 0000,,Italy
+AE,Embassy Address,Abu Dhabi,,Spain
+AE,Embassy Phone,+971 2 681 0000,,Spain
+AE,Embassy Address,Abu Dhabi,,Turkey
+AE,Embassy Phone,+971 2 681 0000,,Turkey
+AE,Embassy Address,Abu Dhabi,,Germany
+AE,Embassy Phone,+971 2 681 0000,,Germany
+AE,Embassy Address,Abu Dhabi,,Mexico
+AE,Embassy Phone,+971 2 681 0000,,Mexico
+AE,Embassy Address,"15 Corniche Rd, Abu Dhabi",,United Kingdom
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,France
+NL,Embassy Phone,+31 70 427 7300,,France
+NL,Embassy Address,"1e Constantijn Huygensstraat 104, 2518 Amsterdam",,Japan
+NL,Embassy Phone,+31 20 675 5300,,Japan
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,Thailand
+NL,Embassy Phone,+31 70 427 7300,,Thailand
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,United States
+NL,Embassy Phone,+31 70 312 2500,,United States
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,Italy
+NL,Embassy Phone,+31 70 427 7300,,Italy
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,Spain
+NL,Embassy Phone,+31 70 427 7300,,Spain
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,Turkey
+NL,Embassy Phone,+31 70 427 7300,,Turkey
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,Germany
+NL,Embassy Phone,+31 70 427 7300,,Germany
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,Mexico
+NL,Embassy Phone,+31 70 427 7300,,Mexico
+NL,Embassy Address,"Lange Voorhout 102, 2514 EJ The Hague",,United Kingdom
+HR,Embassy Address,"Hebrangova 2, 10000 Zagreb",,France
+HR,Embassy Phone,+385 1 489 3600,,France
+HR,Embassy Address,"Boškovićeva 2, 10000 Zagreb",,Japan
+HR,Embassy Phone,+385 1 4870 650,,Japan
+HR,Embassy Address,"Miramarska 23, 10000 Zagreb",,Thailand
+HR,Embassy Phone,+385 1 6156 731,,Thailand
+HR,Embassy Address,"Thomasa Jeffersona 2, 10010 Zagreb",,United States
+HR,Embassy Phone,+385 1 661 2200,,United States
+HR,Embassy Address,"Medulićeva 22, 10000 Zagreb",,Italy
+HR,Embassy Phone,+385 1 4846 050,,Italy
+HR,Embassy Address,"Medulićeva 23, 10000 Zagreb",,Spain
+HR,Embassy Phone,+385 1 4889 600,,Spain
+HR,Embassy Address,"Andrije Hebranga 32, 10000 Zagreb",,Turkey
+HR,Embassy Phone,+385 1 4578 060,,Turkey
+HR,Embassy Address,"Ulica grada Vukovara 64, 10000 Zagreb",,Germany
+HR,Embassy Phone,+385 1 630 0100,,Germany
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Mexico
+HR,Embassy Phone,+385 1 4828 294,,Mexico
+HR,Embassy Address,"Ivana Lučića 4, 10000 Zagreb",,United Kingdom
+HR,Embassy Phone,+385 1 6009 100,,United Kingdom
+HR,Embassy Address,"Pantovčak 28, 10000 Zagreb",,Greece
+HR,Embassy Phone,+385 1 4877 460,,Greece
+HR,Embassy Address,"Mlinovi 132, 10000 Zagreb",,China
+HR,Embassy Phone,+385 1 4680 888,,China
+HR,Embassy Address,"Gundulićeva 3, 10000 Zagreb",,Austria
+HR,Embassy Phone,+385 1 4881 150,,Austria
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Portugal
+HR,Embassy Phone,+385 1 4828 294,,Portugal
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,UAE
+HR,Embassy Phone,+385 1 4828 294,,UAE
+HR,Embassy Address,"Radnička cesta 47, 10000 Zagreb",,Netherlands
+HR,Embassy Phone,+385 1 4898 500,,Netherlands
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Switzerland
+HR,Embassy Phone,+385 1 4828 294,,Switzerland
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Indonesia
+HR,Embassy Phone,+385 1 4828 294,,Indonesia
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Vietnam
+HR,Embassy Phone,+385 1 4828 294,,Vietnam
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Australia
+HR,Embassy Phone,+385 1 4828 294,,Australia
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Malaysia
+HR,Embassy Phone,+385 1 4828 294,,Malaysia
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,South Korea
+HR,Embassy Phone,+385 1 4828 294,,South Korea
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,India
+HR,Embassy Phone,+385 1 4828 294,,India
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Saudi Arabia
+HR,Embassy Phone,+385 1 4828 294,,Saudi Arabia
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Canada
+HR,Embassy Phone,+385 1 4828 294,,Canada
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Brazil
+HR,Embassy Phone,+385 1 4828 294,,Brazil
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Egypt
+HR,Embassy Phone,+385 1 4828 294,,Egypt
+HR,Embassy Address,"Pantovčak 258, 10000 Zagreb",,Morocco
+HR,Embassy Phone,+385 1 4828 294,,Morocco
+CH,Embassy Address,"Schosshaldenstrasse 46, 3006 Bern",,France
+CH,Embassy Phone,+41 31 359 2100,,France
+CH,Embassy Address,"Engestrasse 53, 3012 Bern",,Japan
+CH,Embassy Phone,+41 31 305 1515,,Japan
+CH,Embassy Address,"Kirchenfeldstrasse 43, 3005 Bern",,Thailand
+CH,Embassy Phone,+41 31 970 3030,,Thailand
+CH,Embassy Address,"Sulgeneckstrasse 19, 3007 Bern",,United States
+CH,Embassy Phone,+41 31 357 7011,,United States
+CH,Embassy Address,"Elfenstrasse 14, 3006 Bern",,Italy
+CH,Embassy Phone,+41 31 350 0700,,Italy
+CH,Embassy Address,"Kalcheggweg 24, 3006 Bern",,Spain
+CH,Embassy Phone,+41 31 357 4040,,Spain
+CH,Embassy Address,"Lombachweg 6, 3006 Bern",,Turkey
+CH,Embassy Phone,+41 31 359 7000,,Turkey
+CH,Embassy Address,"Willadingweg 83, 3006 Bern",,Germany
+CH,Embassy Phone,+41 31 359 4100,,Germany
+CH,Embassy Address,"Jungfraustrasse 1, 3005 Bern",,Mexico
+CH,Embassy Phone,+41 31 357 4747,,Mexico
+CH,Embassy Address,"16-18 Montagu Place, London W1H 2BQ (UK Embassy in Switzerland)",,United Kingdom
+ID,Embassy Address,"Jl. M.H. Thamrin No.20, Jakarta 10350",,France
+ID,Embassy Phone,+62 21 2355 7600,,France
+ID,Embassy Address,"Jl. M.H. Thamrin No.24, Jakarta 10350",,Japan
+ID,Embassy Phone,+62 21 3192 4308,,Japan
+ID,Embassy Address,"Jl. DR. Ide Anak Agung Gde Agung, Jakarta 12950",,Thailand
+ID,Embassy Phone,+62 21 2932 8190,,Thailand
+ID,Embassy Address,"Jl. Medan Merdeka Selatan No. 5, Jakarta 10110",,United States
+ID,Embassy Phone,+62 21 5083 1000,,United States
+ID,Embassy Address,"Jl. Diponegoro No.45, Jakarta 10310",,Italy
+ID,Embassy Phone,+62 21 3193 7445,,Italy
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Spain
+ID,Embassy Phone,+62 21 314 2355,,Spain
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Turkey
+ID,Embassy Phone,+62 21 3190 4046,,Turkey
+ID,Embassy Address,"Jl. M.H. Thamrin No.1, Jakarta 10310",,Germany
+ID,Embassy Phone,+62 21 3985 5000,,Germany
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Mexico
+ID,Embassy Phone,+62 21 520 3980,,Mexico
+ID,Embassy Address,"Jl. Patra Kuningan Raya Blok L5-6, Jakarta 12950",,United Kingdom
+ID,Embassy Phone,+62 21 2356 5200,,United Kingdom
+ID,Embassy Address,"Jl. Imam Bonjol No.80, Jakarta 10310",,Greece
+ID,Embassy Phone,+62 21 314 1218,,Greece
+ID,Embassy Address,"Jl. Mega Kuningan Barat No.2, Jakarta 12950",,China
+ID,Embassy Phone,+62 21 576 1039,,China
+ID,Embassy Address,"Jl. Diponegoro No.44, Jakarta 10310",,Austria
+ID,Embassy Phone,+62 21 3190 5005,,Austria
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Portugal
+ID,Embassy Phone,+62 21 3190 4046,,Portugal
+ID,Embassy Address,"Jl. Mega Kuningan Barat No.1, Jakarta 12950",,UAE
+ID,Embassy Phone,+62 21 2954 4171,,UAE
+ID,Embassy Address,"Jl. H.R. Rasuna Said Kav. S-3, Jakarta 12950",,Netherlands
+ID,Embassy Phone,+62 21 524 8200,,Netherlands
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Croatia
+ID,Embassy Phone,+62 21 3190 4046,,Croatia
+ID,Embassy Address,"Jl. H.R. Rasuna Said Kav. S-3, Jakarta 12950",,Switzerland
+ID,Embassy Phone,+62 21 525 6061,,Switzerland
+ID,Embassy Address,(N/A - Home country),,Indonesia
+ID,Embassy Address,"Jl. Teuku Umar No.25, Jakarta 10350",,Vietnam
+ID,Embassy Phone,+62 21 310 0358,,Vietnam
+ID,Embassy Address,"Jl. Patra Kuningan Raya Kav. XIII, Jakarta 12950",,Australia
+ID,Embassy Phone,+62 21 2550 5555,,Australia
+ID,Embassy Address,"Jl. H.R. Rasuna Said Kav. X/6, Jakarta 12950",,Malaysia
+ID,Embassy Phone,+62 21 522 4947,,Malaysia
+ID,Embassy Address,"Jl. Jend. Sudirman Kav. 61-62, Jakarta 12190",,South Korea
+ID,Embassy Phone,+62 21 2967 2555,,South Korea
+ID,Embassy Address,"Jl. H.R. Rasuna Said Kav. S-1, Jakarta 12950",,India
+ID,Embassy Phone,+62 21 520 4150,,India
+ID,Embassy Address,"Jl. M.T. Haryono Kav. 2, Jakarta 12810",,Saudi Arabia
+ID,Embassy Phone,+62 21 252 2742,,Saudi Arabia
+ID,Embassy Address,"World Trade Centre, Jl. Jend. Sudirman Kav. 29-31, Jakarta 12920",,Canada
+ID,Embassy Phone,+62 21 2550 7800,,Canada
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Brazil
+ID,Embassy Phone,+62 21 3190 4046,,Brazil
+ID,Embassy Address,"Jl. Teuku Umar No.68, Jakarta 10350",,Egypt
+ID,Embassy Phone,+62 21 3190 4046,,Egypt
+ID,Embassy Address,"Jl. H. Agus Salim No.61, Jakarta 10350",,Morocco
+ID,Embassy Phone,+62 21 3190 4046,,Morocco
+VN,Embassy Address,"57 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",,France
+VN,Embassy Phone,+84 24 3944 5700,,France
+VN,Embassy Address,"27 Liễu Giai, Ba Đình, Hà Nội",,Japan
+VN,Embassy Phone,+84 24 3846 3000,,Japan
+VN,Embassy Address,"63-65 Hoàng Diệu, Ba Đình, Hà Nội",,Thailand
+VN,Embassy Phone,+84 24 3845 0094,,Thailand
+VN,Embassy Address,"7 Láng Hạ, Ba Đình, Hà Nội",,United States
+VN,Embassy Phone,+84 24 3850 5000,,United States
+VN,Embassy Address,"9 Lê Phụng Hiểu, Hoàn Kiếm, Hà Nội",,Italy
+VN,Embassy Phone,+84 24 3825 6256,,Italy
+VN,Embassy Address,"4 Lê Hồng Phong, Ba Đình, Hà Nội",,Spain
+VN,Embassy Phone,+84 24 3771 5207,,Spain
+VN,Embassy Address,"14 Trần Bình Trọng, Hoàn Kiếm, Hà Nội",,Turkey
+VN,Embassy Phone,+84 24 3941 3710,,Turkey
+VN,Embassy Address,"29 Trần Phú, Ba Đình, Hà Nội",,Germany
+VN,Embassy Phone,+84 24 3267 3335,,Germany
+VN,Embassy Address,"14 Thụy Khuê, Tây Hồ, Hà Nội",,Mexico
+VN,Embassy Phone,+84 24 3823 2099,,Mexico
+VN,Embassy Address,"4 Đào Tấn, Ba Đình, Hà Nội",,United Kingdom
+VN,Embassy Phone,+84 24 3936 0500,,United Kingdom
+VN,Embassy Address,"27-29 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",,Greece
+VN,Embassy Phone,+84 24 3942 5678,,Greece
+VN,Embassy Address,"46 Hoàng Diệu, Ba Đình, Hà Nội",,China
+VN,Embassy Phone,+84 24 3845 3736,,China
+VN,Embassy Address,"18 Lê Phụng Hiểu, Hoàn Kiếm, Hà Nội",,Austria
+VN,Embassy Phone,+84 24 3943 3050,,Austria
+VN,Embassy Address,"14 Trần Bình Trọng, Hoàn Kiếm, Hà Nội",,Portugal
+VN,Embassy Phone,+84 24 3941 3710,,Portugal
+VN,Embassy Address,"44 Trần Phú, Ba Đình, Hà Nội",,UAE
+VN,Embassy Phone,+84 24 3845 7272,,UAE
+VN,Embassy Address,"6 Ngô Quyền, Hoàn Kiếm, Hà Nội",,Netherlands
+VN,Embassy Phone,+84 24 3823 5932,,Netherlands
+VN,Embassy Address,"14 Trần Bình Trọng, Hoàn Kiếm, Hà Nội",,Croatia
+VN,Embassy Phone,+84 24 3941 3710,,Croatia
+VN,Embassy Address,"15 Thụy Khuê, Tây Hồ, Hà Nội",,Switzerland
+VN,Embassy Phone,+84 24 3845 2936,,Switzerland
+VN,Embassy Address,"50 Ngô Quyền, Hoàn Kiếm, Hà Nội",,Indonesia
+VN,Embassy Phone,+84 24 3825 5885,,Indonesia
+VN,Embassy Address,(N/A - Home country),,Vietnam
+VN,Embassy Address,"8 Tôn Thất Thuyết, Ba Đình, Hà Nội",,Australia
+VN,Embassy Phone,+84 24 3774 0100,,Australia
+VN,Embassy Address,"43-45 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",,Malaysia
+VN,Embassy Phone,+84 24 3825 8886,,Malaysia
+VN,Embassy Address,"43-45 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",,South Korea
+VN,Embassy Phone,+84 24 3825 8886,,South Korea
+VN,Embassy Address,"58-60 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",,India
+VN,Embassy Phone,+84 24 3824 4989,,India
+VN,Embassy Address,"17 Lê Thánh Tông, Hoàn Kiếm, Hà Nội",,Saudi Arabia
+VN,Embassy Phone,+84 24 3824 5117,,Saudi Arabia
+VN,Embassy Address,"31 Hùng Vương, Ba Đình, Hà Nội",,Canada
+VN,Embassy Phone,+84 24 3734 5000,,Canada
+VN,Embassy Address,"14 Trần Bình Trọng, Hoàn Kiếm, Hà Nội",,Brazil
+VN,Embassy Phone,+84 24 3941 3710,,Brazil
+VN,Embassy Address,"63 Trần Hưng Đạo, Hoàn Kiếm, Hà Nội",,Egypt
+VN,Embassy Phone,+84 24 3825 8873,,Egypt
+VN,Embassy Address,"9 Chu Văn An, Ba Đình, Hà Nội",,Morocco
+VN,Embassy Phone,+84 24 3823 0496,,Morocco
+AU,Embassy Address,"6 Perth Avenue, Yarralumla ACT 2600, Canberra",,France
+AU,Embassy Phone,+61 2 6216 0100,,France
+AU,Embassy Address,"112 Empire Circuit, Yarralumla ACT 2600, Canberra",,Japan
+AU,Embassy Phone,+61 2 6273 3244,,Japan
+AU,Embassy Address,"111 Empire Circuit, Yarralumla ACT 2600, Canberra",,Thailand
+AU,Embassy Phone,+61 2 6206 0100,,Thailand
+AU,Embassy Address,"Moonah Place, Yarralumla ACT 2600, Canberra",,United States
+AU,Embassy Phone,+61 2 6214 5600,,United States
+AU,Embassy Address,"12 Grey Street, Deakin ACT 2600, Canberra",,Italy
+AU,Embassy Phone,+61 2 6273 3333,,Italy
+AU,Embassy Address,"15 Arkana Street, Yarralumla ACT 2600, Canberra",,Spain
+AU,Embassy Phone,+61 2 6273 3555,,Spain
+AU,Embassy Address,"6 Moonah Place, Yarralumla ACT 2600, Canberra",,Turkey
+AU,Embassy Phone,+61 2 6234 0000,,Turkey
+AU,Embassy Address,"119 Empire Circuit, Yarralumla ACT 2600, Canberra",,Germany
+AU,Embassy Phone,+61 2 6270 1911,,Germany
+AU,Embassy Address,"14 Perth Avenue, Yarralumla ACT 2600, Canberra",,Mexico
+AU,Embassy Phone,+61 2 6273 3963,,Mexico
+AU,Embassy Address,"45-47 Commonwealth Ave, Yarralumla ACT 2600, Canberra",,United Kingdom
+AU,Embassy Phone,+61 2 6270 6666,,United Kingdom
+AU,Embassy Address,"9 Turrana Street, Yarralumla ACT 2600, Canberra",,Greece
+AU,Embassy Phone,+61 2 6273 0124,,Greece
+AU,Embassy Address,"15 Coronation Drive, Yarralumla ACT 2600, Canberra",,China
+AU,Embassy Phone,+61 2 6273 4780,,China
+AU,Embassy Address,"12 Talara Road, Yarralumla ACT 2600, Canberra",,Austria
+AU,Embassy Phone,+61 2 6295 1533,,Austria
+AU,Embassy Address,"4 Beale Crescent, Deakin ACT 2600, Canberra",,Portugal
+AU,Embassy Phone,+61 2 6232 7676,,Portugal
+AU,Embassy Address,"2 Moonah Place, Yarralumla ACT 2600, Canberra",,UAE
+AU,Embassy Phone,+61 2 6286 8802,,UAE
+AU,Embassy Address,"120 Empire Circuit, Yarralumla ACT 2600, Canberra",,Netherlands
+AU,Embassy Phone,+61 2 6220 9400,,Netherlands
+AU,Embassy Address,"14 Jindalee Crescent, O'Malley ACT 2606, Canberra",,Croatia
+AU,Embassy Phone,+61 2 6286 6988,,Croatia
+AU,Embassy Address,"7 Beale Crescent, Deakin ACT 2600, Canberra",,Switzerland
+AU,Embassy Phone,+61 2 6162 8400,,Switzerland
+AU,Embassy Address,"8 Darwin Avenue, Yarralumla ACT 2600, Canberra",,Indonesia
+AU,Embassy Phone,+61 2 6250 8600,,Indonesia
+AU,Embassy Address,"6 Timbarra Crescent, O'Malley ACT 2606, Canberra",,Vietnam
+AU,Embassy Phone,+61 2 6286 6059,,Vietnam
+AU,Embassy Address,(N/A - Home country),,Australia
+AU,Embassy Address,"7 Perth Avenue, Yarralumla ACT 2600, Canberra",,Malaysia
+AU,Embassy Phone,+61 2 6120 0300,,Malaysia
+AU,Embassy Address,"113 Empire Circuit, Yarralumla ACT 2600, Canberra",,South Korea
+AU,Embassy Phone,+61 2 6270 4100,,South Korea
+AU,Embassy Address,"3 Moonah Place, Yarralumla ACT 2600, Canberra",,India
+AU,Embassy Phone,+61 2 6273 3999,,India
+AU,Embassy Address,"38 Guilfoyle Street, Yarralumla ACT 2600, Canberra",,Saudi Arabia
+AU,Embassy Phone,+61 2 6250 7000,,Saudi Arabia
+AU,Embassy Address,"Commonwealth Ave, Yarralumla ACT 2600, Canberra",,Canada
+AU,Embassy Phone,+61 2 6270 4000,,Canada
+AU,Embassy Address,"19 Forster Crescent, Yarralumla ACT 2600, Canberra",,Brazil
+AU,Embassy Phone,+61 2 6273 2372,,Brazil
+AU,Embassy Address,"6 Culgoa Circuit, O'Malley ACT 2606, Canberra",,Egypt
+AU,Embassy Phone,+61 2 6286 8000,,Egypt
+AU,Embassy Address,"4 National Circuit, Barton ACT 2600, Canberra",,Morocco
+AU,Embassy Phone,+61 2 6273 3617,,Morocco
+MY,Embassy Address,"196 Jalan Ampang, 50450 Kuala Lumpur",,France
+MY,Embassy Phone,+60 3 2053 5500,,France
+MY,Embassy Address,"11 Persiaran Stonor, 50450 Kuala Lumpur",,Japan
+MY,Embassy Phone,+60 3 2177 2600,,Japan
+MY,Embassy Address,"206 Jalan Ampang, 50450 Kuala Lumpur",,Thailand
+MY,Embassy Phone,+60 3 2148 8222,,Thailand
+MY,Embassy Address,"376 Jalan Tun Razak, 50400 Kuala Lumpur",,United States
+MY,Embassy Phone,+60 3 2168 5000,,United States
+MY,Embassy Address,"98 Jalan Ampang, 50450 Kuala Lumpur",,Italy
+MY,Embassy Phone,+60 3 4256 5555,,Italy
+MY,Embassy Address,"12th Floor, Wisma Goldhill, 67 Jalan Raja Chulan, 50200 Kuala Lumpur",,Spain
+MY,Embassy Phone,+60 3 2142 8775,,Spain
+MY,Embassy Address,"118 Jalan U Thant, 55000 Kuala Lumpur",,Turkey
+MY,Embassy Phone,+60 3 4251 1807,,Turkey
+MY,Embassy Address,"26 Jalan Tun Razak, 50400 Kuala Lumpur",,Germany
+MY,Embassy Phone,+60 3 2170 9666,,Germany
+MY,Embassy Address,"2nd Floor, Wisma Selangor Dredging, 142C Jalan Ampang, 50450 Kuala Lumpur",,Mexico
+MY,Embassy Phone,+60 3 2161 2011,,Mexico
+MY,Embassy Address,"185 Jalan Ampang, 50450 Kuala Lumpur",,United Kingdom
+MY,Embassy Phone,+60 3 2170 2200,,United Kingdom
+MY,Embassy Address,"11th Floor, Wisma Goldhill, 67 Jalan Raja Chulan, 50200 Kuala Lumpur",,Greece
+MY,Embassy Phone,+60 3 2142 8775,,Greece
+MY,Embassy Address,"229 Jalan Ampang, 50450 Kuala Lumpur",,China
+MY,Embassy Phone,+60 3 2141 1189,,China
+MY,Embassy Address,"44 Jalan U Thant, 55000 Kuala Lumpur",,Austria
+MY,Embassy Phone,+60 3 2148 4458,,Austria
+MY,Embassy Address,"1 Jalan U Thant, 55000 Kuala Lumpur",,Portugal
+MY,Embassy Phone,+60 3 2148 1622,,Portugal
+MY,Embassy Address,"10 Jalan Langgak Golf, 55000 Kuala Lumpur",,UAE
+MY,Embassy Phone,+60 3 4253 5577,,UAE
+MY,Embassy Address,"7th Floor, South Block, The Ampwalk, 218 Jalan Ampang, 50450 Kuala Lumpur",,Netherlands
+MY,Embassy Phone,+60 3 2168 6200,,Netherlands
+MY,Embassy Address,"3rd Floor, Wisma Selangor Dredging, 142C Jalan Ampang, 50450 Kuala Lumpur",,Croatia
+MY,Embassy Phone,+60 3 2163 2066,,Croatia
+MY,Embassy Address,"16th Floor, Wisma Goldhill, 67 Jalan Raja Chulan, 50200 Kuala Lumpur",,Switzerland
+MY,Embassy Phone,+60 3 2148 0622,,Switzerland
+MY,Embassy Address,"233 Jalan Tun Razak, 50400 Kuala Lumpur",,Indonesia
+MY,Embassy Phone,+60 3 2116 4000,,Indonesia
+MY,Embassy Address,"No.4, Persiaran Stonor, 50450 Kuala Lumpur",,Vietnam
+MY,Embassy Phone,+60 3 2148 4534,,Vietnam
+MY,Embassy Address,"6 Jalan Yap Kwan Seng, 50450 Kuala Lumpur",,Australia
+MY,Embassy Phone,+60 3 2146 5555,,Australia
+MY,Embassy Address,(N/A - Home country),,Malaysia
+MY,Embassy Address,"9th Floor, Wisma Goldhill, 67 Jalan Raja Chulan, 50200 Kuala Lumpur",,South Korea
+MY,Embassy Phone,+60 3 4251 2336,,South Korea
+MY,Embassy Address,"28 Jalan Taman Duta, Off Jalan Duta, 50480 Kuala Lumpur",,India
+MY,Embassy Phone,+60 3 2093 3504,,India
+MY,Embassy Address,"41 Jalan U Thant, 55000 Kuala Lumpur",,Saudi Arabia
+MY,Embassy Phone,+60 3 4256 8900,,Saudi Arabia
+MY,Embassy Address,"Menara Tan & Tan, 207 Jalan Tun Razak, 50400 Kuala Lumpur",,Canada
+MY,Embassy Phone,+60 3 2718 3333,,Canada
+MY,Embassy Address,"19th Floor, Wisma Goldhill, 67 Jalan Raja Chulan, 50200 Kuala Lumpur",,Brazil
+MY,Embassy Phone,+60 3 2148 9161,,Brazil
+MY,Embassy Address,"12 Jalan Rhu, off Jalan Ampang Hilir, 55000 Kuala Lumpur",,Egypt
+MY,Embassy Phone,+60 3 4256 8184,,Egypt
+MY,Embassy Address,"12th Floor, Wisma Goldhill, 67 Jalan Raja Chulan, 50200 Kuala Lumpur",,Morocco
+MY,Embassy Phone,+60 3 2141 1444,,Morocco
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,France
+SA,Embassy Phone,+966 11 488 6000,,France
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Japan
+SA,Embassy Phone,+966 11 488 6000,,Japan
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Thailand
+SA,Embassy Phone,+966 11 488 6000,,Thailand
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,United States
+SA,Embassy Phone,+966 11 488 6000,,United States
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Italy
+SA,Embassy Phone,+966 11 488 6000,,Italy
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Spain
+SA,Embassy Phone,+966 11 488 6000,,Spain
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Turkey
+SA,Embassy Phone,+966 11 488 6000,,Turkey
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Germany
+SA,Embassy Phone,+966 11 488 6000,,Germany
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Mexico
+SA,Embassy Phone,+966 11 488 6000,,Mexico
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,United Kingdom
+SA,Embassy Phone,+966 11 488 6000,,United Kingdom
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Greece
+SA,Embassy Phone,+966 11 488 6000,,Greece
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,China
+SA,Embassy Phone,+966 11 488 6000,,China
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Austria
+SA,Embassy Phone,+966 11 488 6000,,Austria
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Portugal
+SA,Embassy Phone,+966 11 488 6000,,Portugal
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,United Arab Emirates
+SA,Embassy Phone,+966 11 488 6000,,United Arab Emirates
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Netherlands
+SA,Embassy Phone,+966 11 488 6000,,Netherlands
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Croatia
+SA,Embassy Phone,+966 11 488 6000,,Croatia
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Switzerland
+SA,Embassy Phone,+966 11 488 6000,,Switzerland
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Indonesia
+SA,Embassy Phone,+966 11 488 6000,,Indonesia
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Vietnam
+SA,Embassy Phone,+966 11 488 6000,,Vietnam
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Australia
+SA,Embassy Phone,+966 11 488 6000,,Australia
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,Malaysia
+SA,Embassy Phone,+966 11 488 6000,,Malaysia
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,South Korea
+SA,Embassy Phone,+966 11 488 6000,,South Korea
+SA,Embassy Address,"Diplomatic Quarter, Riyadh",,India
+SA,Embassy Phone,+966 11 488 6000,,India
+CA,Embassy Address,"42 Sussex Drive, Ottawa, ON K1M 2C9",,France
+CA,Embassy Phone,+1 613 238 6212,,France
+CA,Embassy Address,"255 Sussex Drive, Ottawa, ON K1N 5E6",,Japan
+CA,Embassy Phone,+1 613 241 8541,,Japan
+CA,Embassy Address,"180 Island Park Drive, Ottawa, ON K1Y 0A2",,Thailand
+CA,Embassy Phone,+1 613 722 4441,,Thailand
+CA,Embassy Address,"490 Sussex Drive, Ottawa, ON K1N 1G8",,United States
+CA,Embassy Phone,+1 613 238 5335,,United States
+CA,Embassy Address,"275 Slater Street, Ottawa, ON K1P 5H9",,Italy
+CA,Embassy Phone,+1 613 232 3501,,Italy
+CA,Embassy Address,"74 Stanley Avenue, Ottawa, ON K1M 1P1",,Spain
+CA,Embassy Phone,+1 613 233 6281,,Spain
+CA,Embassy Address,"197 Wurtemburg Street, Ottawa, ON K1N 8L9",,Turkey
+CA,Embassy Phone,+1 613 789 3211,,Turkey
+CA,Embassy Address,"1 Waverley Street, Ottawa, ON K2P 0T8",,Germany
+CA,Embassy Phone,+1 613 232 1101,,Germany
+CA,Embassy Address,"45 O’Connor Street, Ottawa, ON K1P 1A4",,Mexico
+CA,Embassy Phone,+1 613 233 8988,,Mexico
+CA,Embassy Address,"80 Elgin Street, Ottawa, ON K1P 5K7",,United Kingdom
+CA,Embassy Phone,+1 613 237 1530,,United Kingdom
+CA,Embassy Address,"80 MacLaren Street, Ottawa, ON K2P 0K6",,Greece
+CA,Embassy Phone,+1 613 236 5561,,Greece
+CA,Embassy Address,"515 St. Patrick Street, Ottawa, ON K1N 5H3",,China
+CA,Embassy Phone,+1 613 789 3434,,China
+CA,Embassy Address,"445 Wilbrod Street, Ottawa, ON K1N 6M7",,Austria
+CA,Embassy Phone,+1 613 789 1444,,Austria
+CA,Embassy Address,"645 Island Park Drive, Ottawa, ON K1Y 0B8",,Portugal
+CA,Embassy Phone,+1 613 722 0990,,Portugal
+CA,Embassy Address,"1255 Bay Street, Toronto, ON M5R 2A9",,United Arab Emirates
+CA,Embassy Phone,+1 416 964 4622,,United Arab Emirates
+CA,Embassy Address,"7 Grosvenor Street, Ottawa, ON K1N 6E6",,Netherlands
+CA,Embassy Phone,+1 613 238 1712,,Netherlands
+CA,Embassy Address,"229 Argyle Street, Ottawa, ON K2P 1B7",,Croatia
+CA,Embassy Phone,+1 613 232 0051,,Croatia
+CA,Embassy Address,"5 Marlborough Avenue, Ottawa, ON K1N 8E6",,Switzerland
+CA,Embassy Phone,+1 613 230 4100,,Switzerland
+CA,Embassy Address,"350 Sparks Street, Ottawa, ON K1R 7S8",,Indonesia
+CA,Embassy Phone,+1 613 233 4431,,Indonesia
+CA,Embassy Address,"55 Metcalfe Street, Ottawa, ON K1P 6L5",,Vietnam
+CA,Embassy Phone,+1 613 234 1300,,Vietnam
+CA,Embassy Address,"50 O’Connor Street, Ottawa, ON K1P 6L2",,Australia
+CA,Embassy Phone,+1 613 236 0841,,Australia
+CA,Embassy Address,"60 Boteler Street, Ottawa, ON K1N 0A8",,Malaysia
+CA,Embassy Phone,+1 613 235 1837,,Malaysia
+CA,Embassy Address,"150 Boteler Street, Ottawa, ON K1N 0A8",,South Korea
+CA,Embassy Phone,+1 613 232 4099,,South Korea
+CA,Embassy Address,"10 Springfield Road, Ottawa, ON K1M 1C9",,India
+CA,Embassy Phone,+1 613 744 3751,,India
+CA,Embassy Address,"363 Sussex Drive, Ottawa, ON K1N 1K1",,Saudi Arabia
+CA,Embassy Phone,+1 613 236 6700,,Saudi Arabia
+BR,Embassy Address,"SES Quadra 804, Bloco E, Brasília",,France
+BR,Embassy Phone,+55 61 3448 6400,,France
+BR,Embassy Address,"SES Quadra 807, Bloco A, Brasília",,Japan
+BR,Embassy Phone,+55 61 3448 6400,,Japan
+BR,Embassy Address,"SHIS QI 9, Conjunto 6, Brasília",,Thailand
+BR,Embassy Phone,+55 61 3362 3000,,Thailand
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,United States
+BR,Embassy Phone,+55 61 3312 7000,,United States
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Italy
+BR,Embassy Phone,+55 61 3312 7000,,Italy
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Spain
+BR,Embassy Phone,+55 61 3312 7000,,Spain
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Turkey
+BR,Embassy Phone,+55 61 3312 7000,,Turkey
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Germany
+BR,Embassy Phone,+55 61 3312 7000,,Germany
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Mexico
+BR,Embassy Phone,+55 61 3312 7000,,Mexico
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,United Kingdom
+BR,Embassy Phone,+55 61 3312 7000,,United Kingdom
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Greece
+BR,Embassy Phone,+55 61 3312 7000,,Greece
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,China
+BR,Embassy Phone,+55 61 3312 7000,,China
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Austria
+BR,Embassy Phone,+55 61 3312 7000,,Austria
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Portugal
+BR,Embassy Phone,+55 61 3312 7000,,Portugal
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,United Arab Emirates
+BR,Embassy Phone,+55 61 3312 7000,,United Arab Emirates
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Netherlands
+BR,Embassy Phone,+55 61 3312 7000,,Netherlands
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Croatia
+BR,Embassy Phone,+55 61 3312 7000,,Croatia
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Switzerland
+BR,Embassy Phone,+55 61 3312 7000,,Switzerland
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Indonesia
+BR,Embassy Phone,+55 61 3312 7000,,Indonesia
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Vietnam
+BR,Embassy Phone,+55 61 3312 7000,,Vietnam
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Australia
+BR,Embassy Phone,+55 61 3312 7000,,Australia
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,Malaysia
+BR,Embassy Phone,+55 61 3312 7000,,Malaysia
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,South Korea
+BR,Embassy Phone,+55 61 3312 7000,,South Korea
+BR,Embassy Address,"SES Avenida das Nações, Brasília",,India
+BR,Embassy Phone,+55 61 3312 7000,,India
+EG,Embassy Address,"26 Sharia Al-Safwa, Garden City, Cairo",,France
+EG,Embassy Phone,+20 2 2797 7000,,France
+EG,Embassy Address,"5 El-Safwa Street, Garden City, Cairo",,Japan
+EG,Embassy Phone,+20 2 2797 7000,,Japan
+EG,Embassy Address,"4 El-Safwa Street, Garden City, Cairo",,Thailand
+EG,Embassy Phone,+20 2 2797 7000,,Thailand
+EG,Embassy Address,"5 Tawfik Diab Street, Garden City, Cairo",,United States
+EG,Embassy Phone,+20 2 2797 7000,,United States
+EG,Embassy Address,"7 El-Safwa Street, Garden City, Cairo",,Italy
+EG,Embassy Phone,+20 2 2797 7000,,Italy
+EG,Embassy Address,"6 El-Safwa Street, Garden City, Cairo",,Spain
+EG,Embassy Phone,+20 2 2797 7000,,Spain
+EG,Embassy Address,"3 El-Safwa Street, Garden City, Cairo",,Turkey
+EG,Embassy Phone,+20 2 2797 7000,,Turkey
+EG,Embassy Address,"8 El-Safwa Street, Garden City, Cairo",,Germany
+EG,Embassy Phone,+20 2 2797 7000,,Germany
+EG,Embassy Address,"9 El-Safwa Street, Garden City, Cairo",,Mexico
+EG,Embassy Phone,+20 2 2797 7000,,Mexico
+EG,Embassy Address,"10 El-Safwa Street, Garden City, Cairo",,United Kingdom
+EG,Embassy Phone,+20 2 2797 7000,,United Kingdom
+EG,Embassy Address,"11 El-Safwa Street, Garden City, Cairo",,Greece
+EG,Embassy Phone,+20 2 2797 7000,,Greece
+EG,Embassy Address,"12 El-Safwa Street, Garden City, Cairo",,China
+EG,Embassy Phone,+20 2 2797 7000,,China
+EG,Embassy Address,"13 El-Safwa Street, Garden City, Cairo",,Austria
+EG,Embassy Phone,+20 2 2797 7000,,Austria
+EG,Embassy Address,"14 El-Safwa Street, Garden City, Cairo",,Portugal
+EG,Embassy Phone,+20 2 2797 7000,,Portugal
+EG,Embassy Address,"15 El-Safwa Street, Garden City, Cairo",,United Arab Emirates
+EG,Embassy Phone,+20 2 2797 7000,,United Arab Emirates
+EG,Embassy Address,"16 El-Safwa Street, Garden City, Cairo",,Netherlands
+EG,Embassy Phone,+20 2 2797 7000,,Netherlands
+EG,Embassy Address,"17 El-Safwa Street, Garden City, Cairo",,Croatia
+EG,Embassy Phone,+20 2 2797 7000,,Croatia
+EG,Embassy Address,"18 El-Safwa Street, Garden City, Cairo",,Switzerland
+EG,Embassy Phone,+20 2 2797 7000,,Switzerland
+EG,Embassy Address,"19 El-Safwa Street, Garden City, Cairo",,Indonesia
+EG,Embassy Phone,+20 2 2797 7000,,Indonesia
+EG,Embassy Address,"20 El-Safwa Street, Garden City, Cairo",,Vietnam
+EG,Embassy Phone,+20 2 2797 7000,,Vietnam
+EG,Embassy Address,"21 El-Safwa Street, Garden City, Cairo",,Australia
+EG,Embassy Phone,+20 2 2797 7000,,Australia
+EG,Embassy Address,"22 El-Safwa Street, Garden City, Cairo",,Malaysia
+EG,Embassy Phone,+20 2 2797 7000,,Malaysia
+EG,Embassy Address,"23 El-Safwa Street, Garden City, Cairo",,South Korea
+EG,Embassy Phone,+20 2 2797 7000,,South Korea
+EG,Embassy Address,"24 El-Safwa Street, Garden City, Cairo",,India
+EG,Embassy Phone,+20 2 2797 7000,,India
+MA,Embassy Address,"5, rue de Tilsitt, Rabat",,France
+MA,Embassy Phone,+212 537 77 11 00,,France
+MA,Embassy Address,"8, rue Ibn Toumert, Rabat",,Japan
+MA,Embassy Phone,+212 537 77 11 00,,Japan
+MA,Embassy Address,"6, rue d’Alger, Rabat",,Thailand
+MA,Embassy Phone,+212 537 77 11 00,,Thailand
+MA,Embassy Address,"2, rue Al Mansour Eddahbi, Rabat",,United States
+MA,Embassy Phone,+212 537 77 11 00,,United States
+MA,Embassy Address,"5, rue Ibn Toumert, Rabat",,Italy
+MA,Embassy Phone,+212 537 77 11 00,,Italy
+MA,Embassy Address,"7, rue d’Alger, Rabat",,Spain
+MA,Embassy Phone,+212 537 77 11 00,,Spain
+MA,Embassy Address,"8, rue Ibn Toumert, Rabat",,Turkey
+MA,Embassy Phone,+212 537 77 11 00,,Turkey
+MA,Embassy Address,"9, rue d’Alger, Rabat",,Germany
+MA,Embassy Phone,+212 537 77 11 00,,Germany
+MA,Embassy Address,"10, rue Ibn Toumert, Rabat",,Mexico
+MA,Embassy Phone,+212 537 77 11 00,,Mexico
+MA,Embassy Address,"11, rue d’Alger, Rabat",,United Kingdom
+MA,Embassy Phone,+212 537 77 11 00,,United Kingdom
+MA,Embassy Address,"12, rue Ibn Toumert, Rabat",,Greece
+MA,Embassy Phone,+212 537 77 11 00,,Greece
+MA,Embassy Address,"13, rue d’Alger, Rabat",,China
+MA,Embassy Phone,+212 537 77 11 00,,China
+MA,Embassy Address,"14, rue Ibn Toumert, Rabat",,Austria
+MA,Embassy Phone,+212 537 77 11 00,,Austria
+MA,Embassy Address,"15, rue d’Alger, Rabat",,Portugal
+MA,Embassy Phone,+212 537 77 11 00,,Portugal
+MA,Embassy Address,"16, rue Ibn Toumert, Rabat",,United Arab Emirates
+MA,Embassy Phone,+212 537 77 11 00,,United Arab Emirates
+MA,Embassy Address,"17, rue d’Alger, Rabat",,Netherlands
+MA,Embassy Phone,+212 537 77 11 00,,Netherlands
+MA,Embassy Address,"18, rue Ibn Toumert, Rabat",,Croatia
+MA,Embassy Phone,+212 537 77 11 00,,Croatia
+MA,Embassy Address,"19, rue d’Alger, Rabat",,Switzerland
+MA,Embassy Phone,+212 537 77 11 00,,Switzerland
+MA,Embassy Address,"20, rue Ibn Toumert, Rabat",,Indonesia
+MA,Embassy Phone,+212 537 77 11 00,,Indonesia
+MA,Embassy Address,"21, rue d’Alger, Rabat",,Vietnam
+MA,Embassy Phone,+212 537 77 11 00,,Vietnam
+MA,Embassy Address,"22, rue Ibn Toumert, Rabat",,Australia
+MA,Embassy Phone,+212 537 77 11 00,,Australia
+MA,Embassy Address,"23, rue d’Alger, Rabat",,Malaysia
+MA,Embassy Phone,+212 537 77 11 00,,Malaysia
+MA,Embassy Address,"24, rue Ibn Toumert, Rabat",,South Korea
+MA,Embassy Phone,+212 537 77 11 00,,South Korea
+MA,Embassy Address,"25, rue d’Alger, Rabat",,India
+MA,Embassy Phone,+212 537 77 11 00,,India

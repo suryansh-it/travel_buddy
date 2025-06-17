@@ -29,9 +29,9 @@ class TravelApp(models.Model):
     description = models.TextField(blank=True, null=True)
     category = models.ForeignKey(AppCategory, on_delete=models.CASCADE, related_name="apps")
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="apps")
-    android_link = models.URLField(blank=True, null=True)
-    ios_link = models.URLField(blank=True, null=True)
-    website_link = models.URLField(blank=True, null=True)
+    android_link = models.URLField(max_length=500,blank=True, null=True)
+    ios_link = models.URLField(max_length=500,blank=True, null=True)
+    website_link = models.URLField(max_length=500,blank=True, null=True)
 
     #affiliate fields
     is_sponsored = models.BooleanField(default= False, help_text= "Show this app as sponsored")
