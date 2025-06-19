@@ -161,7 +161,7 @@ class DownloadAppListTextView(APIView):
         apps_data = TravelAppSerializer(apps_qs, many=True).data
 
         # 1) Load & embed TripBozo logo
-        logo_path = settings.BASE_DIR / "static" / "logo.png"
+        logo_path = settings.BASE_DIR / "static" / "logo1.png"
         try:
             with open(logo_path, "rb") as f:
                 logo_data = f.read()
