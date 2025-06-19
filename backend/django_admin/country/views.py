@@ -8,30 +8,30 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 from django.utils.decorators import method_decorator
 from django.core.cache import cache
+from .utils import safe_cache_get, safe_cache_set
 
-CACHE_TTL = 60 * 60  # 1h
+
+CACHE_TTL = 60*60  # 1h
 
 @api_view(["GET"])
 def country_page_view(request, country_code):
     key = f"country_page_{country_code.upper()}"
-    data = cache.get(key)
+    data = safe_cache_get(key)
     if data is None:
         country = get_object_or_404(Country, code=country_code.upper())
         data = CountrySerializer(country).data
-        # add your extra UI bits:
         data.update({
-            "search_filter": {
-                "search_placeholder": "Search for apps…",
-                "categories": [c["name"] for c in data["curated_app_categories"]],
-            },
-            "selected_apps_panel": {
-                "selected_apps": [],
-                "generate_qr_button": "Generate QR Code",
-            },
-            "add_to_list_url": "/api/personalized_list/personalized-list/",
+          "search_filter": {
+            "search_placeholder": "Search for apps…",
+            "categories": [c["name"] for c in data["curated_app_categories"]],
+          },
+          "selected_apps_panel": {
+            "selected_apps": [],
+            "generate_qr_button": "Generate QR Code",
+          },
+          "add_to_list_url": "/api/personalized_list/personalized-list/",
         })
-        cache.set(key, data, CACHE_TTL)
-
+        safe_cache_set(key, data, CACHE_TTL)
     return Response(data)
 
 # ✅ API to fetch all categories
@@ -45,31 +45,29 @@ class AppCategoryListView(generics.ListAPIView):
 
 class TravelAppListView(generics.ListAPIView):
     serializer_class = TravelAppSerializer
-    CACHE_TTL = 15 * 60  # 15m
+    CACHE_TTL = 15*60
 
     def list(self, request, *args, **kwargs):
-        country_code = self.kwargs["country_code"].upper()
-        key = f"country_apps_{country_code}"
-        apps_data = cache.get(key)
+        cc = self.kwargs["country_code"].upper()
+        key = f"country_apps_{cc}"
+        apps_data = safe_cache_get(key)
         if apps_data is None:
-            qs = TravelApp.objects.filter(country__code=country_code)
-            # optional category filter
+            qs = TravelApp.objects.filter(country__code=cc)
             cat = request.query_params.get("category")
             if cat:
                 qs = qs.filter(category__name__iexact=cat)
             qs = qs.order_by("-is_sponsored", "name")
             apps_data = TravelAppSerializer(qs, many=True).data
-            cache.set(key, apps_data, self.CACHE_TTL)
-
+            safe_cache_set(key, apps_data, self.CACHE_TTL)
         return Response(apps_data)
 
 
 @api_view(["GET"])
 def country_essentials_view(request, country_code):
     key = f"country_essentials_{country_code.upper()}"
-    essentials = cache.get(key)
-    if essentials is None:
+    essential = safe_cache_get(key)
+    if essential is None:
         country = get_object_or_404(Country, code=country_code.upper())
-        essentials = EssentialsSerializer(country).data
-        cache.set(key, essentials, 2 * 60 * 60)  # 2h
-    return Response(essentials)
+        essential = EssentialsSerializer(country).data
+        safe_cache_set(key, essential, 2*60*60)
+    return Response(essential)
