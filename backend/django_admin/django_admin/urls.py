@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from healthz.views import healthz
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('api/personalized-list/', include('personalized_list.urls')),
     path('api/auth/', include('auth_app.urls')),
     path('api/itinerary/', include('itinerary.urls')),
+    path("healthz/", healthz),
 ]
