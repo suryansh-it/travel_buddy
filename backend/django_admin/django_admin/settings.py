@@ -165,6 +165,15 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 # e.g. redis://:password@hostname:6379/1
 REDIS_URL_PERSONAL_LISTS = os.getenv("REDIS_URL_PER_LISTS") or REDIS_URL
 
+CACHES = {
+  "default": {
+    "BACKEND": "django_redis.cache.RedisCache",
+    "LOCATION": REDIS_URL,
+    "OPTIONS": {
+      "CLIENT_CLASS": "django_redis.client.DefaultClient",
+    }
+  }
+}
 
 
 # Celery Configuration
