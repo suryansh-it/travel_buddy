@@ -329,3 +329,16 @@ MA,Help!,A‘awn! (عون!),Emergency
 MA,Call the police,Itisil b-al-shurta (اتصل بالشرطة),Emergency
 MA,Call an ambulance,Itisil b-al-ism‘af (اتصل بالإسعاف),Emergency
 MA,Fire!,Nar! (نار),Emergency
+IN,Help!,Madad karo! (मदद करो!),Emergency
+IN,Call the police,Police ko bulao! (पुलिस को बुलाओ!),Emergency
+IN,Call an ambulance,Ambulance bulao! (एम्बुलेंस बुलाओ!),Emergency
+IN,Fire!,Aag lag gayi! (आग लग गई!),Emergency
+IN,I am injured,Main ghayal hoon (मैं घायल हूँ),Health
+IN,I am lost,Main kho gaya hoon (मैं खो गया हूँ),Safety
+IN,Do you speak English?,Kya aap angrezi bolte hain? (क्या आप अंग्रेज़ी बोलते हैं?),Language
+IN,My name is…,Mera naam … hai (मेरा नाम ... है),Personal
+IN,My address is…,Mera pata … hai (मेरा पता ... है),Personal
+IN,Please help me,Kripya meri madad kijiye (कृपया मेरी मदद कीजिए),Emergency
+IN,I am allergic to…,Mujhe … se allergy hai (मुझे ... से एलर्जी है),Health
+IN,I need a doctor,Mujhe doctor chahiye (मुझे डॉक्टर चाहिए),Health
+IN,It’s an emergency,Yeh emergency hai (यह इमरजेंसी है),Emergency

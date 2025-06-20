@@ -160,17 +160,32 @@ class DownloadAppListTextView(APIView):
         apps_qs = TravelApp.objects.filter(id__in=app_ids)
         apps_data = TravelAppSerializer(apps_qs, many=True).data
 
-        # 1) Load & embed TripBozo logo
+        # 1) Load & embed TripBozo logo (resized to smaller dimensions)
         logo_path = settings.BASE_DIR / "static" / "logo1.png"
         try:
-            with open(logo_path, "rb") as f:
-                logo_data = f.read()
+            from PIL import Image
+            import io
+            
+            # Open the image and resize it
+            with Image.open(logo_path) as img:
+                # Resize to a smaller size (e.g., 100px width while maintaining aspect ratio)
+                base_width = 100
+                w_percent = (base_width / float(img.size[0]))
+                h_size = int((float(img.size[1]) * float(w_percent)))
+                img = img.resize((base_width, h_size), Image.LANCZOS)
+                
+                # Save to bytes
+                img_bytes = io.BytesIO()
+                img.save(img_bytes, format='PNG', optimize=True, quality=85)
+                logo_data = img_bytes.getvalue()
+                
             logo_b64 = base64.b64encode(logo_data).decode()
             logo_src = f"data:image/png;base64,{logo_b64}"
-        except Exception:
+        except Exception as e:
+            print(f"Error processing logo: {e}")
             logo_src = ""  # or a tiny 1x1 transparent pixel data URI
 
-        # 2) build HTML
+        # 2) build HTML (updated logo height in CSS to match the smaller size)
         html_parts = ["""
 <!DOCTYPE html>
 <html lang="en">
@@ -183,8 +198,8 @@ class DownloadAppListTextView(APIView):
     .container { width:90%; max-width:600px; margin:2rem auto; padding:1rem; background:white;
                  border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
     header { text-align:center; margin-bottom:2rem; }
-    header img { height:50px; vertical-align:middle; }
-    header h1 { display:inline-block; margin:0 0 0 0.5rem; font-size:1.75rem; color:#2ad2c9; vertical-align:middle; }
+    header img { height:40px; vertical-align:middle; }  /* Reduced from 50px to 40px */
+    header h1 { display:inline-block; margin:0 0 0 0.5rem; font-size:1.5rem; color:#2ad2c9; vertical-align:middle; }  /* Reduced font size */
     .app-card { display:flex; align-items:center; justify-content:space-between;
                 padding:1rem 0; border-bottom:1px solid #eee; flex-wrap:wrap; }
     .app-card:last-child { border-bottom:none; }
@@ -212,6 +227,8 @@ class DownloadAppListTextView(APIView):
       <h1>Your App Bundle</h1>
     </header>
 """]
+
+        
 
         # 3) For each app, fetch & embed its icon
         for app in apps_data:

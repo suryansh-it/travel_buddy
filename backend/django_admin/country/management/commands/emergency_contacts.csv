@@ -136,3 +136,16 @@ EG,Fire Brigade,180,,Fire
 MA,Police,19,,Police
 MA,Ambulance,15,,Ambulance
 MA,Fire Brigade,15,,Fire
+IN,National Emergency Number,112,,General
+IN,Police (National),100 or '112,,Police
+IN,Ambulance,102 or '112,,Ambulance
+IN,Fire Brigade,101 or '112,,Fire
+IN,Disaster Management,108,,Disaster
+IN,Women Helpline,1091,,Women
+IN,Women Helpline (Abuse),181,,Women Abuse
+IN,Children in Difficult Situation,1098,,Child Helpline
+IN,Senior Citizen Helpline,14567,,Senior Citizen
+IN,Air Ambulance,9540161344,,Air Ambulance
+IN,Anti Poison (Delhi),1066 or '011-1066,,Poison
+IN,NDRF Headquarters,"011-24363260, '9711077372",,Disaster NDRF
+IN,Tourist Helpline,1363 or '1800111363,,Tourist
