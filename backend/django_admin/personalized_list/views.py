@@ -139,7 +139,10 @@ from .tasks import redis_client
 from django.conf import settings
 from country.models import TravelApp
 from .serializers import TravelAppSerializer
- 
+from django.contrib.staticfiles import finders
+
+
+
 class DownloadAppListTextView(APIView):
     """
     API to download the selected app list as a single self‑contained HTML page
@@ -161,7 +164,7 @@ class DownloadAppListTextView(APIView):
         apps_data = TravelAppSerializer(apps_qs, many=True).data
 
         # 1) Load & embed TripBozo logo (resized to smaller dimensions)
-        logo_path = settings.BASE_DIR / "static" / "logo1.png"
+        logo_path = finders.find("logo1.png")
         try:
             from PIL import Image
             import io
@@ -252,7 +255,10 @@ class DownloadAppListTextView(APIView):
 
             android = app.get("android_link","")
             ios     = app.get("ios_link","")
-            category= app.get("category","Uncategorized").title()
+
+            # fetching from dict
+            category = app.get("category", {}).get("name", "Uncategorized") 
+
 
             html_parts.append(f"""
     <div class="app-card">
@@ -289,29 +295,28 @@ class DownloadQRCodeView(APIView):
     """
 
     def get(self, request, session_id):
-        """
-        Serve the QR code as a downloadable image.
-        """
         selected_apps_json = redis_client.get(session_id)
 
         if not selected_apps_json:
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
-    
-         # Just generate QR code from session_id
-        qr_data = {"session_id": session_id}
-        qr_base64 = generate_qr_code(qr_data)  # Regenerate the QR code
+        # ✅ Match the same logic as GenerateQRCodeView
+        base_url = settings.FRONTEND_URL
+        shareable_url = f"{base_url}/bundle-redirect/{session_id}"
 
-
-        # Convert Base64 to an image
+        # ✅ Generate QR Code from shareable URL
+        qr_base64 = generate_qr_code([shareable_url])
+        
+        # Convert Base64 to image
         qr_image_data = base64.b64decode(qr_base64)
         image = Image.open(io.BytesIO(qr_image_data))
 
-        # Serve as a downloadable PNG file
+        # Serve as downloadable file
         response = HttpResponse(content_type="image/png")
         response["Content-Disposition"] = f'attachment; filename="qr_code_{session_id}.png"'
         image.save(response, "PNG")
         return response
+
     
 
 
