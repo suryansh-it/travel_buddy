@@ -256,8 +256,8 @@ class DownloadAppListTextView(APIView):
             android = app.get("android_link","")
             ios     = app.get("ios_link","")
 
-            # fetching from dict
-            category = app.get("category", {}).get("name", "Uncategorized") 
+            category = app.get("category", "Uncategorized")
+
 
 
             html_parts.append(f"""
