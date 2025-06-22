@@ -25,12 +25,13 @@ def get_bundle_urls(request, session_id):
         return Response({'items': []}, status=status.HTTP_404_NOT_FOUND)
 
     apps = json.loads(data)
-    # now return list of {name, url}
     items = []
     for a in apps:
-        url = a.get('android_link') or a.get('ios_link')
-        if url:
-            items.append({'name': a.get('name', 'App'), 'url': url})
+        items.append({
+            'name': a.get('name', 'App'),
+            'android_link': a.get('android_link', None),
+            'ios_link':     a.get('ios_link',     None),
+        })
     return Response({'items': items})
 
 
@@ -164,7 +165,7 @@ class DownloadAppListTextView(APIView):
         apps_data = TravelAppSerializer(apps_qs, many=True).data
 
         # 1) Load & embed TripBozo logo (resized to smaller dimensions)
-        logo_path = finders.find("logo1.png")
+        logo_path = finders.find("personalized_list/logo1.png")
         try:
             from PIL import Image
             import io
@@ -226,7 +227,7 @@ class DownloadAppListTextView(APIView):
 <body>
   <div class="container">
     <header>
-      <img src="""" + logo_src + """"" alt="TripBozo Logo">
+      <img src="""" + logo_src + """"" alt="tripbozo">
       <h1>Your App Bundle</h1>
     </header>
 """]
