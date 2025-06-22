@@ -1,10 +1,17 @@
-from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
-from .views import RegisterView, LoginView, LogoutView
+# auth_app/urls.py
+
+from django.urls import path, include
+from .views import GoogleLogin, FacebookLogin
 
 urlpatterns = [
-    path("register/", RegisterView.as_view(), name="register"),
-    path("login/", LoginView.as_view(), name="login"),
-    path("logout/", LogoutView.as_view(), name="logout"),
-    path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    # username/password login, logout, password reset, etc.
+    path("", include("dj_rest_auth.urls")),
+
+    # registration (sign-up) + email verification
+    path("registration/", include("dj_rest_auth.registration.urls")),
+
+  
+      # social-login endpoints
+    path("social/google/", GoogleLogin.as_view(), name="google_login"),
+    path("social/facebook/", FacebookLogin.as_view(), name="facebook_login"),
 ]
