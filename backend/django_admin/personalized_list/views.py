@@ -144,9 +144,22 @@ from django.contrib.staticfiles import finders
 
 
 
+import json, base64, requests
+from datetime import datetime
+from django.http import HttpResponse
+from django.conf import settings
+from django.contrib.staticfiles import finders
+from rest_framework import status
+from rest_framework.views import APIView
+from django.db import transaction
+from country.models import Country  # adjust your imports as needed
+from country.models import EmergencyContact, LocalPhrase, UsefulTip
+from personalized_list.models import TravelApp
+from personalized_list.serializers import TravelAppSerializer
+
 class DownloadAppListTextView(APIView):
     """
-    API to download the selected app list as a single self‑contained HTML page
+    API to download the selected app list as a single self-contained HTML page
     (all icons & logos embedded as data:URIs) so it works offline.
     """
     def get(self, request, session_id):
@@ -158,39 +171,15 @@ class DownloadAppListTextView(APIView):
                 content_type="text/html"
             )
 
-        # decode session
         selected_app_dicts = json.loads(selected_apps_json)
         app_ids = [app["id"] for app in selected_app_dicts]
         apps_qs = TravelApp.objects.filter(id__in=app_ids)
         apps_data = TravelAppSerializer(apps_qs, many=True).data
 
-        # 1) Load & embed TripBozo logo (resized to smaller dimensions)
-        logo_path = finders.find("personalized_list/logo1.png")
-        try:
-            from PIL import Image
-            import io
-            
-            # Open the image and resize it
-            with Image.open(logo_path) as img:
-                # Resize to a smaller size (e.g., 100px width while maintaining aspect ratio)
-                base_width = 100
-                w_percent = (base_width / float(img.size[0]))
-                h_size = int((float(img.size[1]) * float(w_percent)))
-                img = img.resize((base_width, h_size), Image.LANCZOS)
-                
-                # Save to bytes
-                img_bytes = io.BytesIO()
-                img.save(img_bytes, format='PNG', optimize=True, quality=85)
-                logo_data = img_bytes.getvalue()
-                
-            logo_b64 = base64.b64encode(logo_data).decode()
-            logo_src = f"data:image/png;base64,{logo_b64}"
-        except Exception as e:
-            print(f"Error processing logo: {e}")
-            logo_src = ""  # or a tiny 1x1 transparent pixel data URI
+        # — embed & resize logo omitted —
 
-        # 2) build HTML (updated logo height in CSS to match the smaller size)
-        html_parts = ["""
+        # Build HTML
+        html_parts = [f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,68 +187,54 @@ class DownloadAppListTextView(APIView):
   <title>Your Travel App Bundle • TripBozo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { margin:0; padding:0; font-family:sans-serif; background:#f7fafc; color:#333; }
-    .container { width:90%; max-width:600px; margin:2rem auto; padding:1rem; background:white;
-                 border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-    header { text-align:center; margin-bottom:2rem; }
-    header img { height:40px; vertical-align:middle; }  /* Reduced from 50px to 40px */
-    header h1 { display:inline-block; margin:0 0 0 0.5rem; font-size:1.5rem; color:#2ad2c9; vertical-align:middle; }  /* Reduced font size */
-    .app-card { display:flex; align-items:center; justify-content:space-between;
-                padding:1rem 0; border-bottom:1px solid #eee; flex-wrap:wrap; }
-    .app-card:last-child { border-bottom:none; }
-    .app-info { display:flex; align-items:center; gap:1rem; flex:1 1 auto; min-width:0; }
-    .app-info img { width:48px; height:48px; border-radius:8px; object-fit:cover; background:#e0e0e0; }
-    .app-details { display:flex; flex-direction:column; flex:1 1 auto; min-width:0; }
-    .app-name { margin:0; font-size:1.125rem; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .app-category { margin:0; font-size:0.875rem; color:#666; }
-    .app-buttons { display:flex; gap:0.5rem; flex-shrink:0; }
-    .app-buttons a { text-decoration:none; padding:0.5rem 1rem; border-radius:4px; font-size:0.875rem; color:white; white-space:nowrap; }
-    .android-btn { background:#3ddc84; }
-    .ios-btn     { background:#000; }
-    footer { text-align:center; margin-top:2rem; font-size:0.75rem; color:#999; }
-    @media (max-width:480px) {
-      .app-card { flex-direction:column; align-items:flex-start; }
-      .app-buttons { margin-top:0.75rem; width:100%; justify-content:flex-start; flex-wrap:wrap; }
-      .app-buttons a { flex:1 1 45%; text-align:center; }
-    }
+    body {{ margin:0; padding:0; font-family:sans-serif; background:#f7fafc; color:#333; }}
+    .container {{ width:90%; max-width:600px; margin:2rem auto; padding:1rem; background:white;
+                 border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }}
+    header {{ text-align:center; margin-bottom:2rem; }}
+    header h1 {{ font-size:1.5rem; color:#2ad2c9; margin:0; }} 
+    .app-card {{ display:flex; align-items:center; justify-content:space-between;
+                padding:1rem 0; border-bottom:1px solid #eee; flex-wrap:wrap; }}
+    .app-card:last-child {{ border-bottom:none; }}
+    .app-info {{ display:flex; align-items:center; gap:1rem; flex:1 1 auto; min-width:0; }}
+    .app-info img {{ width:48px; height:48px; border-radius:8px; object-fit:cover; background:#e0e0e0; }}
+    .app-details {{ display:flex; flex-direction:column; flex:1 1 auto; min-width:0; }}
+    .app-name {{ margin:0; font-size:1.125rem; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+    .app-buttons {{ display:flex; gap:0.5rem; flex-shrink:0; }}
+    .app-buttons a {{ text-decoration:none; padding:0.5rem 1rem; border-radius:4px; font-size:0.875rem; color:white; white-space:nowrap; }}
+    .android-btn {{ background:#3ddc84; }}
+    .ios-btn     {{ background:#000; }}
+    footer {{ text-align:center; margin-top:2rem; font-size:0.75rem; color:#999; }}
+    @media (max-width:480px) {{
+      .app-card {{ flex-direction:column; align-items:flex-start; }}
+      .app-buttons {{ margin-top:0.75rem; width:100%; justify-content:flex-start; flex-wrap:wrap; }}
+      .app-buttons a {{ flex:1 1 45%; text-align:center; }}
+    }}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <img src="""" + logo_src + """"" alt="tripbozo">
-      <h1>Your App Bundle</h1>
+      <h1>tripbozo</h1>
     </header>
 """]
 
-        
-
-        # 3) For each app, fetch & embed its icon
         for app in apps_data:
-            # fetch icon bytes & base64‐encode
-            icon_url = app.get("icon_url") or ""
+            # embed icon
             icon_data_uri = ""
-            if icon_url:
+            if app.get("icon_url"):
                 try:
-                    resp = requests.get(icon_url, timeout=3)
+                    resp = requests.get(app["icon_url"], timeout=3)
                     if resp.status_code == 200:
+                        mime = "png" if app["icon_url"].lower().endswith(".png") else "jpeg"
                         b64 = base64.b64encode(resp.content).decode()
-                        # guess mime from URL
-                        ext = icon_url.split(".")[-1].lower()
-                        mime = "png" if ext in ("png","PNG") else "jpeg"
                         icon_data_uri = f"data:image/{mime};base64,{b64}"
-                except Exception:
-                    icon_data_uri = ""
+                except:
+                    pass
             if not icon_data_uri:
-                # fallback tiny SVG blank
                 icon_data_uri = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0OScgaGVpZ2h0PSc0OSc+PC9zdmc+"
 
             android = app.get("android_link","")
             ios     = app.get("ios_link","")
-
-            category = app.get("category", "Uncategorized")
-
-
 
             html_parts.append(f"""
     <div class="app-card">
@@ -267,7 +242,6 @@ class DownloadAppListTextView(APIView):
         <img src="{icon_data_uri}" alt="{app['name']} icon">
         <div class="app-details">
           <p class="app-name">{app['name']}</p>
-          <p class="app-category">{category}</p>
         </div>
       </div>
       <div class="app-buttons">
@@ -277,7 +251,6 @@ class DownloadAppListTextView(APIView):
     </div>
 """)
 
-        # 4) close up
         year = datetime.now().year
         html_parts.append(f"""
     <footer>© {year} TripBozo — All rights reserved.</footer>
@@ -286,8 +259,7 @@ class DownloadAppListTextView(APIView):
 </html>
 """)
 
-        html = "".join(html_parts)
-        return HttpResponse(html, content_type="text/html")
+        return HttpResponse("".join(html_parts), content_type="text/html")
 
 
 class DownloadQRCodeView(APIView):
