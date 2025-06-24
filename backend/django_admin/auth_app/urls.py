@@ -1,7 +1,7 @@
 # auth_app/urls.py
 
 from django.urls import path, include
-from .views import GoogleLogin, FacebookLogin
+from .views import GoogleLogin, FacebookLogin,DeleteUserView
 from dj_rest_auth.views import UserDetailsView
 
 # SimpleJWT views
@@ -28,4 +28,6 @@ urlpatterns = [
     path("jwt/create/",  TokenObtainPairView.as_view(), name="jwt_create"),
     path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt_refresh"),
     path("jwt/verify/",  TokenVerifyView.as_view(),  name="jwt_verify"),
+
+     path("user/delete/", DeleteUserView.as_view(), name="account_delete"),
 ]

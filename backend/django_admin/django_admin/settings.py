@@ -81,6 +81,7 @@ ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
+# ACCOUNT_UNIQUE_USERNAME = True
 
 
 # dj-rest-auth will use ALLAUTH settings for password reset e-mails, etc.
