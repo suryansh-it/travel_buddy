@@ -30,12 +30,12 @@ IT,European Emergency Number,112,,General
 IT,Roadside Assistance (ACI),803116,,General
 IT,Sea Rescue,1530,,General
 ES,"All Emergencies (Police, Fire, Ambulance)",112,,General
-ES,National Police,091,,Police
-ES,Local Police,092,,Police
-ES,Ambulance,061,,Ambulance
-ES,Fire Brigade,080,,Fire
-ES,Road Emergencies,011,,Road
-ES,Gender Violence Helpline,016,,Gender Violence
+ES,National Police,91,,Police
+ES,Local Police,92,,Police
+ES,Ambulance,61,,Ambulance
+ES,Fire Brigade,80,,Fire
+ES,Road Emergencies,11,,Road
+ES,Gender Violence Helpline,16,,Gender Violence
 DE,Police (National),110,,Police
 DE,Ambulance,112,,Ambulance
 DE,Fire Brigade,112,,Fire
@@ -46,7 +46,7 @@ MX,National Emergency Number,911,,General
 MX,Police (Direct),"911 (primary), '066 (alternate)",,Police
 MX,Ambulance (Red Cross),"911 (primary), '065 (direct Red Cross)",,Ambulance
 MX,Fire Brigade,"911 (primary), '068 (alternate)",,Fire
-MX,Civil Protection,089,,Civil Protection
+MX,Civil Protection,89,,Civil Protection
 GB,Police (National),999 / '112,,Police
 GB,Ambulance,999 / '112,,Ambulance
 GB,Fire Brigade,999 / '112,,Fire
@@ -105,10 +105,10 @@ VN,Ambulance,115,,Ambulance
 VN,Fire Brigade,114,,Fire
 VN,National Search & Rescue,112,,Search & Rescue
 VN,Child Protection Hotline,111,,Child Helpline
-AU,Main Emergency Number,000,,General
-AU,Police (National),000,,Police
-AU,Ambulance,000,,Ambulance
-AU,Fire Brigade,000,,Fire
+AU,Main Emergency Number,0,,General
+AU,Police (National),0,,Police
+AU,Ambulance,0,,Ambulance
+AU,Fire Brigade,0,,Fire
 AU,International Emergency,112,,Mobile
 AU,Text-based Relay Service,106,,TTY/Text
 AU,State Emergency Service (floods/storms),132500,,SES
@@ -149,3 +149,11 @@ IN,Air Ambulance,9540161344,,Air Ambulance
 IN,Anti Poison (Delhi),1066 or '011-1066,,Poison
 IN,NDRF Headquarters,"011-24363260, '9711077372",,Disaster NDRF
 IN,Tourist Helpline,1363 or '1800111363,,Tourist
+KR,Main Emergency Number,"119 (fire & ambulance), '112 (police)",,General
+KR,Police (National),112,,Police
+KR,Ambulance,119,,Ambulance
+KR,Fire Brigade,119,,Fire
+KR,Medical Emergencies,1339,,Medical Info
+KR,Tourist Information Hotline,1330,,Tourist Info
+KR,Immigration/Language Help,1345,,Foreign Language
+KR,Missing Persons & Property,182,,Missing Person

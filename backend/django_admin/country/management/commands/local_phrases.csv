@@ -342,3 +342,16 @@ IN,Please help me,Kripya meri madad kijiye (कृपया मेरी मद�
 IN,I am allergic to…,Mujhe … se allergy hai (मुझे ... से एलर्जी है),Health
 IN,I need a doctor,Mujhe doctor chahiye (मुझे डॉक्टर चाहिए),Health
 IN,It’s an emergency,Yeh emergency hai (यह इमरजेंसी है),Emergency
+KR,Help!,도와주세요! (Dowajuseyo!),Emergency
+KR,Call the police,경찰을 불러주세요! (Gyeongchareul bulleojuseyo!),Emergency
+KR,Call an ambulance,구급차를 불러주세요! (Gugeupchareul bulleojuseyo!),Emergency
+KR,Fire!,불이야! (Buliya!),Emergency
+KR,I am injured,다쳤어요 (Dachyeosseoyo),Health
+KR,I am lost,길을 잃었어요 (Gireul ilheosseoyo),Safety
+KR,Do you speak English?,영어 할 수 있어요? (Yeongeo hal su isseoyo?),Language
+KR,My name is…,제 이름은 … 입니다 (Je ireumeun … imnida),Personal
+KR,My address is…,제 주소는 … 입니다 (Je jusoneun … imnida),Personal
+KR,Please help me,제발 도와주세요 (Jebal dowajuseyo),Emergency
+KR,I am allergic to…,저는 …에 알레르기가 있어요 (Jeoneun …e allergiga isseoyo),Health
+KR,I need a doctor,의사가 필요해요 (Uisaga piryohaeyo),Health
+KR,It’s an emergency,긴급 상황이에요 (Gingeup sanghwang-ieyo),Emergency
