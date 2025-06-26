@@ -1,9 +1,6 @@
 
 # TripBozo Backend
 
-:::warning  
-This repo contains the server-side logic powering TripBozo’s recommendation engine, session management, and analytics APIs.  
-:::
 
 ## Overview
 
