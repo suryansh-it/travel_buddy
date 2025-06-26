@@ -1,5 +1,5 @@
 
-# TripBozo Backend
+# tripbozo Backend
 
 
 ## Overview
@@ -37,7 +37,7 @@ The TripBozo Backend is a Django + Django REST Framework application responsible
 | POST   | `/api/auth/login/`            | Obtain JWT tokens                   |
 | GET    | `/api/analytics/usage/`       | Fetch usage statistics              |
 
-Full documentation: [Swagger UI](http://localhost:8000/api/docs/)
+
 
 ---
 
