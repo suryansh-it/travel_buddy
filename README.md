@@ -1,5 +1,6 @@
 # TripBozo - Travel App Recommendation Platform
 
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
@@ -274,3 +275,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Made with ❤️ for travelers worldwide
+=======
+
