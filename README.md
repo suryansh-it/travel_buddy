@@ -259,6 +259,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👥 Team
 
 - **Suryansh** - Project Lead & Backend Developer
+- **Nikhil** - Frontend Developer
+- **Harsh** - Frontend Developer
+- **Ankit** - Backend Developer
 
 ## 🙏 Acknowledgments
 
