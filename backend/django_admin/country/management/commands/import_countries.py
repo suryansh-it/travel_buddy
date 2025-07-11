@@ -53,10 +53,10 @@ class Command(BaseCommand):
                         defaults={"code": code, "description": description}
                     )
                     if created:
-                        self.stdout.write(f"  ➕ Created: {name} ({code})")
+                        self.stdout.write(f"  ➕ Created: {name} ({code}) {description}")
                         total_created += 1
                     else:
-                        self.stdout.write(f"  🔄 Updated: {name} ({code})")
+                        self.stdout.write(f"  🔄 Updated: {name} ({code}) {description}")
                         total_updated += 1
                 except Exception as e:
                     self.stderr.write(f"❌ Error in row {idx + 2}: {e}")
