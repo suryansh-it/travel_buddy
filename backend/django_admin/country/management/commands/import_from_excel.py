@@ -15,7 +15,7 @@ from google_play_scraper import app as gp_app
 from country.models import Country, AppCategory, TravelApp
 
 # Path to your uploaded Excel file. Adjust as needed.
-EXCEL_PATH = os.path.join(settings.BASE_DIR, "country/management/commands/TRIPBOZO.xlsx")
+EXCEL_PATH = os.path.join(settings.BASE_DIR, "country/management/commands/TRIPBOZO1.xlsx")
 
 PLAY_COUNTRY = "us"
 APP_COUNTRY = "us"
