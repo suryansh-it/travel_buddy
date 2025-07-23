@@ -1,11 +1,11 @@
-# TripBozo - Travel App Recommendation Platform
+# tripbozo - Travel App Recommendation Platform
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 
-TripBozo is a comprehensive travel companion platform that provides curated app bundles for travelers based on their destination country. The platform consists of a robust Django backend API and a modern frontend interface.
+tripbozo is a comprehensive travel companion platform that provides curated app bundles for travelers based on their destination country. The platform consists of a robust Django backend API and a modern frontend interface.
 
 ## 🌟 Features
 
@@ -82,7 +82,7 @@ python manage.py runserver
 
 ### Frontend Setup
 
-The frontend repository is available at: [TripBozo Frontend](https://github.com/suryansh-it/tripbozofrontend)
+The frontend repository is available at: [tripbozo Frontend](https://github.com/suryansh-it/tripbozofrontend)
 
 ```bash
 # Clone frontend repository
@@ -253,7 +253,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌐 Related Projects
 
-- **Frontend**: [TripBozo Frontend](https://github.com/suryansh-it/tripbozofrontend)
+- **Frontend**: [tripbozo Frontend](https://github.com/suryansh-it/tripbozofrontend)
 - **Mobile App**: Coming soon...
 
 ## 👥 Team
