@@ -43,6 +43,14 @@ tripbozo is a comprehensive travel companion platform that provides curated app 
 | POST   | `/api/auth/login/`            | Obtain JWT tokens                   |
 | GET    | `/api/analytics/usage/`       | Fetch usage statistics              |
 
+
+##  Deployment/Tools
+- **Backend**: Render
+- **Frontend** : Vercel
+- **Database** : Aiven
+- **API** : Postman for API testing
+- **Monitoring** : Uptime Robot for Backend Monitoring 
+
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
