@@ -23,6 +23,7 @@ CACHE_TTL = 60 * 60  # 1h
 
 # Freshness windows
 TRAVEL_UPDATES_FRESH_TTL = 10 * 60          # 10 min fresh window
+TRAVEL_WEATHER_FRESH_TTL = 30 * 60         # 30 min fresh window
 TRAVELER_INSIGHTS_FRESH_TTL = 12 * 60 * 60 # 12h fresh window
 
 # Storage TTLs (keep stale payload available for quick responses)
@@ -38,6 +39,8 @@ REFRESH_LOCK_TTL = 120
 SOURCE_HOURLY_CAPS = {
     "google_news": 180,
     "eonet": 120,
+    "gov_state": 120,
+    "gov_cdc": 120,
     "google_play": 120,
     "apple_app_store": 120,
     "reddit": 120,
@@ -252,6 +255,115 @@ def _summarize_impact(items):
     }
 
 
+def _weather_code_info(code):
+    mapping = {
+        0: ("Clear sky", "☀️"),
+        1: ("Mostly clear", "🌤️"),
+        2: ("Partly cloudy", "⛅"),
+        3: ("Overcast", "☁️"),
+        45: ("Fog", "🌫️"),
+        48: ("Rime fog", "🌫️"),
+        51: ("Light drizzle", "🌦️"),
+        53: ("Drizzle", "🌦️"),
+        55: ("Heavy drizzle", "🌧️"),
+        56: ("Freezing drizzle", "🌧️"),
+        57: ("Freezing drizzle", "🌧️"),
+        61: ("Light rain", "🌧️"),
+        63: ("Rain", "🌧️"),
+        65: ("Heavy rain", "🌧️"),
+        66: ("Freezing rain", "🌧️"),
+        67: ("Freezing rain", "🌧️"),
+        71: ("Light snow", "🌨️"),
+        73: ("Snow", "🌨️"),
+        75: ("Heavy snow", "🌨️"),
+        77: ("Snow grains", "🌨️"),
+        80: ("Rain showers", "🌦️"),
+        81: ("Rain showers", "🌧️"),
+        82: ("Violent rain showers", "⛈️"),
+        85: ("Snow showers", "🌨️"),
+        86: ("Heavy snow showers", "🌨️"),
+        95: ("Thunderstorm", "⛈️"),
+        96: ("Thunderstorm with hail", "⛈️"),
+        99: ("Thunderstorm with hail", "⛈️"),
+    }
+    return mapping.get(int(code) if str(code).isdigit() else -1, ("Weather", "🌡️"))
+
+
+def _fetch_country_weather(country_name, country_code=None):
+    from urllib.request import Request, urlopen
+
+    country_payload = None
+    endpoints = []
+    if country_code:
+        endpoints.append(f"https://restcountries.com/v3.1/alpha/{quote(str(country_code))}")
+    endpoints.append(f"https://restcountries.com/v3.1/name/{quote(str(country_name))}?fullText=true")
+
+    for endpoint in endpoints:
+        try:
+            req = Request(endpoint, headers={"Accept": "application/json", "User-Agent": "TripBozo/1.0 (travel-updates)"})
+            with urlopen(req, timeout=8) as response:
+                payload = json.loads(response.read().decode("utf-8", errors="ignore"))
+            if isinstance(payload, list) and payload:
+                country_payload = payload[0]
+                break
+            if isinstance(payload, dict):
+                country_payload = payload
+                break
+        except Exception:
+            continue
+
+    if not isinstance(country_payload, dict):
+        return {}
+
+    capital = None
+    capital_list = country_payload.get("capital") or []
+    if isinstance(capital_list, list) and capital_list:
+        capital = str(capital_list[0]).strip()
+
+    latlng = country_payload.get("latlng") or []
+    if not capital or not isinstance(latlng, list) or len(latlng) < 2:
+        return {
+            "location": capital or str(country_name).strip(),
+            "temperature": None,
+            "condition": "Weather unavailable",
+            "emoji": "🌡️",
+            "source": "restcountries",
+        }
+
+    latitude, longitude = latlng[0], latlng[1]
+    weather_url = (
+        "https://api.open-meteo.com/v1/forecast?"
+        f"latitude={latitude}&longitude={longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto"
+    )
+
+    try:
+        req = Request(weather_url, headers={"Accept": "application/json", "User-Agent": "TripBozo/1.0 (travel-updates)"})
+        with urlopen(req, timeout=8) as response:
+            payload = json.loads(response.read().decode("utf-8", errors="ignore"))
+    except Exception:
+        return {
+            "location": capital,
+            "temperature": None,
+            "condition": "Weather unavailable",
+            "emoji": "🌡️",
+            "source": "open-meteo",
+        }
+
+    current = payload.get("current") or {}
+    temperature = current.get("temperature_2m")
+    weather_code = current.get("weather_code")
+    condition, emoji = _weather_code_info(weather_code)
+
+    return {
+        "location": capital,
+        "temperature": temperature,
+        "condition": condition,
+        "emoji": emoji,
+        "windSpeed": current.get("wind_speed_10m"),
+        "source": "open-meteo",
+    }
+
+
 def _phrase_pattern(phrase):
     parts = [re.escape(part) for part in str(phrase).strip().split() if part]
     if not parts:
@@ -327,9 +439,12 @@ def _query_country_updates(country_name, country_code=None, label="Travel news",
     if not _reserve_source_call(source_name):
         return []
 
-    keywords = keywords or []
-    query_terms = [f'"{country_name}"'] + list(keywords)
-    query = " ".join(query_terms)
+    keywords = [str(keyword).strip() for keyword in (keywords or []) if str(keyword).strip()]
+    if keywords:
+        keyword_group = " OR ".join([f'"{keyword}"' if " " in keyword else keyword for keyword in keywords])
+        query = f'"{country_name}" ({keyword_group})'
+    else:
+        query = f'"{country_name}"'
     rss_url = f"https://news.google.com/rss/search?q={quote(query)}&hl=en-US&gl=US&ceid=US:en"
     req = Request(rss_url, headers={"Accept": "application/rss+xml, application/xml, text/xml"})
 
@@ -377,6 +492,87 @@ def _query_country_updates(country_name, country_code=None, label="Travel news",
         )
         if len(items) >= 10:
             break
+
+    return items
+
+
+def _fetch_gov_advisories(country_name, country_code=None):
+    from urllib.request import Request, urlopen
+
+    country_terms = _country_terms_with_aliases(country_name, country_code)
+    travel_alert_regex = re.compile(
+        r"travel|advisory|alert|warning|security|health|outbreak|entry|visa|border|restriction|closure|evacuation",
+        re.IGNORECASE,
+    )
+
+    sources = [
+        {
+            "name": "gov_state",
+            "url": "https://travel.state.gov/_res/rss/TAsTWs.xml",
+            "source_label": "U.S. State Dept",
+        },
+        {
+            "name": "gov_cdc",
+            "url": "https://wwwnc.cdc.gov/travel/rss/notices",
+            "source_label": "CDC Travel Notices",
+        },
+    ]
+
+    items = []
+    for source in sources:
+        if not _reserve_source_call(source["name"]):
+            continue
+
+        try:
+            req = Request(
+                source["url"],
+                headers={
+                    "Accept": "application/rss+xml, application/xml, text/xml",
+                    "User-Agent": "TripBozo/1.0 (travel-updates)",
+                },
+            )
+            with urlopen(req, timeout=8) as response:
+                xml = response.read().decode("utf-8", errors="ignore")
+        except Exception:
+            continue
+
+        for match in re.finditer(r"<item>([\s\S]*?)</item>", xml):
+            chunk = match.group(1)
+            title = _extract_rss_tag(chunk, "title")
+            if not title:
+                continue
+            link = _extract_rss_tag(chunk, "link")
+            description = _extract_rss_tag(chunk, "description")
+            pub_date = _extract_rss_tag(chunk, "pubDate")
+
+            haystack = f"{title} {description}"
+            title_has_country = _text_contains_any(title, country_terms)
+            description_has_country = _text_contains_any(description, country_terms)
+            if not (title_has_country or description_has_country):
+                continue
+
+            relevance = 0
+            if title_has_country:
+                relevance += 5
+            if description_has_country:
+                relevance += 3
+            if travel_alert_regex.search(haystack):
+                relevance += 2
+
+            items.append(
+                {
+                    "title": title,
+                    "link": link,
+                    "description": description,
+                    "pubDate": pub_date,
+                    "badge": "Government advisory",
+                    "relevance": relevance,
+                    "source": source["source_label"],
+                }
+            )
+
+            if len(items) >= 12:
+                break
 
     return items
 
@@ -447,7 +643,7 @@ def _fetch_travel_updates(country_name, country_code=None):
             country_name,
             country_code,
             label="Weather / emergency",
-            keywords=["weather", "storm", "flood", "cyclone", "typhoon", "earthquake", "wildfire", "heatwave", "warning", "alert"],
+            keywords=["weather", "climate", "storm", "flood", "cyclone", "typhoon", "earthquake", "wildfire", "heatwave", "warning", "alert"],
             source_name="google_news",
         )
     )
@@ -462,8 +658,9 @@ def _fetch_travel_updates(country_name, country_code=None):
     )
 
     eonet_items = _fetch_eonet_updates(country_name, country_code)
+    gov_advisory_items = _fetch_gov_advisories(country_name, country_code)
 
-    items = _merge_update_items(google_news_items + eonet_items)
+    items = _merge_update_items(google_news_items + eonet_items + gov_advisory_items)
     items = sorted(items, key=lambda x: x.get("relevance", 0), reverse=True)
 
     for item in items:
@@ -793,9 +990,11 @@ def _fallback_insight(app):
 def refresh_country_travel_updates(country):
     """Refresh and cache travel updates payload for a country object."""
     updates = _fetch_travel_updates(country.name, country.code)
+    weather = _fetch_country_weather(country.name, country.code)
     payload = {
         "updates": updates,
         "signal": _summarize_impact(updates),
+        "weather": weather,
         "_meta": {"fetched_at": _now_ts()},
     }
     key = f"country_travel_updates_{country.code.upper()}"
@@ -853,6 +1052,7 @@ def country_travel_updates_view(request, country_code):
         {
             "updates": payload.get("updates", []) if isinstance(payload, dict) else [],
             "signal": payload.get("signal", _summarize_impact([])) if isinstance(payload, dict) else _summarize_impact([]),
+            "weather": payload.get("weather", {}) if isinstance(payload, dict) else {},
         }
     )
 
