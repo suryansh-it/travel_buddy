@@ -256,7 +256,8 @@ def _phrase_pattern(phrase):
     parts = [re.escape(part) for part in str(phrase).strip().split() if part]
     if not parts:
         return None
-    return rf"\b{'\\s+'.join(parts)}\b"
+    separator = r"\s+"
+    return rf"\b{separator.join(parts)}\b"
 
 
 def _country_focus_terms(country_name, country_code=None):
