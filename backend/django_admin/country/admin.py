@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Country, AppCategory, TravelApp, AppScreenshot, Review
+from .models import Country, AppCategory, TravelApp, AppScreenshot, Review, OriginCountryAssistance
 from django.urls import reverse
 
 @admin.register(Country)
@@ -44,3 +44,10 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('app', 'user_id', 'rating', 'created_at')
     search_fields = ('app__name', 'user_id')
     list_filter = ('rating', 'created_at')
+
+
+@admin.register(OriginCountryAssistance)
+class OriginCountryAssistanceAdmin(admin.ModelAdmin):
+    list_display = ('country', 'label', 'emergency_phone', 'website', 'source', 'fetched_at')
+    search_fields = ('country__code', 'country__name', 'label', 'source')
+    list_filter = ('source', 'fetched_at')

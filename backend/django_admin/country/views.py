@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
-from .models import AppCategory, TravelApp, Country, EmergencyContact
+from .models import AppCategory, TravelApp, Country, EmergencyContact, OriginCountryAssistance
 from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer, EssentialsSerializer
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
@@ -10,8 +10,10 @@ from django.utils.decorators import method_decorator
 from django.core.cache import cache
 from .utils import safe_cache_get, safe_cache_set
 from django.db.models import Prefetch
-from urllib.parse import quote, urlparse, parse_qs
+from urllib.parse import quote, urlparse, parse_qs, urlencode
 from collections import Counter
+from pathlib import Path
+import csv
 import re
 import json
 import time
@@ -196,13 +198,302 @@ class TravelAppListView(generics.ListAPIView):
 
 @api_view(["GET"])
 def country_essentials_view(request, country_code):
-    key = f"country_essentials_{country_code.upper()}"
+    country_code = country_code.upper()
+    origin_code = str(request.query_params.get("origin_country") or "").strip().upper()
+    key = f"country_essentials_{country_code}"
     essential = safe_cache_get(key)
     if essential is None:
-        country = get_object_or_404(Country, code=country_code.upper())
+        country = get_object_or_404(Country, code=country_code)
         essential = EssentialsSerializer(country).data
+        essential["embassy_contacts"] = _load_embassy_contacts(country_code)
         safe_cache_set(key, essential, 2*60*60)
-    return Response(essential)
+    elif "embassy_contacts" not in essential:
+        essential["embassy_contacts"] = _load_embassy_contacts(country_code)
+        safe_cache_set(key, essential, 2*60*60)
+
+    payload = dict(essential)
+    payload["origin_assistance"] = _get_or_fetch_origin_assistance(origin_code)
+    return Response(payload)
+
+
+ORIGIN_ASSISTANCE_SEED = {
+    "US": {
+        "label": "U.S. Department of State",
+        "emergency_phone": "+1-888-407-4747",
+        "emergency_phone_intl": "+1-202-501-4444",
+        "consular_address": "2201 C St NW, Washington, DC 20520, USA",
+        "website": "https://travel.state.gov/content/travel/en/international-travel/emergencies.html",
+        "mission_finder": "https://www.usembassy.gov/",
+        "source": "curated_seed",
+    },
+    "IN": {
+        "label": "India Ministry of External Affairs",
+        "emergency_phone": "+91-11-23012113",
+        "emergency_phone_intl": "",
+        "consular_address": "South Block, Raisina Hill, New Delhi 110011, India",
+        "website": "https://www.mea.gov.in/consular-services.htm",
+        "mission_finder": "https://www.mea.gov.in/indian-missions-abroad-new.htm",
+        "source": "curated_seed",
+    },
+    "GB": {
+        "label": "UK Foreign, Commonwealth & Development Office",
+        "emergency_phone": "+44-20-7008-5000",
+        "emergency_phone_intl": "",
+        "consular_address": "King Charles St, London SW1A 2AH, United Kingdom",
+        "website": "https://www.gov.uk/guidance/get-help-if-youre-abroad",
+        "mission_finder": "https://www.gov.uk/world/embassies",
+        "source": "curated_seed",
+    },
+    "AU": {
+        "label": "Australian Consular Services",
+        "emergency_phone": "+61-2-6261-3305",
+        "emergency_phone_intl": "",
+        "consular_address": "R.G. Casey Building, John McEwen Cres, Barton ACT 0221, Australia",
+        "website": "https://www.smartraveller.gov.au/consular-services",
+        "mission_finder": "https://www.smartraveller.gov.au/consular-services/where-get-consular-assistance",
+        "source": "curated_seed",
+    },
+    "CA": {
+        "label": "Global Affairs Canada",
+        "emergency_phone": "+1-613-996-8885",
+        "emergency_phone_intl": "",
+        "consular_address": "125 Sussex Dr, Ottawa, ON K1A 0G2, Canada",
+        "website": "https://travel.gc.ca/assistance/emergency-assistance",
+        "mission_finder": "https://travel.gc.ca/assistance/embassies-consulates",
+        "source": "curated_seed",
+    },
+}
+
+
+def _serialize_origin_assistance(profile):
+    if not profile:
+        return None
+    return {
+        "label": profile.label,
+        "emergency_phone": profile.emergency_phone,
+        "emergency_phone_intl": profile.emergency_phone_intl,
+        "consular_address": profile.consular_address,
+        "website": profile.website,
+        "mission_finder": profile.mission_finder,
+        "source": profile.source,
+    }
+
+
+def _fetch_origin_assistance_from_wikidata(country_code):
+    from urllib.request import Request, urlopen
+
+    query = f'''
+    SELECT ?countryLabel ?ministryLabel ?website ?phone ?hqLabel WHERE {{
+      ?country wdt:P297 "{country_code}".
+      OPTIONAL {{ ?ministry wdt:P31/wdt:P279* wd:Q83307; wdt:P17 ?country. }}
+      OPTIONAL {{ ?ministry wdt:P856 ?website. }}
+      OPTIONAL {{ ?ministry wdt:P1329 ?phone. }}
+      OPTIONAL {{ ?ministry wdt:P159 ?hq. }}
+      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
+    }}
+    LIMIT 3
+    '''
+
+    endpoint = f"https://query.wikidata.org/sparql?format=json&query={quote(query)}"
+    req = Request(endpoint, headers={"Accept": "application/sparql-results+json", "User-Agent": "TripBozo/1.0 (origin-assistance)"})
+
+    with urlopen(req, timeout=10) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+
+    bindings = payload.get("results", {}).get("bindings", [])
+    if not bindings:
+        return None
+
+    row = bindings[0]
+    label = row.get("ministryLabel", {}).get("value") or row.get("countryLabel", {}).get("value") or f"{country_code} Foreign Affairs"
+    website = row.get("website", {}).get("value", "")
+    phone = row.get("phone", {}).get("value", "")
+    hq = row.get("hqLabel", {}).get("value", "")
+
+    if not any([label, website, phone, hq]):
+        return None
+
+    return {
+        "label": label,
+        "emergency_phone": phone,
+        "emergency_phone_intl": "",
+        "consular_address": hq,
+        "website": website,
+        "mission_finder": "",
+        "source": "wikidata",
+    }
+
+
+def _fetch_origin_assistance_from_nominatim(country_name):
+    """Fallback source using OSM Nominatim POI metadata for foreign affairs offices."""
+    from urllib.request import Request, urlopen
+
+    if not country_name:
+        return None
+
+    params = urlencode(
+        {
+            "q": f"Ministry of Foreign Affairs {country_name}",
+            "format": "jsonv2",
+            "limit": 5,
+            "addressdetails": 1,
+            "extratags": 1,
+            "namedetails": 1,
+        }
+    )
+    endpoint = f"https://nominatim.openstreetmap.org/search?{params}"
+    req = Request(
+        endpoint,
+        headers={
+            "Accept": "application/json",
+            "User-Agent": "TripBozo/1.0 (origin-assistance)",
+        },
+    )
+
+    with urlopen(req, timeout=12) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+
+    if not isinstance(payload, list) or not payload:
+        return None
+
+    country_key = re.sub(r"[^a-z]", "", country_name.lower())
+    best = None
+    best_score = -1
+
+    for item in payload:
+        display_name = str(item.get("display_name") or "")
+        lowered = display_name.lower()
+        extratags = item.get("extratags") or {}
+        website = str(extratags.get("website") or extratags.get("contact:website") or "").strip()
+        phone = str(extratags.get("phone") or extratags.get("contact:phone") or "").strip()
+        name = str((item.get("namedetails") or {}).get("name") or item.get("name") or "").strip()
+
+        score = 0
+        if re.search(r"foreign|external|diplomat|consular|embassy", lowered):
+            score += 3
+        if country_key and country_key in re.sub(r"[^a-z]", "", lowered):
+            score += 2
+        if website:
+            score += 2
+        if phone:
+            score += 1
+
+        if score > best_score:
+            best_score = score
+            best = {
+                "label": name or f"{country_name} Foreign Affairs",
+                "emergency_phone": phone,
+                "emergency_phone_intl": "",
+                "consular_address": display_name,
+                "website": website,
+                "mission_finder": website,
+                "source": "osm_nominatim",
+            }
+
+    if not best:
+        return None
+
+    if not any([best.get("label"), best.get("website"), best.get("emergency_phone"), best.get("consular_address")]):
+        return None
+    return best
+
+
+def _get_or_fetch_origin_assistance(origin_code):
+    if not origin_code:
+        return None
+
+    country = Country.objects.filter(code=origin_code).first()
+    if not country:
+        return None
+
+    existing = OriginCountryAssistance.objects.filter(country=country).first()
+    if existing:
+        return _serialize_origin_assistance(existing)
+
+    fetched = ORIGIN_ASSISTANCE_SEED.get(origin_code)
+    if fetched is None:
+        try:
+            fetched = _fetch_origin_assistance_from_wikidata(origin_code)
+        except Exception:
+            fetched = None
+
+    # Second web fallback: OSM Nominatim, useful when Wikidata is sparse.
+    if fetched is None:
+        try:
+            fetched = _fetch_origin_assistance_from_nominatim(country.name)
+        except Exception:
+            fetched = None
+
+    if not fetched:
+        return None
+
+    profile = OriginCountryAssistance.objects.create(
+        country=country,
+        label=fetched.get("label") or f"{country.name} Foreign Affairs",
+        emergency_phone=fetched.get("emergency_phone") or "",
+        emergency_phone_intl=fetched.get("emergency_phone_intl") or "",
+        consular_address=fetched.get("consular_address") or "",
+        website=fetched.get("website") or "",
+        mission_finder=fetched.get("mission_finder") or "",
+        source=fetched.get("source") or "",
+    )
+    return _serialize_origin_assistance(profile)
+
+
+def _load_embassy_contacts(country_code):
+    """Load and normalize embassy address/phone pairs for a destination country."""
+    csv_path = Path(__file__).resolve().parent / "management" / "commands" / "embassy_contacts.csv"
+    if not csv_path.exists():
+        return []
+
+    grouped = {}
+    try:
+        with open(csv_path, "r", encoding="utf-8-sig", newline="") as handle:
+            reader = csv.DictReader(handle)
+            for row in reader:
+                row_country = str(row.get("country_code") or "").strip().upper()
+                if row_country != country_code:
+                    continue
+
+                raw_name = str(row.get("name") or "").strip()
+                raw_value = str(row.get("phone") or "").strip()
+                origin_country = str(row.get("description") or "").strip()
+                if not (raw_name and raw_value):
+                    continue
+
+                kind = ""
+                if raw_name.lower().endswith(" address"):
+                    kind = "address"
+                elif raw_name.lower().endswith(" phone"):
+                    kind = "phone"
+
+                base_name = re.sub(r"\s+(Address|Phone)$", "", raw_name, flags=re.IGNORECASE).strip()
+                key = f"{origin_country.lower()}::{base_name.lower()}"
+                entry = grouped.setdefault(
+                    key,
+                    {
+                        "name": base_name or raw_name,
+                        "origin_country": origin_country,
+                        "address": "",
+                        "phone": "",
+                    },
+                )
+
+                if kind == "address":
+                    entry["address"] = raw_value
+                elif kind == "phone":
+                    entry["phone"] = raw_value
+                else:
+                    # Fallback if the row label format changes.
+                    if not entry["phone"]:
+                        entry["phone"] = raw_value
+
+    except Exception:
+        return []
+
+    contacts = list(grouped.values())
+    contacts.sort(key=lambda item: (item.get("origin_country") or "", item.get("name") or ""))
+    return contacts
 
 
 def _strip_xml_text(value=""):

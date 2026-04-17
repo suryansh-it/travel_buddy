@@ -113,3 +113,19 @@ class UsefulTip(models.Model):
 
     def __str__(self):
         return f"{self.country.code} tip"
+
+
+class OriginCountryAssistance(models.Model):
+    """Persistent assistance profile for a traveler's origin country."""
+    country = models.OneToOneField(Country, on_delete=models.CASCADE, related_name="origin_assistance_profile")
+    label = models.CharField(max_length=255)
+    emergency_phone = models.CharField(max_length=80, blank=True, default="")
+    emergency_phone_intl = models.CharField(max_length=80, blank=True, default="")
+    consular_address = models.CharField(max_length=400, blank=True, default="")
+    website = models.URLField(max_length=500, blank=True, default="")
+    mission_finder = models.URLField(max_length=500, blank=True, default="")
+    source = models.CharField(max_length=80, blank=True, default="")
+    fetched_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.country.code} assistance"
