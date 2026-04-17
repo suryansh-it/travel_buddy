@@ -1,0 +1,109 @@
+<!-- templates/bundle_auto_redirect.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Your Travel App Bundle</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        button {
+            background: #2ad2c9;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            margin: 1rem 0;
+            font-size: 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 2rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        a.fallback {
+            display: inline-block;
+            margin: 0.25rem;
+            padding: 0.5rem 1rem;
+            background: #eee;
+            color: #333;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Your Travel App Bundle</h1>
+    <p id="status">Tap the button below to open all app store links:</p>
+
+    <!-- This button will open every URL in a new tab/window -->
+    <button id="openAllBtn" disabled>Loading…</button>
+
+    <noscript>
+        <p>Please enable JavaScript to open your apps.</p>
+    </noscript>
+
+    <!-- Fallback list of individual links -->
+    <h2>Or click each link manually:</h2>
+    <ul id="fallbackLinks"></ul>
+
+    <script>
+        // Parse the JSON array of URLs that Django passed under "urls"
+        const urls = JSON.parse('{{ urls|escapejs }}');
+
+        const btn = document.getElementById('openAllBtn');
+        const status = document.getElementById('status');
+        const list = document.getElementById('fallbackLinks');
+
+        function openAllApps() {
+            // Open each link in its own tab/window
+            urls.forEach(u => window.open(u, '_blank'));
+        }
+
+        // Once the DOM is ready:
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!urls || !urls.length) {
+                status.innerText = '❌ No apps found in your bundle.';
+                btn.disabled = true;
+                return;
+            }
+
+            // Enable the button and wire up the click handler
+            btn.innerText = `Open All ${urls.length} Apps`;
+            btn.disabled = false;
+            btn.addEventListener('click', openAllApps);
+
+            // Populate fallback manual links
+            urls.forEach(u => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = u;
+                a.target = '_blank';
+                a.innerText = u;
+                a.className = 'fallback';
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+        });
+    </script>
+</body>
+
+</html>

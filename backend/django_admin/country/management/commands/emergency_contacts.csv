@@ -1,0 +1,159 @@
+country_code,name,phone,email,description
+FR,Police (National),17,,Police
+FR,Ambulance (SAMU),15,,Ambulance
+FR,Fire Brigade,18,,Fire
+FR,European Emergency Number,112,,General
+FR,Emergency SMS (deaf/hard of hearing),114,,General
+JP,Police (National),110,,Police
+JP,Ambulance,119,,Ambulance
+JP,Fire Brigade,119,,Fire
+JP,Coast Guard,118,,General
+JP,Non-urgent Medical,#7119,,General
+JP,Disaster Safety Confirmation,171,,General
+TH,Police (National),191,,Police
+TH,Ambulance (Public),1669,,Ambulance
+TH,Ambulance & Rescue,1554,,Ambulance
+TH,Fire Brigade,199,,Fire
+TH,Tourist Police,1155,,Police
+TH,Highway Police,1193,,Police
+TH,National Disaster Warning Center,1860,,General
+US,Police (National),911,,Police
+US,Ambulance,911,,Ambulance
+US,Fire Brigade,911,,Fire
+US,Poison Control Center,1-800-222-1222,,General
+US,Non-Emergency Municipal Services,311,,General
+IT,Police (National - Polizia),113,,Police
+IT,Police (Carabinieri),112,,Police
+IT,Ambulance (Emergenza Sanitaria),118,,Ambulance
+IT,Fire Brigade (Vigili del Fuoco),115,,Fire
+IT,European Emergency Number,112,,General
+IT,Roadside Assistance (ACI),803116,,General
+IT,Sea Rescue,1530,,General
+ES,"All Emergencies (Police, Fire, Ambulance)",112,,General
+ES,National Police,91,,Police
+ES,Local Police,92,,Police
+ES,Ambulance,61,,Ambulance
+ES,Fire Brigade,80,,Fire
+ES,Road Emergencies,11,,Road
+ES,Gender Violence Helpline,16,,Gender Violence
+DE,Police (National),110,,Police
+DE,Ambulance,112,,Ambulance
+DE,Fire Brigade,112,,Fire
+DE,Medical Emergency Service,116117,,Medical
+DE,Dental Emergency Service,+49 1805 05 05 18,,Dental
+DE,Poison Control Center,+49 551 19240,,Poison Control
+MX,National Emergency Number,911,,General
+MX,Police (Direct),"911 (primary), '066 (alternate)",,Police
+MX,Ambulance (Red Cross),"911 (primary), '065 (direct Red Cross)",,Ambulance
+MX,Fire Brigade,"911 (primary), '068 (alternate)",,Fire
+MX,Civil Protection,89,,Civil Protection
+GB,Police (National),999 / '112,,Police
+GB,Ambulance,999 / '112,,Ambulance
+GB,Fire Brigade,999 / '112,,Fire
+GB,Police (Non-Emergency),101,,Non-Emergency
+GB,NHS Medical Advice,111,,Non-Emergency
+GR,European Emergency Number,112,,General
+GR,Police (National),100,,Police
+GR,Ambulance (EKAB),166,,Ambulance
+GR,Fire Brigade,199,,Fire
+GR,Coast Guard,108,,Coast Guard
+GR,Tourist Police,171,,Tourist Police
+GR,National Child Protection Helpline,1056,,Child Helpline
+GR,European Helpline for Children,116111,,Child Helpline
+GR,European Hotline for Missing Children,116000,,Child Helpline
+CN,General Emergency Number,"110 (police), '120 (ambulance), '119 (fire)",,General
+CN,Police (National),110,,Police
+CN,Ambulance,120,,Ambulance
+CN,Fire Brigade,119,,Fire
+CN,Traffic Accident,122,,Traffic
+CN,Maritime Rescue,12395,,Maritime
+AT,European Emergency Number,112,,General
+AT,Police (Federal),133,,Police
+AT,Ambulance,144,,Ambulance
+AT,Fire Brigade,122,,Fire
+PT,European Emergency Number,112,,General
+PT,Police (PSP),112,,Police
+PT,Ambulance,112,,Ambulance
+PT,Fire Brigade,112,,Fire
+AE,Police,999,,Police
+AE,Ambulance,998,,Ambulance
+AE,Fire Brigade,997,,Fire
+AE,Emergency Number,999,,General
+NL,European Emergency Number,112,,General
+NL,Police,112,,Police
+NL,Ambulance,112,,Ambulance
+NL,Fire Brigade,112,,Fire
+HR,European Emergency Number,112,,General
+HR,Police (National),192,,Police
+HR,Ambulance,194,,Ambulance
+HR,Fire Brigade,193,,Fire
+CH,European Emergency Number,112,,General
+CH,Police (National),117,,Police
+CH,Ambulance,144,,Ambulance
+CH,Fire Brigade,118,,Fire
+CH,Roadside Assistance,140,,Roadside
+ID,General Emergency Number,112,,General
+ID,Police (National),110,,Police
+ID,Fire Brigade,113,,Fire
+ID,Ambulance,118 or '119,,Ambulance
+ID,National Search and Rescue,115,,Search & Rescue
+ID,Natural Disaster Command,129,,Disaster
+ID,Disaster Mitigation Agency,117,,Disaster
+ID,Child Helpline,129,,Child Helpline
+VN,Police (National),113,,Police
+VN,Ambulance,115,,Ambulance
+VN,Fire Brigade,114,,Fire
+VN,National Search & Rescue,112,,Search & Rescue
+VN,Child Protection Hotline,111,,Child Helpline
+AU,Main Emergency Number,0,,General
+AU,Police (National),0,,Police
+AU,Ambulance,0,,Ambulance
+AU,Fire Brigade,0,,Fire
+AU,International Emergency,112,,Mobile
+AU,Text-based Relay Service,106,,TTY/Text
+AU,State Emergency Service (floods/storms),132500,,SES
+AU,Police Attendance,131444,,Police Non-Emergency
+MY,Malaysia Emergency Number (MERS 999),999,,General
+MY,Police (MERS 999),999 (from mobile: '112),,Police
+MY,Ambulance (MERS 999),999 (from mobile: '112),,Ambulance
+MY,Fire Brigade (Bomba),994 (from mobile: '112),,Fire
+MY,Civil Defence (24h Hotline),+603 2687 1300,,Civil Defence
+MY,Tourist Police Hotline,+603 2149 6590,,Tourist Police
+SA,Police,999,,Police
+SA,Ambulance,997,,Ambulance
+SA,Fire Brigade (Civil Defense),998,,Fire
+SA,Unified Emergency Number,112,,General
+SA,Traffic Police,993,,Traffic Police
+CA,Police,911,,Police
+CA,Ambulance,911,,Ambulance
+CA,Fire Brigade,911,,Fire
+BR,Police,190,,Police
+BR,Ambulance,192,,Ambulance
+BR,Fire Brigade,193,,Fire
+EG,Police,122,,Police
+EG,Ambulance,123,,Ambulance
+EG,Fire Brigade,180,,Fire
+MA,Police,19,,Police
+MA,Ambulance,15,,Ambulance
+MA,Fire Brigade,15,,Fire
+IN,National Emergency Number,112,,General
+IN,Police (National),100 or '112,,Police
+IN,Ambulance,102 or '112,,Ambulance
+IN,Fire Brigade,101 or '112,,Fire
+IN,Disaster Management,108,,Disaster
+IN,Women Helpline,1091,,Women
+IN,Women Helpline (Abuse),181,,Women Abuse
+IN,Children in Difficult Situation,1098,,Child Helpline
+IN,Senior Citizen Helpline,14567,,Senior Citizen
+IN,Air Ambulance,9540161344,,Air Ambulance
+IN,Anti Poison (Delhi),1066 or '011-1066,,Poison
+IN,NDRF Headquarters,"011-24363260, '9711077372",,Disaster NDRF
+IN,Tourist Helpline,1363 or '1800111363,,Tourist
+KR,Main Emergency Number,"119 (fire & ambulance), '112 (police)",,General
+KR,Police (National),112,,Police
+KR,Ambulance,119,,Ambulance
+KR,Fire Brigade,119,,Fire
+KR,Medical Emergencies,1339,,Medical Info
+KR,Tourist Information Hotline,1330,,Tourist Info
+KR,Immigration/Language Help,1345,,Foreign Language
+KR,Missing Persons & Property,182,,Missing Person

@@ -1,0 +1,149 @@
+{# templates/bundle.html #}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Your Travel App Bundle • TripBozo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 1rem;
+            font-family: sans-serif;
+            background: #f7fafc;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .app-card {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .app-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .app-info img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #e0e0e0;
+        }
+
+        .app-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-name {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .app-category {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .app-buttons a {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: white;
+        }
+
+        .android-btn {
+            background: #3ddc84;
+        }
+
+        .ios-btn {
+            background: #000;
+        }
+
+        footer {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        @media(max-width:400px) {
+            .app-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .app-buttons {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="{{ logo_url }}" alt="TripBozo Logo" style="height:50px;vertical-align:middle;">
+            <h1 style="display:inline-block;margin:0 0 0 0.5rem;font-size:1.5rem;color:#2ad2c9;vertical-align:middle;">
+                Your App Bundle</h1>
+        </header>
+
+        {% for app in apps %}
+        <div class="app-card">
+            <div class="app-info">
+                <img src="{{ app.icon_url }}" alt="{{ app.name }} icon">
+                <div class="app-details">
+                    <p class="app-name">{{ app.name }}</p>
+                    <p class="app-category">{{ app.category|default:"Uncategorized" }}</p>
+                </div>
+            </div>
+            <div class="app-buttons">
+                {% if app.android_link %}
+                <a href="{{ app.android_link }}" class="android-btn" target="_blank">Android</a>
+                {% endif %}
+                {% if app.ios_link %}
+                <a href="{{ app.ios_link }}" class="ios-btn" target="_blank">iOS</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <footer>© {{ year }} TripBozo — All rights reserved.</footer>
+    </div>
+</body>
+
+</html>
