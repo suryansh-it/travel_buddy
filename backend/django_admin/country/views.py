@@ -37,6 +37,7 @@ REFRESH_LOCK_TTL = 120
 # Hard per-source hourly call caps (defensive limits for free sources)
 SOURCE_HOURLY_CAPS = {
     "google_news": 180,
+    "eonet": 120,
     "google_play": 120,
     "apple_app_store": 120,
     "reddit": 120,
@@ -251,20 +252,93 @@ def _summarize_impact(items):
     }
 
 
-def _fetch_travel_updates(country_name):
+def _phrase_pattern(phrase):
+    parts = [re.escape(part) for part in str(phrase).strip().split() if part]
+    if not parts:
+        return None
+    return rf"\b{'\\s+'.join(parts)}\b"
+
+
+def _country_focus_terms(country_name, country_code=None):
+    base_terms = [str(country_name).strip()]
+    alias_map = {
+        "united states": ["usa", "u.s.", "us", "america", "united states"],
+        "united kingdom": ["uk", "u.k.", "britain", "great britain", "united kingdom"],
+        "south korea": ["korea", "republic of korea", "south korea"],
+        "north korea": ["dprk", "north korea"],
+        "united arab emirates": ["uae", "u.a.e.", "emirates", "united arab emirates"],
+        "czech republic": ["czechia", "czech republic"],
+        "ivory coast": ["cote d'ivoire", "ivory coast"],
+    }
+
+    normalized = str(country_name).strip().lower()
+    for alias in alias_map.get(normalized, []):
+        if alias.lower() not in [term.lower() for term in base_terms]:
+            base_terms.append(alias)
+
+    if country_code:
+        code = str(country_code).strip().lower()
+        if code and code not in [term.lower() for term in base_terms]:
+            base_terms.append(code)
+
+    return base_terms
+
+
+def _text_contains_any(text, phrases):
+    haystack = str(text or "")
+    for phrase in phrases:
+        pattern = _phrase_pattern(phrase)
+        if pattern and re.search(pattern, haystack, re.IGNORECASE):
+            return True
+    return False
+
+
+def _normalize_update_key(item):
+    title = re.sub(r"\s+", " ", str(item.get("title", "")).strip()).lower()
+    link = re.sub(r"\s+", " ", str(item.get("link", "")).strip()).lower()
+    return f"{title}|{link}"
+
+
+def _merge_update_items(items):
+    merged = {}
+    for item in items:
+        if not item.get("title"):
+            continue
+        key = _normalize_update_key(item)
+        if key not in merged or int(item.get("relevance", 0)) > int(merged[key].get("relevance", 0)):
+            merged[key] = item
+    return list(merged.values())
+
+
+def _country_terms_with_aliases(country_name, country_code=None):
+    terms = _country_focus_terms(country_name, country_code)
+    expanded = list(terms)
+    for term in terms:
+        for part in str(term).replace("/", " ").replace("-", " ").split():
+            if len(part) > 2 and part.lower() not in [existing.lower() for existing in expanded]:
+                expanded.append(part)
+    return expanded
+
+
+def _query_country_updates(country_name, country_code=None, label="Travel news", keywords=None, source_name="google_news"):
     from urllib.request import Request, urlopen
 
-    if not _reserve_source_call("google_news"):
+    if not _reserve_source_call(source_name):
         return []
 
-    query = f'"{country_name}" travel tourism weather emergency storm festival advisory'
+    keywords = keywords or []
+    query_terms = [f'"{country_name}"'] + list(keywords)
+    query = " ".join(query_terms)
     rss_url = f"https://news.google.com/rss/search?q={quote(query)}&hl=en-US&gl=US&ceid=US:en"
-
     req = Request(rss_url, headers={"Accept": "application/rss+xml, application/xml, text/xml"})
-    with urlopen(req, timeout=8) as response:
-        xml = response.read().decode("utf-8", errors="ignore")
-    country_regex = re.compile(rf"\\b{re.escape(country_name)}\\b", re.IGNORECASE)
 
+    try:
+        with urlopen(req, timeout=8) as response:
+            xml = response.read().decode("utf-8", errors="ignore")
+    except Exception:
+        return []
+
+    country_terms = _country_terms_with_aliases(country_name, country_code)
     items = []
     for match in re.finditer(r"<item>([\s\S]*?)</item>", xml):
         chunk = match.group(1)
@@ -275,13 +349,18 @@ def _fetch_travel_updates(country_name):
         description = _extract_rss_tag(chunk, "description")
         pub_date = _extract_rss_tag(chunk, "pubDate")
         haystack = f"{title} {description}"
-        relevance = 0
 
-        if country_regex.search(haystack):
+        title_has_country = _text_contains_any(title, country_terms)
+        description_has_country = _text_contains_any(description, country_terms)
+        if not (title_has_country or description_has_country):
+            continue
+
+        relevance = 0
+        if title_has_country:
             relevance += 4
-        if country_regex.search(title):
+        if description_has_country:
             relevance += 2
-        if re.search(r"travel|tourism|tourist|airport|visa|flight|rail|weather|storm|festival|emergency|advisory", haystack, re.IGNORECASE):
+        if re.search(r"travel|tourism|tourist|airport|visa|flight|rail|weather|storm|festival|event|parade|holiday|emergency|advisory|alert|warning|caution|disruption|strike|closure|delay", haystack, re.IGNORECASE):
             relevance += 1
 
         items.append(
@@ -290,22 +369,106 @@ def _fetch_travel_updates(country_name):
                 "link": link,
                 "description": description,
                 "pubDate": pub_date,
-                "badge": _classify_update(title, description),
+                "badge": label,
                 "relevance": relevance,
+                "source": source_name,
+            }
+        )
+        if len(items) >= 10:
+            break
+
+    return items
+
+
+def _fetch_eonet_updates(country_name, country_code=None):
+    from urllib.request import Request, urlopen
+
+    if not _reserve_source_call("eonet"):
+        return []
+
+    endpoint = "https://eonet.gsfc.nasa.gov/api/v3/events?status=open&limit=50"
+    req = Request(endpoint, headers={"Accept": "application/json", "User-Agent": "TripBozo/1.0 (travel-updates)"})
+
+    try:
+        with urlopen(req, timeout=8) as response:
+            payload = json.loads(response.read().decode("utf-8", errors="ignore"))
+    except Exception:
+        return []
+
+    country_terms = _country_terms_with_aliases(country_name, country_code)
+    items = []
+    for event in payload.get("events", [])[:50]:
+        title = str(event.get("title") or "").strip()
+        description = str(event.get("description") or "").strip()
+        if not title and not description:
+            continue
+
+        haystack = f"{title} {description} {json.dumps(event.get('categories', []), ensure_ascii=False)}"
+        if not _text_contains_any(haystack, country_terms):
+            continue
+
+        categories = event.get("categories") or []
+        category_names = " ".join([str(cat.get("title") or cat.get("id") or "") for cat in categories])
+        badge = "Weather / emergency"
+        if re.search(r"fire|wildfire|volcano|earthquake|flood|storm|drought|landslide|cyclone|typhoon", f"{title} {description} {category_names}", re.IGNORECASE):
+            badge = "Weather / emergency"
+        elif re.search(r"ash|eruption|smoke|eruption", f"{title} {description} {category_names}", re.IGNORECASE):
+            badge = "Weather / emergency"
+
+        items.append(
+            {
+                "title": title,
+                "link": str(event.get("link") or "https://eonet.gsfc.nasa.gov/").strip(),
+                "description": description,
+                "pubDate": str(event.get("geometry", [{}])[0].get("date") or "").strip(),
+                "badge": badge,
+                "relevance": 5,
+                "source": "eonet",
             }
         )
 
-        if len(items) >= 16:
-            break
+    return items[:10]
 
-    items = sorted(items, key=lambda x: x["relevance"], reverse=True)
-    country_matched = [i for i in items if i["relevance"] >= 4]
-    final_items = (country_matched if country_matched else items)[:6]
 
-    for item in final_items:
+def _fetch_travel_updates(country_name, country_code=None):
+    google_news_items = []
+    google_news_items.extend(
+        _query_country_updates(
+            country_name,
+            country_code,
+            label="Travel news",
+            keywords=["travel", "tourism", "tourist", "airport", "visa", "flight", "rail", "advisory"],
+            source_name="google_news",
+        )
+    )
+    google_news_items.extend(
+        _query_country_updates(
+            country_name,
+            country_code,
+            label="Weather / emergency",
+            keywords=["weather", "storm", "flood", "cyclone", "typhoon", "earthquake", "wildfire", "heatwave", "warning", "alert"],
+            source_name="google_news",
+        )
+    )
+    google_news_items.extend(
+        _query_country_updates(
+            country_name,
+            country_code,
+            label="Festival / crowd",
+            keywords=["festival", "event", "parade", "holiday", "concert", "carnival", "fair", "tourist season"],
+            source_name="google_news",
+        )
+    )
+
+    eonet_items = _fetch_eonet_updates(country_name, country_code)
+
+    items = _merge_update_items(google_news_items + eonet_items)
+    items = sorted(items, key=lambda x: x.get("relevance", 0), reverse=True)
+
+    for item in items:
         item.pop("relevance", None)
 
-    return final_items
+    return items[:8]
 
 
 def _extract_android_app_id(url):
@@ -628,7 +791,7 @@ def _fallback_insight(app):
 
 def refresh_country_travel_updates(country):
     """Refresh and cache travel updates payload for a country object."""
-    updates = _fetch_travel_updates(country.name)
+    updates = _fetch_travel_updates(country.name, country.code)
     payload = {
         "updates": updates,
         "signal": _summarize_impact(updates),
