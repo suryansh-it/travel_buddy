@@ -289,6 +289,23 @@ def _weather_code_info(code):
     return mapping.get(int(code) if str(code).isdigit() else -1, ("Weather", "🌡️"))
 
 
+def _temperature_band_condition(temp_value):
+    try:
+        temp = float(temp_value)
+    except Exception:
+        return None
+
+    if temp >= 34:
+        return "Very hot conditions"
+    if temp >= 27:
+        return "Warm conditions"
+    if temp >= 18:
+        return "Mild conditions"
+    if temp >= 10:
+        return "Cool conditions"
+    return "Cold conditions"
+
+
 def _fetch_country_weather(country_name, country_code=None):
     from urllib.request import Request, urlopen
 
@@ -315,51 +332,83 @@ def _fetch_country_weather(country_name, country_code=None):
     if not isinstance(country_payload, dict):
         return {}
 
-    capital = None
-    capital_list = country_payload.get("capital") or []
-    if isinstance(capital_list, list) and capital_list:
-        capital = str(capital_list[0]).strip()
-
     latlng = country_payload.get("latlng") or []
-    if not capital or not isinstance(latlng, list) or len(latlng) < 2:
+    if not isinstance(latlng, list) or len(latlng) < 2:
         return {
-            "location": capital or str(country_name).strip(),
-            "temperature": None,
+            "location": str(country_name).strip(),
             "condition": "Weather unavailable",
+            "conditions": ["Weather unavailable"],
             "emoji": "🌡️",
             "source": "restcountries",
         }
 
     latitude, longitude = latlng[0], latlng[1]
-    weather_url = (
-        "https://api.open-meteo.com/v1/forecast?"
-        f"latitude={latitude}&longitude={longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto"
-    )
+    # Sample multiple points around the country's centroid to approximate country-wide conditions.
+    sample_points = [
+        (latitude, longitude),
+        (max(-60.0, min(75.0, latitude + 2.5)), longitude),
+        (max(-60.0, min(75.0, latitude - 2.5)), longitude),
+        (latitude, max(-179.0, min(179.0, longitude + 3.0))),
+        (latitude, max(-179.0, min(179.0, longitude - 3.0))),
+    ]
 
-    try:
-        req = Request(weather_url, headers={"Accept": "application/json", "User-Agent": "TripBozo/1.0 (travel-updates)"})
-        with urlopen(req, timeout=8) as response:
-            payload = json.loads(response.read().decode("utf-8", errors="ignore"))
-    except Exception:
-        return {
-            "location": capital,
-            "temperature": None,
-            "condition": "Weather unavailable",
-            "emoji": "🌡️",
-            "source": "open-meteo",
-        }
+    weather_conditions = []
+    climate_conditions = []
+    primary_condition = None
+    primary_emoji = "🌤️"
+    wind_speeds = []
 
-    current = payload.get("current") or {}
-    temperature = current.get("temperature_2m")
-    weather_code = current.get("weather_code")
-    condition, emoji = _weather_code_info(weather_code)
+    for idx, (sample_lat, sample_lon) in enumerate(sample_points):
+        weather_url = (
+            "https://api.open-meteo.com/v1/forecast?"
+            f"latitude={sample_lat}&longitude={sample_lon}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto"
+        )
+
+        try:
+            req = Request(weather_url, headers={"Accept": "application/json", "User-Agent": "TripBozo/1.0 (travel-updates)"})
+            with urlopen(req, timeout=8) as response:
+                payload = json.loads(response.read().decode("utf-8", errors="ignore"))
+        except Exception:
+            continue
+
+        current = payload.get("current") or {}
+        weather_code = current.get("weather_code")
+        weather_text, weather_emoji = _weather_code_info(weather_code)
+        if weather_text:
+            weather_conditions.append(weather_text)
+        climate_band = _temperature_band_condition(current.get("temperature_2m"))
+        if climate_band:
+            climate_conditions.append(climate_band)
+
+        wind_speed = current.get("wind_speed_10m")
+        if isinstance(wind_speed, (int, float)):
+            wind_speeds.append(wind_speed)
+
+        if idx == 0:
+            primary_condition = weather_text
+            primary_emoji = weather_emoji
+
+    ordered = []
+    seen = set()
+    for condition in weather_conditions + climate_conditions:
+        key = str(condition or "").strip().lower()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        ordered.append(str(condition).strip())
+
+    if not ordered:
+        ordered = ["Weather unavailable"]
+
+    if not primary_condition:
+        primary_condition = ordered[0]
 
     return {
-        "location": capital,
-        "temperature": temperature,
-        "condition": condition,
-        "emoji": emoji,
-        "windSpeed": current.get("wind_speed_10m"),
+        "location": str(country_name).strip(),
+        "condition": primary_condition,
+        "conditions": ordered[:6],
+        "emoji": primary_emoji,
+        "windSpeed": round(sum(wind_speeds) / len(wind_speeds), 1) if wind_speeds else None,
         "source": "open-meteo",
     }
 
@@ -412,13 +461,37 @@ def _normalize_update_key(item):
     return f"{title}|{link}"
 
 
+def _badge_priority(item):
+    badge = str(item.get("badge") or "").strip().lower()
+    priorities = {
+        "government advisory": 6,
+        "weather / emergency": 5,
+        "travel alert": 4,
+        "festival / crowd": 3,
+        "travel news": 2,
+    }
+    return priorities.get(badge, 1)
+
+
 def _merge_update_items(items):
     merged = {}
     for item in items:
         if not item.get("title"):
             continue
         key = _normalize_update_key(item)
-        if key not in merged or int(item.get("relevance", 0)) > int(merged[key].get("relevance", 0)):
+        if key not in merged:
+            merged[key] = item
+            continue
+
+        current = merged[key]
+        incoming_relevance = int(item.get("relevance", 0))
+        current_relevance = int(current.get("relevance", 0))
+        incoming_priority = _badge_priority(item)
+        current_priority = _badge_priority(current)
+
+        if incoming_relevance > current_relevance:
+            merged[key] = item
+        elif incoming_relevance == current_relevance and incoming_priority > current_priority:
             merged[key] = item
     return list(merged.values())
 
