@@ -1,7 +1,7 @@
 # auth_app/urls.py
 
 from django.urls import path, include
-from .views import GoogleLogin, FacebookLogin,DeleteUserView
+from .views import GoogleLogin, FacebookLogin, DeleteUserView, UserOriginCountryPreferenceView
 from dj_rest_auth.views import UserDetailsView
 
 # SimpleJWT views
@@ -30,4 +30,5 @@ urlpatterns = [
     path("jwt/verify/",  TokenVerifyView.as_view(),  name="jwt_verify"),
 
      path("user/delete/", DeleteUserView.as_view(), name="account_delete"),
+    path("user/origin-country/", UserOriginCountryPreferenceView.as_view(), name="user_origin_country"),
 ]
