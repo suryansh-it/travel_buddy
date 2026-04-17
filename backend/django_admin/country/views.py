@@ -212,7 +212,7 @@ def _strip_xml_text(value=""):
 
 
 def _extract_rss_tag(xml, tag):
-    match = re.search(rf"<{tag}>([\\s\\S]*?)</{tag}>", xml, re.IGNORECASE)
+    match = re.search(rf"<{tag}>([\s\S]*?)</{tag}>", xml, re.IGNORECASE)
     if not match:
         return ""
     value = match.group(1)
@@ -667,7 +667,14 @@ def country_travel_updates_view(request, country_code):
         except Exception:
             payload = {"updates": [], "signal": _summarize_impact([]), "_meta": {"fetched_at": 0}}
     else:
-        if not _is_fresh(payload, TRAVEL_UPDATES_FRESH_TTL):
+        has_updates = isinstance(payload, dict) and bool(payload.get("updates"))
+        if not has_updates:
+            country = get_object_or_404(Country, code=cc)
+            try:
+                payload = refresh_country_travel_updates(country)
+            except Exception:
+                pass
+        elif not _is_fresh(payload, TRAVEL_UPDATES_FRESH_TTL):
             country = get_object_or_404(Country, code=cc)
             lock_key = f"refresh_lock:travel_updates:{cc}"
             cooldown_key = f"refresh_cooldown:travel_updates:{cc}"
