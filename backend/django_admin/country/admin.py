@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Country, AppCategory, TravelApp, AppScreenshot, Review, OriginCountryAssistance
+from .models import (
+    Country, AppCategory, TravelApp, AppScreenshot, Review, 
+    OriginCountryAssistance, EmergencyContact, LocalPhrase, UsefulTip
+)
 from django.urls import reverse
 
 @admin.register(Country)
@@ -51,3 +54,24 @@ class OriginCountryAssistanceAdmin(admin.ModelAdmin):
     list_display = ('country', 'label', 'emergency_phone', 'website', 'source', 'fetched_at')
     search_fields = ('country__code', 'country__name', 'label', 'source')
     list_filter = ('source', 'fetched_at')
+
+@admin.register(EmergencyContact)
+class EmergencyContactAdmin(admin.ModelAdmin):
+    list_display = ('country', 'name', 'phone', 'email', 'description')
+    search_fields = ('country__name', 'name', 'phone')
+    list_filter = ('country',)
+    raw_id_fields = ('country',)
+
+@admin.register(LocalPhrase)
+class LocalPhraseAdmin(admin.ModelAdmin):
+    list_display = ('country', 'original', 'translation', 'context_note')
+    search_fields = ('country__name', 'original', 'translation')
+    list_filter = ('country',)
+    raw_id_fields = ('country',)
+
+@admin.register(UsefulTip)
+class UsefulTipAdmin(admin.ModelAdmin):
+    list_display = ('country', 'tip')
+    search_fields = ('country__name', 'tip')
+    list_filter = ('country',)
+    raw_id_fields = ('country',)

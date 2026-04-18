@@ -1,6 +1,4 @@
 
-
-from celery import shared_task
 import redis
 from django.conf import settings
 
@@ -15,17 +13,24 @@ redis_client = redis.from_url(
     decode_responses=True
 )
 
-@shared_task
 def clean_expired_sessions():
     """
     Periodically cleans expired session data from Redis.
+    
+    NOTE: Redis automatically expires keys based on their TTL (set via setex).
+    This task is a safeguard cleanup. We don't actively scan/delete since:
+    - Redis handles automatic TTL-based expiration efficiently
+    - keys("*") is O(N) and blocks on large datasets
+    - setex() already handles expiration with 86400s (24h) TTL
+    
+    This task simply reports stats; actual cleanup is Redis automatic.
     """
-    # Fetch all session keys
-    session_keys = redis_client.keys("*")
-
-    # Check expiration time and remove expired ones
-    for key in session_keys:
-        if redis_client.ttl(key) == -2:  # -2 means the key no longer exists (expired)
-            redis_client.delete(key)
-
-    return f"Checked {len(session_keys)} sessions and removed expired ones."
+    # Redis automatically cleans expired keys; this is a monitoring task
+    info = redis_client.info()
+    expired_count = info.get("expired_keys", 0)
+    
+    return {
+        "status": "success",
+        "expired_keys_auto_cleaned": expired_count,
+        "note": "Redis TTL automatically handles expiration. This task monitors, not actively deletes."
+    }

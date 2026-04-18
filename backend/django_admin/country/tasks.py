@@ -1,4 +1,3 @@
-from celery import shared_task
 from django.db.models import Q
 
 from .models import Country, TravelApp
@@ -10,8 +9,7 @@ COUNTRY_BATCH_SIZE = 8
 INSIGHTS_APP_BATCH_SIZE = 20
 
 
-@shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={"max_retries": 2})
-def refresh_travel_updates_batch(self):
+def refresh_travel_updates_batch():
     """Refresh travel headlines cache for a rotating subset of countries."""
     countries = list(Country.objects.order_by("code"))
     if not countries:
@@ -38,8 +36,7 @@ def refresh_travel_updates_batch(self):
     return {"countries_refreshed": refreshed, "total_countries": total}
 
 
-@shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={"max_retries": 2})
-def refresh_traveler_insights_batch(self):
+def refresh_traveler_insights_batch():
     """Refresh traveler insights cache for a rotating subset of apps with store links."""
     apps = list(
         TravelApp.objects.select_related("country")

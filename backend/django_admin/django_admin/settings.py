@@ -13,12 +13,12 @@ import os
 from pathlib import Path
 import dj_database_url
 
-
-#django will load .env file at the beginning 
-from dotenv import load_dotenv
-load_dotenv()
-
+# Define BASE_DIR early for env file loading
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+#django will load env file at the beginning 
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=str(BASE_DIR / 'env'))
 
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key")
 DEBUG = os.getenv("DEBUG", "False") == "True"
@@ -49,8 +49,6 @@ INSTALLED_APPS = [
         "django.contrib.sites",
     "rest_framework",
     "rest_framework.authtoken",
-    'django_celery_results',  # Celery Results Storage
-    'django_celery_beat',  # Celery Periodic Tasks
     'homepage',  # Homepage App
     'country',  # Country-Specific App Page
     'personalized_list',  # Personalized App List Page
@@ -207,12 +205,6 @@ CACHES = {
   }
 }
 
-
-# Celery Configuration
-CELERY_BROKER_URL = os.getenv("REDIS_URL")
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_BACKEND = 'django-db'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
