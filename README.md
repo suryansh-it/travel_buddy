@@ -1,290 +1,181 @@
-# tripbozo - Travel App Recommendation Platform
-
+# Tripbozo - Travel App Discovery and Essentials Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Django](https://img.shields.io/badge/Django-4.x-green.svg)](https://djangoproject.com/)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Django](https://img.shields.io/badge/Django-5.1-green.svg)](https://djangoproject.com/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://python.org)
 
-tripbozo is a comprehensive travel companion platform that provides curated app bundles for travelers based on their destination country. The platform consists of a robust Django backend API and a modern frontend interface.
+Tripbozo helps travelers discover destination-ready apps, bundle them for sharing, and access essential country information (contacts, phrases, and travel utilities). The platform consists of a Django backend API and a Next.js frontend.
 
-## 🌟 Features
+## Current Architecture
 
-- **Country-Specific App Recommendations**: Get curated lists of essential travel apps based on your destination
-- **QR Code Generation**: Share app bundles easily through QR codes
-- **Session Management**: Redis-backed sessions with 24-hour expiry
-- **Analytics Dashboard**: Track usage statistics and user engagement
-- **RESTful API**: Fully documented API with OpenAPI/Swagger support
-- **Authentication**: JWT-based user authentication system
-- **Background Tasks**: Celery integration for asynchronous processing
+- Backend API: Django + DRF on Render
+- Frontend: Next.js on Vercel
+- Primary database: Aiven PostgreSQL
+- Cache and short-lived session store: Upstash Redis
+- Monitoring and uptime checks: UptimeRobot
 
-## 🏗️ Architecture
+## Key Product Features
 
-### Backend Components
+### Traveler-facing features
+- Country-specific app discovery and category browsing
+- Destination essentials endpoint
+- Country travel updates
+- App-level traveler insights
+- Personalized app list creation and retrieval
+- QR-based sharing and bundle redirect flow
 
-| Module                    | Purpose                                                |
-| ------------------------- | ------------------------------------------------------ |
-| `auth_app`               | JWT-based authentication & user management            |
-| `country`                | Country data management and utilities                 |
-| `personalized_list`      | Core app recommendation and bundle generation         |
-| `scrapper`               | Data scraping utilities for app information          |
-| `services`               | External service integrations                         |
-| `healthz`                | Health check endpoints                               |
-| `homepage`               | Landing page and general content                      |
-| `itinerary`              | Travel itinerary management                           |
+### Authentication and account
+- Email/username login and registration with dj-rest-auth
+- JWT create/refresh/verify endpoints
+- Social auth entry points (Google/Facebook)
+- User profile endpoint
+- Origin-country preference endpoint
+- Account delete endpoint
 
-## 🚀 API Endpoints
+### Admin panel
+- Manage countries and app categories
+- Manage travel apps, screenshots, and reviews
+- Manage origin assistance records
+- Manage emergency contacts, local phrases, and useful tips
 
-| Method | Path                          | Description                         |
-| ------ | ----------------------------- | ----------------------------------- |
-| GET    | `/api/countries/`             | List supported countries            |
-| GET    | `/api/bundles/?country=IN`    | Fetch curated app bundle            |
-| POST   | `/api/bundles/`               | Create new bundle (returns session) |
-| GET    | `/api/bundles/{id}/qr/`       | Retrieve QR code image              |
-| POST   | `/api/auth/login/`            | Obtain JWT tokens                   |
-| GET    | `/api/analytics/usage/`       | Fetch usage statistics              |
+## Performance and Caching
 
+Tripbozo uses Redis-first caching and TTL-based refresh behavior:
 
-##  Deployment/Tools
-- **Backend**: Render
-- **Frontend** : Vercel
-- **Database** : Aiven
-- **API** : Postman for API testing
-- **Monitoring** : Uptime Robot for Backend Monitoring 
+- Country page cache TTL: 1 hour
+- App list cache TTL: 15 minutes
+- Essentials cache TTL: 2 hours
+- Personalized list session TTL: 24 hours
 
-## 🛠️ Installation & Setup
+Caching is resilient by design:
+- Safe cache wrappers are used for get/set operations
+- If a cache read misses or fails, data is rebuilt from sources and cached again
+- If Redis is temporarily unavailable, endpoints still attempt to serve fallback data
 
-### Prerequisites
+## API Overview (Current)
 
-- Python 3.8+
-- Redis Server
-- PostgreSQL/MySQL (optional, SQLite for development)
+### Root and health
+- `GET /healthz/`
+- `GET /admin/`
 
-### Backend Setup
+### Homepage
+- `GET /api/homepage/`
+- `GET /api/homepage/search/`
+
+### Country
+- `GET /api/country/{country_code}/`
+- `GET /api/country/{country_code}/categories/`
+- `GET /api/country/{country_code}/apps/`
+- `GET /api/country/{country_code}/essentials/`
+- `GET /api/country/{country_code}/travel-updates/`
+- `GET /api/country/{country_code}/apps/{app_id}/insights/`
+
+### Personalized list and sharing
+- `POST /api/personalized-list/init-session/`
+- `GET|POST /api/personalized-list/`
+- `GET /api/personalized-list/{session_id}/`
+- `GET /api/personalized-list/qr/{session_id}/`
+- `GET /api/personalized-list/download-qr/{session_id}/`
+- `GET /api/personalized-list/download-text/{session_id}/`
+- `GET /api/personalized-list/embed/{session_id}/`
+- `GET /api/personalized-list/bundle/{session_id}/`
+- `GET /api/personalized-list/bundle-redirect/{session_id}/`
+- `GET /api/personalized-list/bundle-urls/{session_id}/`
+
+### Auth
+- `POST /api/auth/jwt/create/`
+- `POST /api/auth/jwt/refresh/`
+- `POST /api/auth/jwt/verify/`
+- `GET /api/auth/user/`
+- `DELETE /api/auth/user/delete/`
+- `GET|PATCH /api/auth/user/origin-country/`
+- `POST /api/auth/social/google/`
+- `POST /api/auth/social/facebook/`
+- Standard dj-rest-auth routes under `/api/auth/`
+
+### Itinerary
+- `GET /api/itinerary/{itinerary_id}/leg-suggestions/`
+
+## Environment Variables (Backend)
+
+Tripbozo backend reads environment variables from `backend/django_admin/env` in local development.
+
+Required baseline values:
+
+```env
+SECRET_KEY=your_secret_key
+DEBUG=False
+ALLOWED_HOSTS=your-domain.com,localhost,127.0.0.1
+
+DATABASE_URL=postgres://user:password@host:port/dbname?sslmode=require
+
+REDIS_URL=redis://default:token@your-upstash-host:6379
+REDIS_URL_PERSONAL_LISTS=redis://default:token@your-upstash-host:6379
+REDIS_URL_ONE=redis://default:token@your-upstash-host:6379
+
+FRONTEND_URL=https://tripbozo.com
+```
+
+Notes:
+- Upstash usually uses a single logical database per instance, so multiple Redis URLs can point to the same host.
+- Keep all secrets out of Git history (`backend/.gitignore` already ignores `django_admin/env`).
+
+## Local Setup (Backend)
 
 ```bash
-# Clone the repository
 git clone https://github.com/suryansh-it/travel_buddy.git
-cd travel_buddy
+cd travel_buddy/backend/django_admin
 
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate    # Windows
+# source .venv/bin/activate # macOS/Linux
 
-# Install dependencies
-cd backend/django_admin
 pip install -r requirements.txt
-
-# Environment setup
-cp .env.example .env
-# Edit .env with your configuration
-
-# Database migration
 python manage.py migrate
-
-# Create superuser (optional)
-python manage.py createsuperuser
-
-# Start development server
 python manage.py runserver
 ```
 
-### Frontend Setup
-
-The frontend repository is available at: [tripbozo Frontend](https://github.com/suryansh-it/tripbozofrontend)
+Optional operational commands:
 
 ```bash
-# Clone frontend repository
-git clone https://github.com/suryansh-it/tripbozofrontend.git
-cd tripbozofrontend
-
-# Follow frontend-specific setup instructions
+python manage.py refresh_all_caches
+python manage.py refresh_travel_updates
+python manage.py refresh_traveler_insights
+python manage.py clean_expired_sessions
 ```
 
-## 🔧 Configuration
+## Deployment Model
 
-### Environment Variables
+- Backend deploys from this repo to Render
+- Frontend deploys from frontend repo to Vercel
+- PostgreSQL is hosted on Aiven with SSL
+- Redis cache/session store is hosted on Upstash
+- UptimeRobot pings backend endpoints to monitor uptime and reduce cold-start impact
 
-Create a `.env` file in the `backend/django_admin/` directory:
+## Repository Layout
 
-```env
-# Database
-DATABASE_URL=your_database_url
-
-# Redis
-REDIS_URL=redis://localhost:6379/0
-
-# Security
-SECRET_KEY=your_secret_key
-DEBUG=True
-
-# External APIs
-# Add your API keys here
+```text
+travel_buddy-main/
+  backend/
+    django_admin/
+      auth_app/
+      country/
+      healthz/
+      homepage/
+      itinerary/
+      personalized_list/
+      services/
+      django_admin/
+      manage.py
+      requirements.txt
+  README.md
+  LICENSE
 ```
 
-### Redis Setup
+## Related Repositories
 
-```bash
-# Install Redis (Ubuntu/Debian)
-sudo apt-get install redis-server
+- Frontend: https://github.com/suryansh-it/tripbozofrontend
 
-# Start Redis server
-redis-server
+## License
 
-# Or using Docker
-docker run -d -p 6379:6379 redis:alpine
-```
-
-## 🧪 Testing
-
-```bash
-# Run all tests
-python manage.py test
-
-# Run specific app tests
-python manage.py test auth_app
-python manage.py test country
-python manage.py test personalized_list
-
-# Run with coverage
-pip install coverage
-coverage run --source='.' manage.py test
-coverage report
-```
-
-## 📊 Usage Examples
-
-### Get Country List
-
-```bash
-curl -X GET "http://localhost:8000/api/countries/" \
-  -H "Content-Type: application/json"
-```
-
-### Create App Bundle
-
-```bash
-curl -X POST "http://localhost:8000/api/bundles/" \
-  -H "Content-Type: application/json" \
-  -d '{"country": "IN", "preferences": ["navigation", "translation"]}'
-```
-
-### Generate QR Code
-
-```bash
-curl -X GET "http://localhost:8000/api/bundles/{bundle_id}/qr/" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-```
-
-## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
-
-### Getting Started
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Run tests**
-   ```bash
-   python manage.py test
-   ```
-5. **Commit your changes**
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
-6. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. **Open a Pull Request**
-
-### Development Guidelines
-
-- Follow PEP 8 style guidelines
-- Write meaningful commit messages
-- Add tests for new features
-- Update documentation as needed
-- Ensure all tests pass before submitting PR
-
-### Code Style
-
-```bash
-# Install development dependencies
-pip install black flake8 isort
-
-# Format code
-black .
-
-# Sort imports
-isort .
-
-# Lint code
-flake8 .
-```
-
-## 📁 Project Structure
-
-```
-travel_buddy/
-├── backend/
-│   └── django_admin/
-│       ├── manage.py
-│       ├── requirements.txt
-│       ├── auth_app/          # User authentication
-│       ├── country/           # Country data management
-│       ├── personalized_list/ # App recommendations
-│       ├── scrapper/          # Data scraping
-│       ├── services/          # External integrations
-│       ├── healthz/           # Health checks
-│       ├── homepage/          # Landing page
-│       └── itinerary/         # Travel planning
-├── LICENSE
-└── README.md
-```
-
-## 🐛 Issue Reporting
-
-Found a bug? Have a suggestion? Please create an issue:
-
-1. Check existing issues first
-2. Use the issue template
-3. Provide detailed description
-4. Include steps to reproduce
-5. Add relevant labels
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🌐 Related Projects
-
-- **Frontend**: [tripbozo Frontend](https://github.com/suryansh-it/tripbozofrontend)
-- **Mobile App**: Coming soon...
-
-## 👥 Team
-
-- **Suryansh** - Project Lead & Backend Developer
-- **Nikhil** - Frontend Developer
-- **Harsh** - Frontend Developer
-- **Ankit** - Backend Developer
-
-## 🙏 Acknowledgments
-
-- Django and Django REST Framework communities
-- Contributors and testers
-- Open source libraries used in this project
-
-## 📞 Support
-
-- Create an [issue](https://github.com/suryansh-it/travel_buddy/issues) for bug reports
-- Start a [discussion](https://github.com/suryansh-it/travel_buddy/discussions) for questions
-- Contact the maintainers for urgent matters
-
----
-
-Made with ❤️ for travelers worldwide
-=======
-
+MIT License. See [LICENSE](LICENSE).
