@@ -62,10 +62,16 @@ def homepage_search_view(request):
 
 @api_view(["POST"])
 def submit_country_suggestion(request):
-    """Handle country suggestions and send email to admin."""
+    """Handle country suggestions and send email to admin. Requires authentication."""
+    # Check if user is authenticated
+    if not request.user or not request.user.is_authenticated:
+        return Response(
+            {"result": "error", "message": "You must be logged in to submit suggestions."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
     country = str(request.data.get("country", "")).strip()
     message = str(request.data.get("message", "")).strip()
-    email = str(request.data.get("email", "")).strip()
 
     if not country or not message:
         return Response(
@@ -73,12 +79,17 @@ def submit_country_suggestion(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    # Get user's email from authenticated user
+    user_email = request.user.email
+    user_name = request.user.get_full_name() or request.user.username
+
     subject = f"Tripbozo Country Suggestion: {country}"
     body = (
         f"New country suggestion submitted.\n\n"
         f"Country: {country}\n"
         f"Message: {message}\n"
-        f"Email: {email or 'Not provided'}\n"
+        f"Submitted by: {user_name}\n"
+        f"Email: {user_email}\n"
     )
 
     try:
