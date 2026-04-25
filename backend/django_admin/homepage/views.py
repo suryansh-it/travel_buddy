@@ -1,8 +1,10 @@
 from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
+from django.core.mail import send_mail
+from django.conf import settings
 # from services.algolia_service import search_countries
-from rest_framework.decorators import api_view
 from country.models import Country
 from country.serializers import CountrySerializer
 from django.urls import reverse  # ✅ For generating URLs dynamically
@@ -56,6 +58,43 @@ def homepage_search_view(request):
         for c in countries
     ]
     return Response({"results": results})
+
+
+@api_view(["POST"])
+def submit_country_suggestion(request):
+    """Handle country suggestions and send email to admin."""
+    country = str(request.data.get("country", "")).strip()
+    message = str(request.data.get("message", "")).strip()
+    email = str(request.data.get("email", "")).strip()
+
+    if not country or not message:
+        return Response(
+            {"result": "error", "message": "Country and message are required."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    subject = f"Tripbozo Country Suggestion: {country}"
+    body = (
+        f"New country suggestion submitted.\n\n"
+        f"Country: {country}\n"
+        f"Message: {message}\n"
+        f"Email: {email or 'Not provided'}\n"
+    )
+
+    try:
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.SUGGESTION_RECEIVER_EMAIL],
+            fail_silently=False,
+        )
+        return Response({"result": "success"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"result": "error", "message": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
 
 #----------- if implementing algolia search -------------

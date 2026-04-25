@@ -24,7 +24,6 @@ class LegSuggestionsView(APIView):
                 rule = LegSuggestionRule.objects.get(stop_type=stop.stop_type)
                 # collect apps in those categories, limit 3
                 apps = TravelApp.objects.filter(
-                    country__in=[app.country for app in TravelApp.objects.none()], # no country filter here
                     category__in=rule.categories.all()
                 ).order_by('-rating')[:3]
             except LegSuggestionRule.DoesNotExist:

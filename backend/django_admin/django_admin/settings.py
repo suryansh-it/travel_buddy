@@ -83,8 +83,15 @@ ACCOUNT_USERNAME_REQUIRED = True
 
 
 # dj-rest-auth will use ALLAUTH settings for password reset e-mails, etc.
-# configure your email backend, e.g. console for dev:
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Email Configuration - env-driven
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
+SUGGESTION_RECEIVER_EMAIL = os.getenv("SUGGESTION_RECEIVER_EMAIL", "bozotrip@gmail.com")
 
 
 
