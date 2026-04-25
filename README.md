@@ -1,4 +1,4 @@
-# Tripbozo - Travel App Discovery and Essentials Platform
+﻿# Tripbozo - Travel App Discovery and Essentials Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Django](https://img.shields.io/badge/Django-5.1.6-green.svg)](https://djangoproject.com/)
@@ -61,47 +61,47 @@ The platform solves a critical traveler pain point: **discovering which apps are
 ### High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Client Layer (Browser)                  │
-│                   Next.js Frontend (Vercel)                 │
-│  - React Components                                         │
-│  - Client-side routing and state                           │
-│  - SEO optimization                                         │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      │ HTTPS REST API Calls
-                      │
-┌─────────────────────▼───────────────────────────────────────┐
-│                     API Layer                               │
-│                Django REST Framework                        │
-│                 (Render Platform)                           │
-│                                                             │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  Authentication & Authorization                      │  │
-│  │  - JWT (SimpleJWT)                                   │  │
-│  │  - OAuth2 (Google, Facebook via allauth)            │  │
-│  │  - Email/Password + Registration                     │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                                                             │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  Business Logic & Endpoints                          │  │
-│  │  - Country app discovery                             │  │
-│  │  - User preferences & personalization               │  │
-│  │  - Bundle & QR generation                            │  │
-│  │  - Essentials & travel updates                       │  │
-│  │  - Itinerary & leg suggestions                       │  │
-│  └──────────────────────────────────────────────────────┘  │
-└──────────────────┬──────────────────────────────────────────┘
-                   │
-        ┌──────────┼──────────┐
-        │          │          │
-        ▼          ▼          ▼
-   ┌────────┐ ┌────────┐ ┌──────────┐
-   │ Aiven  │ │Upstash │ │External  │
-   │PostgreSQL│ Redis  │ │Services  │
-   │ Database │ Cache  │ │(Google,  │
-   │          │        │ │Facebook) │
-   └────────┘ └────────┘ └──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                     Client Layer (Browser)                  â”‚
+â”‚                   Next.js Frontend (Vercel)                 â”‚
+â”‚  - React Components                                         â”‚
+â”‚  - Client-side routing and state                           â”‚
+â”‚  - SEO optimization                                         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                      â”‚
+                      â”‚ HTTPS REST API Calls
+                      â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                     API Layer                               â”‚
+â”‚                Django REST Framework                        â”‚
+â”‚                 (Render Platform)                           â”‚
+â”‚                                                             â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚  Authentication & Authorization                      â”‚  â”‚
+â”‚  â”‚  - JWT (SimpleJWT)                                   â”‚  â”‚
+â”‚  â”‚  - OAuth2 (Google, Facebook via allauth)            â”‚  â”‚
+â”‚  â”‚  - Email/Password + Registration                     â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                             â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚  Business Logic & Endpoints                          â”‚  â”‚
+â”‚  â”‚  - Country app discovery                             â”‚  â”‚
+â”‚  â”‚  - User preferences & personalization               â”‚  â”‚
+â”‚  â”‚  - Bundle & QR generation                            â”‚  â”‚
+â”‚  â”‚  - Essentials & travel updates                       â”‚  â”‚
+â”‚  â”‚  - Itinerary & leg suggestions                       â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                   â”‚
+        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+        â”‚          â”‚          â”‚
+        â–¼          â–¼          â–¼
+   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+   â”‚ Aiven  â”‚ â”‚Upstash â”‚ â”‚External  â”‚
+   â”‚PostgreSQLâ”‚ Redis  â”‚ â”‚Services  â”‚
+   â”‚ Database â”‚ Cache  â”‚ â”‚(Google,  â”‚
+   â”‚          â”‚        â”‚ â”‚Facebook) â”‚
+   â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### Architecture Principles
@@ -153,6 +153,14 @@ The platform solves a critical traveler pain point: **discovering which apps are
 
 ## Key Features
 
+### Product Advantage: Clutter-Free Design
+- Tripbozo is intentionally focused and clutter-free.
+- It avoids unnecessary bloated modules and keeps the core travel workflow simple: discover apps, select apps, generate/share bundle, install quickly.
+- This focused design improves speed, usability, and clarity for real travelers.
+### Product Advantage: Clutter-Free Design
+- Tripbozo is intentionally focused and clutter-free.
+- It avoids unnecessary bloated modules and keeps the core travel workflow simple: discover apps, select apps, generate/share bundle, install quickly.
+- This focused design improves speed, usability, and clarity for real travelers.
 ### For Travelers
 
 #### 1. Country-Specific App Discovery
@@ -279,7 +287,7 @@ For a mountain stop in Nepal:
 
 **Business Logic**
 - Stop types are predefined: beach, mountain, city, desert, ski
-- Admin manages LegSuggestionRule to map stop_type → app categories
+- Admin manages LegSuggestionRule to map stop_type â†’ app categories
 - Recommendations change dynamically as itinerary changes
 - Users can modify itinerary and get updated suggestions
 
@@ -322,13 +330,13 @@ Travelers often want to share their app research with friends or travel groups. 
 **Business Logic**
 ```
 Bundle Flow:
-1. User selects apps → clicks "Add to Bundle"
+1. User selects apps â†’ clicks "Add to Bundle"
 2. System creates Bundle record if new
 3. Associates selected apps with bundle
 4. Generates unique bundle_id
 5. Creates QR code with embedded bundle_id
 6. User shares QR/link with friends
-7. Recipients scan/click → Redirect page
+7. Recipients scan/click â†’ Redirect page
 8. Page shows all apps with download buttons
 ```
 
@@ -369,7 +377,7 @@ Travelers have different home countries with different embassy services and curr
 **Business Logic**
 ```
 Personalization Flow:
-1. New user signs up → OnboardingComponent
+1. New user signs up â†’ OnboardingComponent
 2. User selects origin country
 3. System stores in UserOriginPreference
 4. When user views any country page:
@@ -513,8 +521,8 @@ Social Login Flow:
 - name (CharField)
 - icon_url (URLField)
 - description (TextField)
-- category (FK → AppCategory)
-- country (FK → Country)
+- category (FK â†’ AppCategory)
+- country (FK â†’ Country)
 - android_link (URLField)
 - ios_link (URLField)
 - website_link (URLField)
@@ -528,14 +536,14 @@ Social Login Flow:
 #### 4. **AppScreenshot**
 ```python
 - id (PK)
-- app (FK → TravelApp)
+- app (FK â†’ TravelApp)
 - image_url (URLField)
 ```
 
 #### 5. **Review**
 ```python
 - id (PK)
-- app (FK → TravelApp)
+- app (FK â†’ TravelApp)
 - user_id (UUIDField)
 - rating (DecimalField, 1.0-5.0)
 - review_text (TextField)
@@ -545,7 +553,7 @@ Social Login Flow:
 #### 6. **EmergencyContact**
 ```python
 - id (PK)
-- country (FK → Country)
+- country (FK â†’ Country)
 - name (CharField) # e.g., "US Embassy Beijing"
 - phone (CharField)
 - email (EmailField)
@@ -555,7 +563,7 @@ Social Login Flow:
 #### 7. **LocalPhrase**
 ```python
 - id (PK)
-- country (FK → Country)
+- country (FK â†’ Country)
 - original (CharField)
 - translation (CharField)
 - context_note (CharField)
@@ -564,14 +572,14 @@ Social Login Flow:
 #### 8. **UsefulTip**
 ```python
 - id (PK)
-- country (FK → Country)
+- country (FK â†’ Country)
 - tip (TextField)
 ```
 
 #### 9. **OriginCountryAssistance**
 ```python
 - id (PK)
-- country (OneToOne → Country)
+- country (OneToOne â†’ Country)
 - label (CharField)
 - emergency_phone (CharField)
 - emergency_phone_intl (CharField)
@@ -585,8 +593,8 @@ Social Login Flow:
 #### 10. **UserOriginPreference** (User Extension)
 ```python
 - id (PK)
-- user (OneToOne → User)
-- origin_country (FK → Country, nullable)
+- user (OneToOne â†’ User)
+- origin_country (FK â†’ Country, nullable)
 - updated_at (DateTimeField)
 ```
 
@@ -600,7 +608,7 @@ Social Login Flow:
 #### 12. **Stop** (Itinerary Leg)
 ```python
 - id (PK)
-- itinerary (FK → Itinerary)
+- itinerary (FK â†’ Itinerary)
 - name (CharField)
 - stop_type (CharField) # beach, mountain, city, desert, ski
 - order (PositiveIntegerField)
@@ -610,7 +618,7 @@ Social Login Flow:
 ```python
 - id (PK)
 - stop_type (CharField, unique)
-- categories (M2M → AppCategory)
+- categories (M2M â†’ AppCategory)
 ```
 
 ---
@@ -696,7 +704,7 @@ Error Response: 400 Bad Request
 - Returns access token so user doesn't need to login separately
 
 **Business Logic**
-1. Check if email already exists → Error if duplicate
+1. Check if email already exists â†’ Error if duplicate
 2. Validate password meets security requirements (length, complexity)
 3. Hash password using bcrypt before storing
 4. Create User record in database
@@ -752,8 +760,8 @@ Error Response: 401 Unauthorized
 **Business Logic**
 1. Look up User by email or username
 2. Compare provided password with hashed password in database
-3. If match → Generate JWT token and return
-4. If no match → Return 401 Unauthorized (don't reveal if email exists)
+3. If match â†’ Generate JWT token and return
+4. If no match â†’ Return 401 Unauthorized (don't reveal if email exists)
 5. Token valid for 15 minutes, can be refreshed
 
 **Security Considerations**
@@ -934,7 +942,7 @@ Error Response: 401 Unauthorized
 **Business Logic**
 ```
 Token Lifecycle:
-1. User logs in → Receives access_token (15 min) + refresh_token (7 days)
+1. User logs in â†’ Receives access_token (15 min) + refresh_token (7 days)
 2. After 15 minutes, access_token expires
 3. Frontend automatically calls /jwt/refresh/ with refresh_token
 4. Backend validates refresh_token is not expired
@@ -1077,7 +1085,7 @@ When user calls DELETE /auth/user/delete/:
 ```
 User: "I want to permanently delete my Tripbozo account"
 Flow:
-1. User navigates to Settings → Delete Account
+1. User navigates to Settings â†’ Delete Account
 2. System shows warning: "This cannot be undone"
 3. User confirms deletion
 4. Frontend sends DELETE request with auth token
@@ -2058,20 +2066,20 @@ Example for mountain stop:
 **Smart Personalization**
 ```
 Mountain stop in Yosemite:
-✓ AllTrails - hiking specific
-✓ Maps.ME - offline maps essential here
-✓ Camera+ - photography important for scenery
-✓ Emergency SOS - remote area safety
-✗ Uber - unlikely to need here
-✗ Restaurant apps - limited options in park
+âœ“ AllTrails - hiking specific
+âœ“ Maps.ME - offline maps essential here
+âœ“ Camera+ - photography important for scenery
+âœ“ Emergency SOS - remote area safety
+âœ— Uber - unlikely to need here
+âœ— Restaurant apps - limited options in park
 
 City stop in San Francisco:
-✓ Google Maps - navigation in dense urban
-✓ Uber/Lyft - transportation essential
-✓ Restaurant apps - many dining options
-✓ Museum apps - cultural attractions
-✗ Hiking apps - not relevant
-✗ Offline maps - always connected in city
+âœ“ Google Maps - navigation in dense urban
+âœ“ Uber/Lyft - transportation essential
+âœ“ Restaurant apps - many dining options
+âœ“ Museum apps - cultural attractions
+âœ— Hiking apps - not relevant
+âœ— Offline maps - always connected in city
 ```
 
 ---
@@ -2231,7 +2239,7 @@ Error Response: 503 Service Unavailable
 }
 ```
 
-### Recommended Rate Limits
+### Optional Rate-Limit Guardrails (Only If Needed Later)
 
 ```
 - Login endpoint: 5 requests per hour per IP
@@ -2261,9 +2269,9 @@ CACHE_TTLS = {
 
 ```
 When admin updates:
-- Country info → Invalidate "country_{code}"
-- App data → Invalidate "app_list_{country}"
-- Essentials → Invalidate "essentials_{country}"
+- Country info â†’ Invalidate "country_{code}"
+- App data â†’ Invalidate "app_list_{country}"
+- Essentials â†’ Invalidate "essentials_{country}"
 Invalidation: Delete Redis key immediately
 ```
 
@@ -2290,144 +2298,144 @@ Endpoint              | Target Response Time | Cached?
 
 ```
 backend/
-└── django_admin/                              # Main Django project root
-    ├── manage.py                              # Django CLI: migrations, runserver, shell, tests
-    ├── requirements.txt                       # Dependencies: Django, DRF, JWT, Redis, PostgreSQL
-    ├── env                                    # Environment vars: DEBUG, SECRET_KEY, DB_URL, REDIS_URL
-    │
-    ├── django_admin/                          # Django project configuration folder
-    │   ├── __init__.py
-    │   ├── settings.py                        # Core Django config:
-    │   │                                       # - DATABASE config (PostgreSQL + SSL)
-    │   │                                       # - INSTALLED_APPS (all Django apps)
-    │   │                                       # - MIDDLEWARE (CORS, auth, logging)
-    │   │                                       # - CACHES (Redis configuration)
-    │   │                                       # - JWT settings (token expiry)
-    │   │                                       # - ALLOWED_HOSTS security
-    │   │                                       # - DEBUG=False (production)
-    │   │                                       # - SECRET_KEY from env
-    │   │
-    │   ├── urls.py                            # Main URL routing:
-    │   │                                       # Maps /api/* to app URLconfs
-    │   │
-    │   ├── asgi.py                            # ASGI entry point (async support)
-    │   ├── wsgi.py                            # WSGI entry point for Gunicorn
-    │   └── celery.py                          # Celery async task config
-    │
-    ├── auth_app/                              # Authentication & User Management
-    │   ├── models.py                          # Data models:
-    │   │                                       # - UserOriginPreference: User's origin country
-    │   │
-    │   ├── views.py                           # API endpoints:
-    │   │                                       # - GoogleLogin: Verify Google token, create user
-    │   │                                       # - FacebookLogin: OAuth2 adapter for Facebook
-    │   │                                       # - DeleteUserView: GDPR account deletion
-    │   │                                       # - UserOriginCountryPreferenceView: Origin CRUD
-    │   │
-    │   ├── serializers.py                     # Data serializers:
-    │   │                                       # - UserSerializer
-    │   │                                       # - UserOriginPreferenceSerializer
-    │   │
-    │   ├── urls.py                            # Auth endpoints:
-    │   │                                       # - /jwt/create/, /jwt/refresh/, /jwt/verify/
-    │   │                                       # - /registration/, /login/, /logout/
-    │   │                                       # - /social/google/, /social/facebook/
-    │   │                                       # - /user/, /user/delete/, /user/origin-country/
-    │   │
-    │   ├── admin.py                           # Django admin configuration
-    │   ├── migrations/                        # Database migration history
-    │
-    ├── country/                               # Country & App Discovery
-    │   ├── models.py                          # Core data models:
-    │   │                                       # - Country: Basic info (name, code, flag)
-    │   │                                       # - AppCategory: Categories (Navigation, etc.)
-    │   │                                       # - TravelApp: Individual apps + metadata
-    │   │                                       # - AppScreenshot: App screenshots
-    │   │                                       # - Review: User reviews (1-5 stars)
-    │   │                                       # - EmergencyContact: Embassy, police, hospital
-    │   │                                       # - LocalPhrase: Translated phrases
-    │   │                                       # - UsefulTip: Travel tips & advice
-    │   │                                       # - OriginCountryAssistance: Embassy resources
-    │   │
-    │   ├── views.py                           # API endpoints:
-    │   │                                       # - country_page_view: Complete country data
-    │   │                                       # - AppCategoryListView: Categories per country
-    │   │                                       # - TravelAppListView: Apps with filters
-    │   │                                       # - country_essentials_view: Contacts/phrases/tips
-    │   │                                       # - country_travel_updates_view: Travel advisories
-    │   │                                       # - app_traveler_insights_view: Reviews & stats
-    │   │
-    │   ├── serializers.py                     # Data serializers for all models
-    │   ├── urls.py                            # Country endpoints
-    │   ├── utils.py                           # Helper functions
-    │   ├── admin.py                           # Django admin with bulk import
-    │   ├── migrations/                        # Database migrations
-    │
-    ├── itinerary/                             # Itinerary & Smart Suggestions
-    │   ├── models.py                          # Data models:
-    │   │                                       # - Itinerary: Container for user's trip
-    │   │                                       # - Stop: Individual trip leg
-    │   │                                       # - LegSuggestionRule: stop_type → categories
-    │   │
-    │   ├── views.py                           # API endpoints:
-    │   │                                       # - Itinerary CRUD operations
-    │   │                                       # - GetLegSuggestionsView: Smart recommendations
-    │   │
-    │   ├── serializers.py                     # Itinerary data serializers
-    │   ├── urls.py                            # Itinerary endpoints
-    │   ├── migrations/                        # Database migrations
-    │
-    ├── personalized_list/                     # Personalized App Lists (Future)
-    │   ├── models.py                          # Models for personal collections
-    │   ├── views.py                           # CRUD endpoints
-    │   ├── urls.py
-    │   ├── migrations/
-    │
-    ├── homepage/                              # Homepage Content & Marketing
-    │   ├── views.py                           # Endpoints:
-    │   │                                       # - Featured countries
-    │   │                                       # - Trending destinations
-    │   │                                       # - Popular apps
-    │   │
-    │   ├── urls.py                            # /api/homepage/
-    │   ├── models.py
-    │   ├── migrations/
-    │
-    ├── healthz/                               # Health Check & Monitoring
-    │   └── views.py                           # GET /healthz/ endpoint:
-    │                                           # - Database connectivity
-    │                                           # - Redis connectivity
-    │                                           # - Overall API status
-    │                                           # - Used by UptimeRobot monitoring
-    │
-    ├── services/                              # Business Logic & Utilities
-    │   ├── cache_service.py                   # Redis caching:
-    │   │                                       # - Key generation
-    │   │                                       # - TTL management
-    │   │                                       # - Cache invalidation
-    │   │
-    │   ├── country_service.py                 # Country operations:
-    │   │                                       # - Fetch with caching
-    │   │                                       # - Get apps, essentials, categories
-    │   │
-    │   ├── app_service.py                     # App recommendations:
-    │   │                                       # - Suggest for itinerary legs
-    │   │                                       # - Ranking algorithms
-    │   │                                       # - Capability filtering
-    │   │
-    │   └── recommendation_service.py          # Personalization:
-    │                                           # - User history analysis
-    │                                           # - Preference-based recommendations
-    │
-    ├── database/                              # Database Utilities
-    │   ├── generator.py                       # Sample data generation
-    │   ├── insert_data.py                     # Database seeding
-    │   ├── insert_updated.py                  # Data updates
-    │
-    ├── scrapper/                              # Web Scraping (Optional)
-    │   └── (Scripts for scraping app data)
-    │
-    └── .gitignore                             # Ignore .env, __pycache__, etc.
+â””â”€â”€ django_admin/                              # Main Django project root
+    â”œâ”€â”€ manage.py                              # Django CLI: migrations, runserver, shell, tests
+    â”œâ”€â”€ requirements.txt                       # Dependencies: Django, DRF, JWT, Redis, PostgreSQL
+    â”œâ”€â”€ env                                    # Environment vars: DEBUG, SECRET_KEY, DB_URL, REDIS_URL
+    â”‚
+    â”œâ”€â”€ django_admin/                          # Django project configuration folder
+    â”‚   â”œâ”€â”€ __init__.py
+    â”‚   â”œâ”€â”€ settings.py                        # Core Django config:
+    â”‚   â”‚                                       # - DATABASE config (PostgreSQL + SSL)
+    â”‚   â”‚                                       # - INSTALLED_APPS (all Django apps)
+    â”‚   â”‚                                       # - MIDDLEWARE (CORS, auth, logging)
+    â”‚   â”‚                                       # - CACHES (Redis configuration)
+    â”‚   â”‚                                       # - JWT settings (token expiry)
+    â”‚   â”‚                                       # - ALLOWED_HOSTS security
+    â”‚   â”‚                                       # - DEBUG=False (production)
+    â”‚   â”‚                                       # - SECRET_KEY from env
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ urls.py                            # Main URL routing:
+    â”‚   â”‚                                       # Maps /api/* to app URLconfs
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ asgi.py                            # ASGI entry point (async support)
+    â”‚   â”œâ”€â”€ wsgi.py                            # WSGI entry point for Gunicorn
+    â”‚   â””â”€â”€ celery.py                          # Celery async task config
+    â”‚
+    â”œâ”€â”€ auth_app/                              # Authentication & User Management
+    â”‚   â”œâ”€â”€ models.py                          # Data models:
+    â”‚   â”‚                                       # - UserOriginPreference: User's origin country
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ views.py                           # API endpoints:
+    â”‚   â”‚                                       # - GoogleLogin: Verify Google token, create user
+    â”‚   â”‚                                       # - FacebookLogin: OAuth2 adapter for Facebook
+    â”‚   â”‚                                       # - DeleteUserView: GDPR account deletion
+    â”‚   â”‚                                       # - UserOriginCountryPreferenceView: Origin CRUD
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ serializers.py                     # Data serializers:
+    â”‚   â”‚                                       # - UserSerializer
+    â”‚   â”‚                                       # - UserOriginPreferenceSerializer
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ urls.py                            # Auth endpoints:
+    â”‚   â”‚                                       # - /jwt/create/, /jwt/refresh/, /jwt/verify/
+    â”‚   â”‚                                       # - /registration/, /login/, /logout/
+    â”‚   â”‚                                       # - /social/google/, /social/facebook/
+    â”‚   â”‚                                       # - /user/, /user/delete/, /user/origin-country/
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ admin.py                           # Django admin configuration
+    â”‚   â”œâ”€â”€ migrations/                        # Database migration history
+    â”‚
+    â”œâ”€â”€ country/                               # Country & App Discovery
+    â”‚   â”œâ”€â”€ models.py                          # Core data models:
+    â”‚   â”‚                                       # - Country: Basic info (name, code, flag)
+    â”‚   â”‚                                       # - AppCategory: Categories (Navigation, etc.)
+    â”‚   â”‚                                       # - TravelApp: Individual apps + metadata
+    â”‚   â”‚                                       # - AppScreenshot: App screenshots
+    â”‚   â”‚                                       # - Review: User reviews (1-5 stars)
+    â”‚   â”‚                                       # - EmergencyContact: Embassy, police, hospital
+    â”‚   â”‚                                       # - LocalPhrase: Translated phrases
+    â”‚   â”‚                                       # - UsefulTip: Travel tips & advice
+    â”‚   â”‚                                       # - OriginCountryAssistance: Embassy resources
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ views.py                           # API endpoints:
+    â”‚   â”‚                                       # - country_page_view: Complete country data
+    â”‚   â”‚                                       # - AppCategoryListView: Categories per country
+    â”‚   â”‚                                       # - TravelAppListView: Apps with filters
+    â”‚   â”‚                                       # - country_essentials_view: Contacts/phrases/tips
+    â”‚   â”‚                                       # - country_travel_updates_view: Travel advisories
+    â”‚   â”‚                                       # - app_traveler_insights_view: Reviews & stats
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ serializers.py                     # Data serializers for all models
+    â”‚   â”œâ”€â”€ urls.py                            # Country endpoints
+    â”‚   â”œâ”€â”€ utils.py                           # Helper functions
+    â”‚   â”œâ”€â”€ admin.py                           # Django admin with bulk import
+    â”‚   â”œâ”€â”€ migrations/                        # Database migrations
+    â”‚
+    â”œâ”€â”€ itinerary/                             # Itinerary & Smart Suggestions
+    â”‚   â”œâ”€â”€ models.py                          # Data models:
+    â”‚   â”‚                                       # - Itinerary: Container for user's trip
+    â”‚   â”‚                                       # - Stop: Individual trip leg
+    â”‚   â”‚                                       # - LegSuggestionRule: stop_type â†’ categories
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ views.py                           # API endpoints:
+    â”‚   â”‚                                       # - Itinerary CRUD operations
+    â”‚   â”‚                                       # - GetLegSuggestionsView: Smart recommendations
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ serializers.py                     # Itinerary data serializers
+    â”‚   â”œâ”€â”€ urls.py                            # Itinerary endpoints
+    â”‚   â”œâ”€â”€ migrations/                        # Database migrations
+    â”‚
+    â”œâ”€â”€ personalized_list/                     # Personalized App Lists (Future)
+    â”‚   â”œâ”€â”€ models.py                          # Models for personal collections
+    â”‚   â”œâ”€â”€ views.py                           # CRUD endpoints
+    â”‚   â”œâ”€â”€ urls.py
+    â”‚   â”œâ”€â”€ migrations/
+    â”‚
+    â”œâ”€â”€ homepage/                              # Homepage Content & Marketing
+    â”‚   â”œâ”€â”€ views.py                           # Endpoints:
+    â”‚   â”‚                                       # - Featured countries
+    â”‚   â”‚                                       # - Trending destinations
+    â”‚   â”‚                                       # - Popular apps
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ urls.py                            # /api/homepage/
+    â”‚   â”œâ”€â”€ models.py
+    â”‚   â”œâ”€â”€ migrations/
+    â”‚
+    â”œâ”€â”€ healthz/                               # Health Check & Monitoring
+    â”‚   â””â”€â”€ views.py                           # GET /healthz/ endpoint:
+    â”‚                                           # - Database connectivity
+    â”‚                                           # - Redis connectivity
+    â”‚                                           # - Overall API status
+    â”‚                                           # - Used by UptimeRobot monitoring
+    â”‚
+    â”œâ”€â”€ services/                              # Business Logic & Utilities
+    â”‚   â”œâ”€â”€ cache_service.py                   # Redis caching:
+    â”‚   â”‚                                       # - Key generation
+    â”‚   â”‚                                       # - TTL management
+    â”‚   â”‚                                       # - Cache invalidation
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ country_service.py                 # Country operations:
+    â”‚   â”‚                                       # - Fetch with caching
+    â”‚   â”‚                                       # - Get apps, essentials, categories
+    â”‚   â”‚
+    â”‚   â”œâ”€â”€ app_service.py                     # App recommendations:
+    â”‚   â”‚                                       # - Suggest for itinerary legs
+    â”‚   â”‚                                       # - Ranking algorithms
+    â”‚   â”‚                                       # - Capability filtering
+    â”‚   â”‚
+    â”‚   â””â”€â”€ recommendation_service.py          # Personalization:
+    â”‚                                           # - User history analysis
+    â”‚                                           # - Preference-based recommendations
+    â”‚
+    â”œâ”€â”€ database/                              # Database Utilities
+    â”‚   â”œâ”€â”€ generator.py                       # Sample data generation
+    â”‚   â”œâ”€â”€ insert_data.py                     # Database seeding
+    â”‚   â”œâ”€â”€ insert_updated.py                  # Data updates
+    â”‚
+    â”œâ”€â”€ scrapper/                              # Web Scraping (Optional)
+    â”‚   â””â”€â”€ (Scripts for scraping app data)
+    â”‚
+    â””â”€â”€ .gitignore                             # Ignore .env, __pycache__, etc.
 ```
 
 ### Module Descriptions
@@ -2445,33 +2453,33 @@ backend/
 
 *Email/Password Registration*
 ```
-User → POST /auth/registration/ →
-Backend: Validate email uniqueness, hash password →
-Create User record, generate JWT →
+User â†’ POST /auth/registration/ â†’
+Backend: Validate email uniqueness, hash password â†’
+Create User record, generate JWT â†’
 Return: access_token + refresh_token
 Frontend: Store tokens, redirect to onboarding
 ```
 
 *Google OAuth Login*
 ```
-User → Click "Sign in with Google" →
-Google OAuth popup → User grants permission →
-Frontend gets access_token from Google →
-Frontend → POST /auth/social/google/ (with access_token) →
-Backend: Validate token with Google servers →
-Extract email, name from token →
-Auto-create User if first time →
-Return: Tripbozo JWT token →
+User â†’ Click "Sign in with Google" â†’
+Google OAuth popup â†’ User grants permission â†’
+Frontend gets access_token from Google â†’
+Frontend â†’ POST /auth/social/google/ (with access_token) â†’
+Backend: Validate token with Google servers â†’
+Extract email, name from token â†’
+Auto-create User if first time â†’
+Return: Tripbozo JWT token â†’
 Frontend: User is now logged in
 ```
 
 *Token Refresh (Automatic)*
 ```
-Frontend: access_token expiring in 1 minute →
-Frontend: POST /auth/jwt/refresh/ (with refresh_token) →
-Backend: Validate refresh_token not expired →
-Generate new access_token (valid 15 min) →
-Return new access_token →
+Frontend: access_token expiring in 1 minute â†’
+Frontend: POST /auth/jwt/refresh/ (with refresh_token) â†’
+Backend: Validate refresh_token not expired â†’
+Generate new access_token (valid 15 min) â†’
+Return new access_token â†’
 Frontend: Update stored token, user stays logged in
 ```
 
@@ -2488,59 +2496,59 @@ Frontend: Update stored token, user stays logged in
 
 ```
 Country
-├── name, code, flag, description
-└── Related: apps[], phrases[], tips[], contacts[]
+â”œâ”€â”€ name, code, flag, description
+â””â”€â”€ Related: apps[], phrases[], tips[], contacts[]
 
 AppCategory
-├── name, description
-└── Related: apps[]
+â”œâ”€â”€ name, description
+â””â”€â”€ Related: apps[]
 
 TravelApp
-├── name, icon, description, rating
-├── category, country
-├── android_link, ios_link, website_link
-├── is_sponsored, affiliate_url
-├── supports_foreign_cards, works_offline
-└── Related: screenshots[], reviews[]
+â”œâ”€â”€ name, icon, description, rating
+â”œâ”€â”€ category, country
+â”œâ”€â”€ android_link, ios_link, website_link
+â”œâ”€â”€ is_sponsored, affiliate_url
+â”œâ”€â”€ supports_foreign_cards, works_offline
+â””â”€â”€ Related: screenshots[], reviews[]
 
 Review
-├── user_id, rating (1-5), review_text, created_at
-└── Related to: TravelApp
+â”œâ”€â”€ user_id, rating (1-5), review_text, created_at
+â””â”€â”€ Related to: TravelApp
 
 EmergencyContact
-├── country, name (e.g., "US Embassy"), phone, email, description
-└── Used for: essentials endpoint
+â”œâ”€â”€ country, name (e.g., "US Embassy"), phone, email, description
+â””â”€â”€ Used for: essentials endpoint
 
 LocalPhrase
-├── country, original, translation, context_note
-└── Used for: essentials endpoint
+â”œâ”€â”€ country, original, translation, context_note
+â””â”€â”€ Used for: essentials endpoint
 
 UsefulTip
-├── country, tip (travel advice)
-└── Used for: essentials endpoint
+â”œâ”€â”€ country, tip (travel advice)
+â””â”€â”€ Used for: essentials endpoint
 ```
 
 **Caching Strategy**
 ```
-/country/{code}/              → 1 hour TTL
-  └─ Complete country data
-    ├─ Country info
-    ├─ All apps organized by category
-    ├─ Emergency contacts
-    ├─ Phrases & tips
-    ├─ Reviews per app
-    └─ Origin assistance
+/country/{code}/              â†’ 1 hour TTL
+  â””â”€ Complete country data
+    â”œâ”€ Country info
+    â”œâ”€ All apps organized by category
+    â”œâ”€ Emergency contacts
+    â”œâ”€ Phrases & tips
+    â”œâ”€ Reviews per app
+    â””â”€ Origin assistance
 
-/country/{code}/apps/         → 15 min TTL
-  └─ App list (lightweight)
+/country/{code}/apps/         â†’ 15 min TTL
+  â””â”€ App list (lightweight)
 
-/country/{code}/essentials/   → 2 hour TTL
-  └─ Contacts, phrases, tips only
+/country/{code}/essentials/   â†’ 2 hour TTL
+  â””â”€ Contacts, phrases, tips only
 
 Cache Invalidation:
-- When admin updates country → Delete country_{code}
-- When admin updates app → Delete app_list_{country}
-- When new review posted → Update app data cache
+- When admin updates country â†’ Delete country_{code}
+- When admin updates app â†’ Delete app_list_{country}
+- When new review posted â†’ Update app data cache
 ```
 
 #### **itinerary: Smart Trip Planning**
@@ -2552,19 +2560,19 @@ Enables intelligent app recommendations based on trip structure (beach/mountain/
 
 ```
 Itinerary
-├── user (OneToOne)
-├── name, created_at
-└── Related: stops[]
+â”œâ”€â”€ user (OneToOne)
+â”œâ”€â”€ name, created_at
+â””â”€â”€ Related: stops[]
 
 Stop
-├── itinerary (FK)
-├── name, stop_type, order
-└── stop_type choices: beach, mountain, city, desert, ski
+â”œâ”€â”€ itinerary (FK)
+â”œâ”€â”€ name, stop_type, order
+â””â”€â”€ stop_type choices: beach, mountain, city, desert, ski
 
 LegSuggestionRule
-├── stop_type (unique)
-├── categories (M2M AppCategory)
-└── Example: "mountain" → [Navigation, Photography, Emergency]
+â”œâ”€â”€ stop_type (unique)
+â”œâ”€â”€ categories (M2M AppCategory)
+â””â”€â”€ Example: "mountain" â†’ [Navigation, Photography, Emergency]
 ```
 
 **Smart Recommendation Algorithm**
@@ -2597,20 +2605,20 @@ Drives user engagement through featured countries, trending destinations, and po
 
 ```
 Featured Countries
-├── Sorted by: app_count, essential completeness
-├── Shows: Top 6 curated destinations
-└── Used for: Homepage hero section
+â”œâ”€â”€ Sorted by: app_count, essential completeness
+â”œâ”€â”€ Shows: Top 6 curated destinations
+â””â”€â”€ Used for: Homepage hero section
 
 Trending Destinations
-├── Calculated from: Page view analytics (last 30 days)
-├── Identifies: Biggest growth % month-over-month
-├── Shows: Top 5 rising destinations
-└── Updates: Every hour (from analytics)
+â”œâ”€â”€ Calculated from: Page view analytics (last 30 days)
+â”œâ”€â”€ Identifies: Biggest growth % month-over-month
+â”œâ”€â”€ Shows: Top 5 rising destinations
+â””â”€â”€ Updates: Every hour (from analytics)
 
 Popular Apps
-├── Sorted by: Average rating (highest first)
-├── Shows: Top 10 globally useful apps
-└── Used for: "Popular This Week" section
+â”œâ”€â”€ Sorted by: Average rating (highest first)
+â”œâ”€â”€ Shows: Top 10 globally useful apps
+â””â”€â”€ Used for: "Popular This Week" section
 ```
 
 #### **healthz: Uptime Monitoring**
@@ -2620,10 +2628,10 @@ Provides health status for uptime monitoring services.
 
 **What Gets Checked**
 ```
-✓ Database connectivity (PostgreSQL)
-✓ Redis connectivity (Upstash)
-✓ API responsiveness
-✓ Component-level status reporting
+âœ“ Database connectivity (PostgreSQL)
+âœ“ Redis connectivity (Upstash)
+âœ“ API responsiveness
+âœ“ Component-level status reporting
 
 Response:
 {
@@ -2640,7 +2648,7 @@ Overall Status = all components "ok"
 
 **Integration**
 - UptimeRobot calls /healthz/ every 5 minutes
-- If unhealthy → Sends alert email
+- If unhealthy â†’ Sends alert email
 - Tracks uptime percentage on Render dashboard
 
 ### Services Layer Architecture
@@ -2651,23 +2659,23 @@ Overall Status = all components "ok"
 Purpose: Centralized Redis caching logic
 
 Functions:
-├── get_cache(key: str) → Optional[data]
-│   └─ Fetch from Redis, return None if expired/missing
-│
-├── set_cache(key: str, data: dict, ttl: int)
-│   └─ Store in Redis with TTL (seconds)
-│
-├── delete_cache(key: str)
-│   └─ Invalidate cache immediately
-│
-├── get_country_key(code: str) → str
-│   └─ Generate consistent key: f"country_{code}"
-│
-├── get_app_key(country_code: str) → str
-│   └─ Generate key: f"apps_{country_code}"
-│
-└── invalidate_country_data(country_code: str)
-    └─ Delete all related caches when country updated
+â”œâ”€â”€ get_cache(key: str) â†’ Optional[data]
+â”‚   â””â”€ Fetch from Redis, return None if expired/missing
+â”‚
+â”œâ”€â”€ set_cache(key: str, data: dict, ttl: int)
+â”‚   â””â”€ Store in Redis with TTL (seconds)
+â”‚
+â”œâ”€â”€ delete_cache(key: str)
+â”‚   â””â”€ Invalidate cache immediately
+â”‚
+â”œâ”€â”€ get_country_key(code: str) â†’ str
+â”‚   â””â”€ Generate consistent key: f"country_{code}"
+â”‚
+â”œâ”€â”€ get_app_key(country_code: str) â†’ str
+â”‚   â””â”€ Generate key: f"apps_{country_code}"
+â”‚
+â””â”€â”€ invalidate_country_data(country_code: str)
+    â””â”€ Delete all related caches when country updated
 
 Usage Pattern:
 1. Try get_cache("country_TH")
@@ -2681,26 +2689,26 @@ Usage Pattern:
 Purpose: Encapsulate country-related operations
 
 Functions:
-├── get_country_with_apps(country_code: str)
-│   └─ Return: Country + categories + apps + essentials
-│   └─ Cached for 1 hour
-│
-├── get_country_essentials(country_code: str)
-│   └─ Return: Emergency contacts, phrases, tips
-│   └─ Cached for 2 hours
-│
-├── get_apps_by_country_and_category(country_code, category_name)
-│   └─ Filter apps by category within country
-│
-├── get_app_insights(app_id: int, country_code: str)
-│   └─ Return: Reviews, ratings, statistics for app
-│
-└── rank_apps_by_rating(apps: List) → List
-    └─ Sort by rating (high to low) + review count
+â”œâ”€â”€ get_country_with_apps(country_code: str)
+â”‚   â””â”€ Return: Country + categories + apps + essentials
+â”‚   â””â”€ Cached for 1 hour
+â”‚
+â”œâ”€â”€ get_country_essentials(country_code: str)
+â”‚   â””â”€ Return: Emergency contacts, phrases, tips
+â”‚   â””â”€ Cached for 2 hours
+â”‚
+â”œâ”€â”€ get_apps_by_country_and_category(country_code, category_name)
+â”‚   â””â”€ Filter apps by category within country
+â”‚
+â”œâ”€â”€ get_app_insights(app_id: int, country_code: str)
+â”‚   â””â”€ Return: Reviews, ratings, statistics for app
+â”‚
+â””â”€â”€ rank_apps_by_rating(apps: List) â†’ List
+    â””â”€ Sort by rating (high to low) + review count
 
 Usage in Views:
-view → calls service → service handles caching
-       → returns clean data → view returns JSON
+view â†’ calls service â†’ service handles caching
+       â†’ returns clean data â†’ view returns JSON
 ```
 
 #### **app_service.py: App Recommendations**
@@ -2709,30 +2717,30 @@ view → calls service → service handles caching
 Purpose: Intelligent app suggestion algorithms
 
 Functions:
-├── suggest_apps_for_leg(stop_type: str, country_code: str)
-│   └─ Smart: Find LegSuggestionRule(stop_type)
-│   └─ Get apps in matched categories
-│   └─ Rank by rating, filter by capabilities
-│
-├── filter_by_offline_capability(apps: List) → List
-│   └─ Return only apps with works_offline=True
-│
-├── filter_by_foreign_card_support(apps: List) → List
-│   └─ Return only apps supporting foreign cards
-│
-├── get_top_rated_apps(apps: List, limit: int = 5) → List
-│   └─ Return highest-rated apps
-│
-└── get_apps_matching_criteria(filters: dict) → List
-    └─ Complex filtering: category, rating, capabilities
+â”œâ”€â”€ suggest_apps_for_leg(stop_type: str, country_code: str)
+â”‚   â””â”€ Smart: Find LegSuggestionRule(stop_type)
+â”‚   â””â”€ Get apps in matched categories
+â”‚   â””â”€ Rank by rating, filter by capabilities
+â”‚
+â”œâ”€â”€ filter_by_offline_capability(apps: List) â†’ List
+â”‚   â””â”€ Return only apps with works_offline=True
+â”‚
+â”œâ”€â”€ filter_by_foreign_card_support(apps: List) â†’ List
+â”‚   â””â”€ Return only apps supporting foreign cards
+â”‚
+â”œâ”€â”€ get_top_rated_apps(apps: List, limit: int = 5) â†’ List
+â”‚   â””â”€ Return highest-rated apps
+â”‚
+â””â”€â”€ get_apps_matching_criteria(filters: dict) â†’ List
+    â””â”€ Complex filtering: category, rating, capabilities
 
 Example:
-Mountain stop in Nepal →
+Mountain stop in Nepal â†’
 1. Find LegSuggestionRule("mountain")
 2. Get categories: [Navigation, Photography, Emergency]
 3. Fetch apps from Nepal in these categories
 4. Filter for offline-capable (critical in mountains)
-5. Rank by rating → [AllTrails 4.8★, Maps.ME 4.5★, ...]
+5. Rank by rating â†’ [AllTrails 4.8â˜…, Maps.ME 4.5â˜…, ...]
 ```
 
 ### Database Connection Configuration
@@ -2838,110 +2846,110 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Dev only
 
 ```
 tripbozofrontend/
-├── src/
-│   ├── app/                         # Next.js 13+ App Router
-│   │   ├── layout.js                # Root layout with Navbar, Footer
-│   │   ├── page.js                  # Homepage
-│   │   ├── globals.css              # Global styles & animations
-│   │   │
-│   │   ├── login/                   # Authentication pages
-│   │   │   ├── page.js              # Email/password login
-│   │   │   └── layout.js
-│   │   │
-│   │   ├── register/                # Registration page
-│   │   │   └── page.js
-│   │   │
-│   │   ├── Onboarding/              # Origin country selection
-│   │   │   └── page.js
-│   │   │
-│   │   ├── country/                 # Country app discovery
-│   │   │   ├── [code]/              # Dynamic route [code]/
-│   │   │   │   ├── page.js          # Country page layout
-│   │   │   │   └── layout.js
-│   │   │   └── (search results)
-│   │   │
-│   │   ├── qr-bundle/               # QR code bundle view
-│   │   │   └── page.js
-│   │   │
-│   │   ├── bundle-redirect/         # Shared bundle redirect
-│   │   │   └── [id]/page.js
-│   │   │
-│   │   ├── About/                   # Static pages
-│   │   │   └── page.js
-│   │   │
-│   │   ├── contact/
-│   │   │   └── page.js
-│   │   │
-│   │   ├── privacy/
-│   │   │   └── page.js
-│   │   │
-│   │   ├── terms/
-│   │   │   └── page.js
-│   │   │
-│   │   ├── not-found.js             # 404 page
-│   │   ├── global-error.js          # Error boundary
-│   │   └── api/                     # Route handlers (if any)
-│   │
-│   ├── utils/
-│   │   ├── api.js                   # Axios config & API functions
-│   │   ├── redisClient.js           # Redis client (for session caching)
-│   │   └── (helpers)
-│   │
-│   └── data/
-│       └── sampleApps.js            # Sample data for fallback
-│
-├── components/                      # Reusable React components
-│   ├── Navbar.js                    # Navigation header
-│   ├── Footer.js                    # Footer
-│   ├── Loader.js                    # Loading spinner
-│   ├── ErrorPage.js                 # Error display
-│   ├── ProfileCard.jsx              # User profile dropdown
-│   ├── RootWrapper.jsx              # Context providers
-│   ├── AuthInitializer.jsx          # Auth state sync
-│   ├── SEO.js                       # SEO component
-│   │
-│   ├── homepage/
-│   │   ├── HeroSection.js           # Hero with search dropdown
-│   │   ├── PopularDestinations.js   # Featured countries
-│   │   ├── HowItWorks.js            # Feature explanation
-│   │   └── CallToAction.js          # CTA section
-│   │
-│   ├── countryapp/
-│   │   ├── CountryAppsPage.js       # Country app listings
-│   │   ├── AppCard.js               # Individual app card
-│   │   └── AppDetails.js            # App detail modal
-│   │
-│   ├── Onboarding/
-│   │   └── Onboardingcomponent.js   # Origin country flow
-│   │
-│   ├── QRcode/
-│   │   └── QRBundlePage.js          # QR code generation
-│   │
-│   ├── LoaderContext/
-│   │   └── index.js                 # Global loading state
-│   │
-│   ├── googlelogin.js               # Google OAuth button
-│   ├── fblogin.js                   # Facebook OAuth button
-│   └── AppLink.js                   # Link wrapper component
-│
-├── public/
-│   ├── icons/                       # App icons, PWA icons
-│   ├── Images/                      # Hero section images
-│   ├── robots.txt                   # SEO: robots directives
-│   ├── sitemap.xml                  # SEO: sitemap
-│   ├── ads.txt                      # AdSense publisher ID
-│   └── manifest.json                # PWA manifest
-│
-├── styles/
-│   ├── globals.css                  # Global styles
-│   └── responsive.css               # Responsive utilities
-│
-├── package.json                     # Dependencies
-├── next.config.js                   # Next.js configuration
-├── jsconfig.json                    # Path aliases & JS config
-├── postcss.config.mjs               # PostCSS & Tailwind config
-├── tailwind.config.js               # Tailwind CSS configuration
-├── eslint.config.mjs                # ESLint configuration
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ app/                         # Next.js 13+ App Router
+â”‚   â”‚   â”œâ”€â”€ layout.js                # Root layout with Navbar, Footer
+â”‚   â”‚   â”œâ”€â”€ page.js                  # Homepage
+â”‚   â”‚   â”œâ”€â”€ globals.css              # Global styles & animations
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ login/                   # Authentication pages
+â”‚   â”‚   â”‚   â”œâ”€â”€ page.js              # Email/password login
+â”‚   â”‚   â”‚   â””â”€â”€ layout.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ register/                # Registration page
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ Onboarding/              # Origin country selection
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ country/                 # Country app discovery
+â”‚   â”‚   â”‚   â”œâ”€â”€ [code]/              # Dynamic route [code]/
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ page.js          # Country page layout
+â”‚   â”‚   â”‚   â”‚   â””â”€â”€ layout.js
+â”‚   â”‚   â”‚   â””â”€â”€ (search results)
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ qr-bundle/               # QR code bundle view
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ bundle-redirect/         # Shared bundle redirect
+â”‚   â”‚   â”‚   â””â”€â”€ [id]/page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ About/                   # Static pages
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ contact/
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ privacy/
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ terms/
+â”‚   â”‚   â”‚   â””â”€â”€ page.js
+â”‚   â”‚   â”‚
+â”‚   â”‚   â”œâ”€â”€ not-found.js             # 404 page
+â”‚   â”‚   â”œâ”€â”€ global-error.js          # Error boundary
+â”‚   â”‚   â””â”€â”€ api/                     # Route handlers (if any)
+â”‚   â”‚
+â”‚   â”œâ”€â”€ utils/
+â”‚   â”‚   â”œâ”€â”€ api.js                   # Axios config & API functions
+â”‚   â”‚   â”œâ”€â”€ redisClient.js           # Redis client (for session caching)
+â”‚   â”‚   â””â”€â”€ (helpers)
+â”‚   â”‚
+â”‚   â””â”€â”€ data/
+â”‚       â””â”€â”€ sampleApps.js            # Sample data for fallback
+â”‚
+â”œâ”€â”€ components/                      # Reusable React components
+â”‚   â”œâ”€â”€ Navbar.js                    # Navigation header
+â”‚   â”œâ”€â”€ Footer.js                    # Footer
+â”‚   â”œâ”€â”€ Loader.js                    # Loading spinner
+â”‚   â”œâ”€â”€ ErrorPage.js                 # Error display
+â”‚   â”œâ”€â”€ ProfileCard.jsx              # User profile dropdown
+â”‚   â”œâ”€â”€ RootWrapper.jsx              # Context providers
+â”‚   â”œâ”€â”€ AuthInitializer.jsx          # Auth state sync
+â”‚   â”œâ”€â”€ SEO.js                       # SEO component
+â”‚   â”‚
+â”‚   â”œâ”€â”€ homepage/
+â”‚   â”‚   â”œâ”€â”€ HeroSection.js           # Hero with search dropdown
+â”‚   â”‚   â”œâ”€â”€ PopularDestinations.js   # Featured countries
+â”‚   â”‚   â”œâ”€â”€ HowItWorks.js            # Feature explanation
+â”‚   â”‚   â””â”€â”€ CallToAction.js          # CTA section
+â”‚   â”‚
+â”‚   â”œâ”€â”€ countryapp/
+â”‚   â”‚   â”œâ”€â”€ CountryAppsPage.js       # Country app listings
+â”‚   â”‚   â”œâ”€â”€ AppCard.js               # Individual app card
+â”‚   â”‚   â””â”€â”€ AppDetails.js            # App detail modal
+â”‚   â”‚
+â”‚   â”œâ”€â”€ Onboarding/
+â”‚   â”‚   â””â”€â”€ Onboardingcomponent.js   # Origin country flow
+â”‚   â”‚
+â”‚   â”œâ”€â”€ QRcode/
+â”‚   â”‚   â””â”€â”€ QRBundlePage.js          # QR code generation
+â”‚   â”‚
+â”‚   â”œâ”€â”€ LoaderContext/
+â”‚   â”‚   â””â”€â”€ index.js                 # Global loading state
+â”‚   â”‚
+â”‚   â”œâ”€â”€ googlelogin.js               # Google OAuth button
+â”‚   â”œâ”€â”€ fblogin.js                   # Facebook OAuth button
+â”‚   â””â”€â”€ AppLink.js                   # Link wrapper component
+â”‚
+â”œâ”€â”€ public/
+â”‚   â”œâ”€â”€ icons/                       # App icons, PWA icons
+â”‚   â”œâ”€â”€ Images/                      # Hero section images
+â”‚   â”œâ”€â”€ robots.txt                   # SEO: robots directives
+â”‚   â”œâ”€â”€ sitemap.xml                  # SEO: sitemap
+â”‚   â”œâ”€â”€ ads.txt                      # AdSense publisher ID
+â”‚   â””â”€â”€ manifest.json                # PWA manifest
+â”‚
+â”œâ”€â”€ styles/
+â”‚   â”œâ”€â”€ globals.css                  # Global styles
+â”‚   â””â”€â”€ responsive.css               # Responsive utilities
+â”‚
+â”œâ”€â”€ package.json                     # Dependencies
+â”œâ”€â”€ next.config.js                   # Next.js configuration
+â”œâ”€â”€ jsconfig.json                    # Path aliases & JS config
+â”œâ”€â”€ postcss.config.mjs               # PostCSS & Tailwind config
+â”œâ”€â”€ tailwind.config.js               # Tailwind CSS configuration
+â”œâ”€â”€ eslint.config.mjs                # ESLint configuration
 ```
 
 **Frontend has been significantly expanded in the Backend Structure section above. The frontend documentation includes:**
@@ -2990,12 +2998,12 @@ tripbozofrontend/
 
 **Caching Strategy**:
 ```
-Request → Check Redis Cache
-  ├─ Cache HIT: Return cached data immediately
-  └─ Cache MISS: 
-      ├─ Query PostgreSQL
-      ├─ Store in Redis (TTL: 1 hour)
-      └─ Return data
+Request â†’ Check Redis Cache
+  â”œâ”€ Cache HIT: Return cached data immediately
+  â””â”€ Cache MISS: 
+      â”œâ”€ Query PostgreSQL
+      â”œâ”€ Store in Redis (TTL: 1 hour)
+      â””â”€ Return data
 ```
 
 #### 2. **App Recommendation Service**
@@ -3003,22 +3011,22 @@ Request → Check Redis Cache
 
 **Business Logic**:
 - Analyze itinerary stop type (beach, mountain, city, desert, ski resort)
-- Map stop_type → LegSuggestionRule → Associated AppCategories
+- Map stop_type â†’ LegSuggestionRule â†’ Associated AppCategories
 - Query all apps in those categories from the destination country
 - Rank results by rating, sponsorship status, and relevance score
 
 **Example Flow**:
 ```
-User itinerary: "Yosemite (mountain) → San Francisco (city)"
-  ↓
+User itinerary: "Yosemite (mountain) â†’ San Francisco (city)"
+  â†“
 Stop Type: mountain
-  ↓
-LegSuggestionRule: mountain → [Outdoor, Maps, Weather, Communication]
-  ↓
+  â†“
+LegSuggestionRule: mountain â†’ [Outdoor, Maps, Weather, Communication]
+  â†“
 Query: TravelApp.filter(country=USA, category__in=[Outdoor, Maps, ...])
-  ↓
+  â†“
 Rank by: rating DESC, is_sponsored DESC, created_at DESC
-  ↓
+  â†“
 Return: Top 10 apps (e.g., AllTrails, Maps.me, WeatherChannel, etc.)
 ```
 
@@ -3040,18 +3048,18 @@ Return: Top 10 apps (e.g., AllTrails, Maps.me, WeatherChannel, etc.)
 
 **Cache Key Patterns**:
 ```
-country:{country_code}:apps        → All apps for country (TTL: 1hr)
-country:{country_code}:essentials  → Essentials data (TTL: 2hrs)
-app_list:{category}                → Apps by category (TTL: 15min)
-user:{user_id}:preferences         → User settings (TTL: session)
-search_results:{query}             → Search results (TTL: 30min)
+country:{country_code}:apps        â†’ All apps for country (TTL: 1hr)
+country:{country_code}:essentials  â†’ Essentials data (TTL: 2hrs)
+app_list:{category}                â†’ Apps by category (TTL: 15min)
+user:{user_id}:preferences         â†’ User settings (TTL: session)
+search_results:{query}             â†’ Search results (TTL: 30min)
 ```
 
 **Cache Invalidation Events**:
-- Admin adds/updates country → Invalidate all country:* keys
-- Admin updates app → Invalidate app-related keys
-- User changes origin preference → Invalidate user:* keys
-- Redis memory full → LRU eviction (least recently used)
+- Admin adds/updates country â†’ Invalidate all country:* keys
+- Admin updates app â†’ Invalidate app-related keys
+- User changes origin preference â†’ Invalidate user:* keys
+- Redis memory full â†’ LRU eviction (least recently used)
 
 #### 4. **Bundle Generation Service**
 **Purpose**: Create shareable app collections for travelers
@@ -3091,22 +3099,22 @@ search_results:{query}             → Search results (TTL: 30min)
 **Integration Flow**:
 ```
 Frontend                Backend              Google
-  ↓                       ↓                    ↓
+  â†“                       â†“                    â†“
 User clicks "Sign in with Google"
-  ↓
+  â†“
 Browser redirects to Google login
-  ↓
+  â†“
 User enters credentials
-  ↓
+  â†“
 Google returns access_token to frontend
-  ↓
-Frontend sends {access_token} → POST /api/auth/social/google/
-  ↓
+  â†“
+Frontend sends {access_token} â†’ POST /api/auth/social/google/
+  â†“
 Backend validates token via Google endpoint
-  ↓
-If valid → Backend creates/updates user → Returns JWT
-  ↓
-Frontend stores JWT → Now authenticated
+  â†“
+If valid â†’ Backend creates/updates user â†’ Returns JWT
+  â†“
+Frontend stores JWT â†’ Now authenticated
 ```
 
 **Technical Details**:
@@ -3246,8 +3254,8 @@ gtag('event', 'bundle_created', {
 - Ad relevance filters (exclude competing apps/travel sites)
 
 **Projected Revenue** (Estimates):
-- 10,000 monthly users × 4 pages/session × CPM $10 = ~$400/month
-- With CPC: 2% click-through × 100 clicks × $0.80 = ~$80/month
+- 10,000 monthly users Ã— 4 pages/session Ã— CPM $10 = ~$400/month
+- With CPC: 2% click-through Ã— 100 clicks Ã— $0.80 = ~$80/month
 - **Total: $480-500/month potential**
 
 #### 5. **Vercel Analytics (Frontend Performance Monitoring)**
@@ -3307,7 +3315,7 @@ CLS < 0.1 (Good)
 
 **Dashboard Metrics**:
 ```
-Current Status: Up ✓
+Current Status: Up âœ“
 Uptime (30 days): 99.94%
 Downtime (30 days): 0.9 minutes
 Average Response Time: 145ms
@@ -3346,67 +3354,67 @@ Average Response Time: 145ms
 **Schema Highlights**:
 ```
 Tables:
-├── auth_app_user (Django built-in)
-│   ├── id, email, username, password
-│   ├── first_name, last_name
-│   └── created_at, updated_at
-│
-├── country_country
-│   ├── id, name (unique), code (unique)
-│   ├── flag (image), description
-│   └── (195 countries)
-│
-├── country_appcategory
-│   ├── id, name (unique), description
-│   └── (15+ categories)
-│
-├── country_travelapp
-│   ├── id, name, description, icon_url
-│   ├── category_id (FK), country_id (FK)
-│   ├── android_link, ios_link, website_link
-│   ├── is_sponsored, affiliate_url
-│   ├── supports_foreign_cards, works_offline
-│   └── (15,000+ apps)
-│
-├── country_appsceenshot
-│   ├── id, app_id (FK), image_url
-│   └── (screenshots per app)
-│
-├── country_review
-│   ├── id, app_id (FK), user_id, rating
-│   ├── review_text, created_at
-│   └── (user-generated reviews)
-│
-├── country_emergencycontact
-│   ├── id, country_id (FK), name
-│   ├── phone, email, description
-│   └── (embassy/hospital contacts)
-│
-├── country_localphrase
-│   ├── id, country_id (FK)
-│   ├── original, translation, context_note
-│   └── (useful phrases)
-│
-├── country_usefultip
-│   ├── id, country_id (FK), tip
-│   └── (travel tips)
-│
-├── auth_app_useroriginpreference
-│   ├── id, user_id (FK, unique), origin_country_id (FK)
-│   └── (personalization data)
-│
-├── itinerary_itinerary
-│   ├── id, name, created_at
-│   └── (user trips)
-│
-├── itinerary_stop
-│   ├── id, itinerary_id (FK), name, stop_type
-│   ├── order (for sequencing)
-│   └── (trip legs)
-│
-└── itinerary_legsuggestionrule
-    ├── id, stop_type (unique), categories (M2M)
-    └── (recommendation mappings)
+â”œâ”€â”€ auth_app_user (Django built-in)
+â”‚   â”œâ”€â”€ id, email, username, password
+â”‚   â”œâ”€â”€ first_name, last_name
+â”‚   â””â”€â”€ created_at, updated_at
+â”‚
+â”œâ”€â”€ country_country
+â”‚   â”œâ”€â”€ id, name (unique), code (unique)
+â”‚   â”œâ”€â”€ flag (image), description
+â”‚   â””â”€â”€ (25+ countries currently in database)
+â”‚
+â”œâ”€â”€ country_appcategory
+â”‚   â”œâ”€â”€ id, name (unique), description
+â”‚   â””â”€â”€ (15+ categories)
+â”‚
+â”œâ”€â”€ country_travelapp
+â”‚   â”œâ”€â”€ id, name, description, icon_url
+â”‚   â”œâ”€â”€ category_id (FK), country_id (FK)
+â”‚   â”œâ”€â”€ android_link, ios_link, website_link
+â”‚   â”œâ”€â”€ is_sponsored, affiliate_url
+â”‚   â”œâ”€â”€ supports_foreign_cards, works_offline
+â”‚   â””â”€â”€ (15,000+ apps)
+â”‚
+â”œâ”€â”€ country_appsceenshot
+â”‚   â”œâ”€â”€ id, app_id (FK), image_url
+â”‚   â””â”€â”€ (screenshots per app)
+â”‚
+â”œâ”€â”€ country_review
+â”‚   â”œâ”€â”€ id, app_id (FK), user_id, rating
+â”‚   â”œâ”€â”€ review_text, created_at
+â”‚   â””â”€â”€ (user-generated reviews)
+â”‚
+â”œâ”€â”€ country_emergencycontact
+â”‚   â”œâ”€â”€ id, country_id (FK), name
+â”‚   â”œâ”€â”€ phone, email, description
+â”‚   â””â”€â”€ (embassy/hospital contacts)
+â”‚
+â”œâ”€â”€ country_localphrase
+â”‚   â”œâ”€â”€ id, country_id (FK)
+â”‚   â”œâ”€â”€ original, translation, context_note
+â”‚   â””â”€â”€ (useful phrases)
+â”‚
+â”œâ”€â”€ country_usefultip
+â”‚   â”œâ”€â”€ id, country_id (FK), tip
+â”‚   â””â”€â”€ (travel tips)
+â”‚
+â”œâ”€â”€ auth_app_useroriginpreference
+â”‚   â”œâ”€â”€ id, user_id (FK, unique), origin_country_id (FK)
+â”‚   â””â”€â”€ (personalization data)
+â”‚
+â”œâ”€â”€ itinerary_itinerary
+â”‚   â”œâ”€â”€ id, name, created_at
+â”‚   â””â”€â”€ (user trips)
+â”‚
+â”œâ”€â”€ itinerary_stop
+â”‚   â”œâ”€â”€ id, itinerary_id (FK), name, stop_type
+â”‚   â”œâ”€â”€ order (for sequencing)
+â”‚   â””â”€â”€ (trip legs)
+â”‚
+â””â”€â”€ itinerary_legsuggestionrule
+    â”œâ”€â”€ id, stop_type (unique), categories (M2M)
+    â””â”€â”€ (recommendation mappings)
 ```
 
 **Performance Optimizations**:
@@ -3481,13 +3489,13 @@ CACHES = {
 
 **Key Pattern Examples**:
 ```
-country:US:data              → Full country page data
-country:US:apps             → All US apps
-country:US:essentials       → Emergency contacts, phrases
-search:london               → Search results for "london"
-user:123:prefs              → User preferences
-auth:email@example.com      → Auth token cache
-rate_limit:192.168.1.1:api  → Rate limit counter
+country:US:data              â†’ Full country page data
+country:US:apps             â†’ All US apps
+country:US:essentials       â†’ Emergency contacts, phrases
+search:london               â†’ Search results for "london"
+user:123:prefs              â†’ User preferences
+auth:email@example.com      â†’ Auth token cache
+rate_limit:192.168.1.1:api  â†’ Rate limit counter
 ```
 
 **Memory Management**:
@@ -3548,7 +3556,7 @@ MX Records (for future email):
 
 **GoDaddy Management**:
 1. **Admin Panel**: https://www.godaddy.com/account
-2. **DNS Management**: My Products → Domain → Manage DNS
+2. **DNS Management**: My Products â†’ Domain â†’ Manage DNS
 3. **Renewal**: Auto-renewal enabled (saves manual steps)
 4. **Support**: 24/7 GoDaddy support for domain issues
 
@@ -3570,25 +3578,25 @@ MX Records (for future email):
 **Data Flow Architecture**:
 ```
 User Browser (Vercel CDN)
-    ↓
-    ├→ Vercel Analytics (performance metrics)
-    ├→ Google Analytics (user behavior)
-    └→ Google AdSense (ads display)
+    â†“
+    â”œâ†’ Vercel Analytics (performance metrics)
+    â”œâ†’ Google Analytics (user behavior)
+    â””â†’ Google AdSense (ads display)
     
 API Requests
-    ↓
+    â†“
 Render Backend (Django REST)
-    ├→ UptimeRobot (monitors availability)
-    └→ Request Processing
-        ├→ Auth: Google/Facebook OAuth
-        ├→ Query: PostgreSQL (via Aiven)
-        └→ Cache: Redis (via Upstash)
+    â”œâ†’ UptimeRobot (monitors availability)
+    â””â†’ Request Processing
+        â”œâ†’ Auth: Google/Facebook OAuth
+        â”œâ†’ Query: PostgreSQL (via Aiven)
+        â””â†’ Cache: Redis (via Upstash)
     
 Domain Management
-    ↓
+    â†“
 GoDaddy DNS
-    ├→ Directs tripbozo.com → Vercel (frontend)
-    └→ Directs api.tripbozo.com → Render (backend)
+    â”œâ†’ Directs tripbozo.com â†’ Vercel (frontend)
+    â””â†’ Directs api.tripbozo.com â†’ Render (backend)
 ```
 
 **Service Redundancy**:
@@ -3664,8 +3672,8 @@ CELERY_RESULT_BACKEND=redis://...
    ```
 5. Render restarts Gunicorn server with new code
 6. Health checks verify API responsiveness
-7. If health checks pass → deployment complete
-8. If health checks fail → rollback to previous version
+7. If health checks pass â†’ deployment complete
+8. If health checks fail â†’ rollback to previous version
 
 **Build & Deploy Time**: ~2-3 minutes
 
@@ -3684,9 +3692,9 @@ gunicorn \
 **Scaling Considerations**:
 - **Current**: 1 dyno (512MB) handles ~100 concurrent users
 - **Growth Path**:
-  - 500 users → 2 dynos (Standard)
-  - 5000 users → 3-4 Standard dynos + load balancing
-  - 50k+ users → Horizontal scaling + read replicas
+  - 500 users â†’ 2 dynos (Standard)
+  - 5000 users â†’ 3-4 Standard dynos + load balancing
+  - 50k+ users â†’ Horizontal scaling + read replicas
 
 **Monitoring on Render**:
 - Real-time logs accessible via dashboard
@@ -3740,8 +3748,8 @@ NEXT_PUBLIC_ADCLIENT=ca-pub-8457921153251875
    npm run build
    ```
 5. Vercel tests production build locally
-6. If successful → Deploy to edge network
-7. If failed → Build error page (developer notified)
+6. If successful â†’ Deploy to edge network
+7. If failed â†’ Build error page (developer notified)
 8. Deployment to 35+ regions (~30 seconds total)
 
 **Build Process Details**:
@@ -3754,11 +3762,11 @@ npm run lint  # Fails build if errors found
 
 # Build Next.js application
 npm run build
-  ├── Compiles React components
-  ├── Optimizes images
-  ├── Generates static HTML for SSG pages
-  ├── Creates API route handlers
-  └── Bundled output to .next/ folder
+  â”œâ”€â”€ Compiles React components
+  â”œâ”€â”€ Optimizes images
+  â”œâ”€â”€ Generates static HTML for SSG pages
+  â”œâ”€â”€ Creates API route handlers
+  â””â”€â”€ Bundled output to .next/ folder
 
 # Output statistics
 Total Size: ~2.5MB
@@ -3778,18 +3786,18 @@ Edge Functions: 0 (can add middleware)
 **Performance Optimizations**:
 ```
 Next.js Features:
-├── Image Optimization (next/image component)
-├── Code Splitting (automatic chunking)
-├── Route Prefetching (smart loading)
-├── CSS-in-JS optimization (Tailwind)
-└── Font optimization (next/font)
+â”œâ”€â”€ Image Optimization (next/image component)
+â”œâ”€â”€ Code Splitting (automatic chunking)
+â”œâ”€â”€ Route Prefetching (smart loading)
+â”œâ”€â”€ CSS-in-JS optimization (Tailwind)
+â””â”€â”€ Font optimization (next/font)
 
 Vercel Features:
-├── Edge Caching (near-user servers)
-├── Automatic gzip compression
-├── HTTP/2 protocol
-├── QUIC protocol (for newer browsers)
-└── Request deduplication
+â”œâ”€â”€ Edge Caching (near-user servers)
+â”œâ”€â”€ Automatic gzip compression
+â”œâ”€â”€ HTTP/2 protocol
+â”œâ”€â”€ QUIC protocol (for newer browsers)
+â””â”€â”€ Request deduplication
 ```
 
 **Deploy Preview**:
@@ -3857,17 +3865,17 @@ DATABASES = {
 **Disaster Recovery**:
 ```
 Backup Locations:
-├── Primary backup: Aiven object storage (AWS S3 equivalent)
-├── Retention: 30 days of daily backups
-├── Point-in-time recovery: Available up to 30 days back
-└── Recovery time: ~15-30 minutes
+â”œâ”€â”€ Primary backup: Aiven object storage (AWS S3 equivalent)
+â”œâ”€â”€ Retention: 30 days of daily backups
+â”œâ”€â”€ Point-in-time recovery: Available up to 30 days back
+â””â”€â”€ Recovery time: ~15-30 minutes
 ```
 
 **Scaling Strategy**:
 - **Current**: db-startup-4 (4 GB RAM, 80 GB storage)
 - **Growth limits**: 
-  - 10GB → db-business-4 (8GB RAM, 240GB storage)
-  - 50GB → db-business-8 (16GB RAM, 480GB storage)
+  - 10GB â†’ db-business-4 (8GB RAM, 240GB storage)
+  - 50GB â†’ db-business-8 (16GB RAM, 480GB storage)
 - **Index optimization** as primary scaling strategy
 
 **Cost**:
@@ -3916,11 +3924,11 @@ CACHES = {
 **Usage Monitoring**:
 ```
 Current Redis Usage:
-├── Active keys: ~500
-├── Memory usage: ~20 MB / 256 MB limit
-├── Hit rate: 78% (good optimization)
-├── Daily operations: 150k commands
-└── Cost: Free (under 1M daily limit)
+â”œâ”€â”€ Active keys: ~500
+â”œâ”€â”€ Memory usage: ~20 MB / 256 MB limit
+â”œâ”€â”€ Hit rate: 78% (good optimization)
+â”œâ”€â”€ Daily operations: 150k commands
+â””â”€â”€ Cost: Free (under 1M daily limit)
 ```
 
 **Scaling Plan**:
@@ -3938,24 +3946,24 @@ Current Redis Usage:
 Domain: tripbozo.com (registered with GoDaddy)
 
 Records:
-┌─ A Record (@)
-│  ├─ Type: A
-│  ├─ Points to: 76.76.19.21 (Vercel global DNS)
-│  └─ TTL: 3600 seconds (1 hour)
-│
-├─ CNAME Record (www)
-│  ├─ Type: CNAME
-│  ├─ Points to: cname.vercel-dns.com
-│  └─ TTL: 3600 seconds
-│
-├─ CNAME Record (api)
-│  ├─ Type: CNAME
-│  ├─ Points to: tripbozo.onrender.com
-│  └─ TTL: 3600 seconds
-│
-└─ MX Records (for future email)
-   ├─ Priority: 10
-   └─ Points to: aspmx.l.google.com (if using Gmail)
+â”Œâ”€ A Record (@)
+â”‚  â”œâ”€ Type: A
+â”‚  â”œâ”€ Points to: 76.76.19.21 (Vercel global DNS)
+â”‚  â””â”€ TTL: 3600 seconds (1 hour)
+â”‚
+â”œâ”€ CNAME Record (www)
+â”‚  â”œâ”€ Type: CNAME
+â”‚  â”œâ”€ Points to: cname.vercel-dns.com
+â”‚  â””â”€ TTL: 3600 seconds
+â”‚
+â”œâ”€ CNAME Record (api)
+â”‚  â”œâ”€ Type: CNAME
+â”‚  â”œâ”€ Points to: tripbozo.onrender.com
+â”‚  â””â”€ TTL: 3600 seconds
+â”‚
+â””â”€ MX Records (for future email)
+   â”œâ”€ Priority: 10
+   â””â”€ Points to: aspmx.l.google.com (if using Gmail)
 ```
 
 **SSL/TLS Certificate**:
@@ -3966,7 +3974,7 @@ Records:
 
 **GoDaddy Management Dashboard**:
 1. Login: https://www.godaddy.com/account
-2. Navigate: My Products → Domains → tripbozo.com
+2. Navigate: My Products â†’ Domains â†’ tripbozo.com
 3. Manage DNS: Edit DNS records as needed
 4. Auto-renewal: Enabled (prevents accidental expiration)
 
@@ -3976,38 +3984,38 @@ Records:
 
 **Data Flow Diagram**:
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    User Browser                              │
-└─────────────────────────┬──────────────────────────────────┘
-                          │
-                          │ HTTPS Request
-                          ▼
-        ┌─────────────────────────────────────┐
-        │  GoDaddy DNS (tripbozo.com)         │
-        │  ├─ A record → Vercel IP           │
-        │  └─ api CNAME → Render domain      │
-        └──────────────┬──────────────────────┘
-                       │
-        ┌──────────────┴──────────────┐
-        ▼                             ▼
-    ┌────────────────┐          ┌──────────────┐
-    │ Vercel CDN     │          │ Render API   │
-    │ (Frontend)     │          │ (Backend)    │
-    │                │          │              │
-    │ ├─ HTML        │          │ ├─ Auth      │
-    │ ├─ CSS         │          │ ├─ Data      │
-    │ ├─ JS bundles  │          │ ├─ Cache ops │
-    │ ├─ Images      │          │ └─ Logging   │
-    │ └─ Analytics   │          │              │
-    └────────────────┘          └────┬─────────┘
-                                     │
-                        ┌────────────┼────────────┐
-                        ▼            ▼            ▼
-                    ┌────────┐  ┌──────────┐  ┌────────┐
-                    │ Aiven  │  │ Upstash  │  │Monitor │
-                    │ PostSQL│  │ Redis    │  │ Robot  │
-                    │(Data)  │  │(Cache)   │  │(Health)│
-                    └────────┘  └──────────┘  └────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    User Browser                              â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â”‚
+                          â”‚ HTTPS Request
+                          â–¼
+        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+        â”‚  GoDaddy DNS (tripbozo.com)         â”‚
+        â”‚  â”œâ”€ A record â†’ Vercel IP           â”‚
+        â”‚  â””â”€ api CNAME â†’ Render domain      â”‚
+        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                       â”‚
+        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+        â–¼                             â–¼
+    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚ Vercel CDN     â”‚          â”‚ Render API   â”‚
+    â”‚ (Frontend)     â”‚          â”‚ (Backend)    â”‚
+    â”‚                â”‚          â”‚              â”‚
+    â”‚ â”œâ”€ HTML        â”‚          â”‚ â”œâ”€ Auth      â”‚
+    â”‚ â”œâ”€ CSS         â”‚          â”‚ â”œâ”€ Data      â”‚
+    â”‚ â”œâ”€ JS bundles  â”‚          â”‚ â”œâ”€ Cache ops â”‚
+    â”‚ â”œâ”€ Images      â”‚          â”‚ â””â”€ Logging   â”‚
+    â”‚ â””â”€ Analytics   â”‚          â”‚              â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                     â”‚
+                        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                        â–¼            â–¼            â–¼
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â”‚ Aiven  â”‚  â”‚ Upstash  â”‚  â”‚Monitor â”‚
+                    â”‚ PostSQLâ”‚  â”‚ Redis    â”‚  â”‚ Robot  â”‚
+                    â”‚(Data)  â”‚  â”‚(Cache)   â”‚  â”‚(Health)â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Deployment Process Summary**:
@@ -4017,7 +4025,7 @@ Developer Workflow:
   2. GitHub notifies Vercel & Render
   3. Both build automatically in parallel
   4. Tests run (linting, build validation)
-  5. If all pass → Deploy to production
+  5. If all pass â†’ Deploy to production
   6. DNS routes traffic to new versions
   7. Monitor with UptimeRobot & Vercel Analytics
 
@@ -4073,14 +4081,14 @@ Rollback Time: < 1 minute
 - **Token Types**:
   ```
   Access Token: 15-minute expiration
-  ├─ Used for API requests
-  ├─ Short-lived (prevents token theft impact)
-  └─ Refreshed via refresh token
+  â”œâ”€ Used for API requests
+  â”œâ”€ Short-lived (prevents token theft impact)
+  â””â”€ Refreshed via refresh token
   
   Refresh Token: 7-day expiration
-  ├─ Used to obtain new access tokens
-  ├─ Longer-lived (stay logged in longer)
-  └─ Can be rotated/revoked
+  â”œâ”€ Used to obtain new access tokens
+  â”œâ”€ Longer-lived (stay logged in longer)
+  â””â”€ Can be rotated/revoked
   ```
 - **Token Payload**:
   ```json
@@ -4103,10 +4111,10 @@ Rollback Time: < 1 minute
 **Social OAuth Security**
 - **Google OAuth**:
   ```
-  ├─ Token validation: Query Google's userinfo endpoint
-  ├─ Prevents**: Fake tokens, token theft
-  ├─ Flow**: Client-side auth → Backend validation
-  └─ User data verified from authoritative source
+  â”œâ”€ Token validation: Query Google's userinfo endpoint
+  â”œâ”€ Prevents**: Fake tokens, token theft
+  â”œâ”€ Flow**: Client-side auth â†’ Backend validation
+  â””â”€ User data verified from authoritative source
   ```
 - **Facebook OAuth**: Similar validation via allauth
 - **Account linking**: Multiple OAuth providers per user
@@ -4162,7 +4170,7 @@ Rollback Time: < 1 minute
 - **Prevents**: Cross-site request forgery from untrusted sites
 - **Preflight**: Browser sends OPTIONS request first
 
-**Rate Limiting** (Recommended, not yet implemented)
+**Rate Limiting** (optional hardening step for higher-traffic phases)
 - **Purpose**: Prevent brute force attacks, DDoS
 - **Strategy**:
   ```
@@ -4183,17 +4191,19 @@ Rollback Time: < 1 minute
 
 ---
 
-### Recommended Security Improvements
+### Optional Future Improvements (Non-Blocking)
 
-#### High Priority (Production-Critical)
+The current implementation is complete and fully usable for the present project scope. The items below are optional upgrades that can be considered later only if scale, policy, or product direction requires them.
+The current implementation is complete and fully usable for the present project scope. The items below are optional upgrades that can be considered later only if scale, policy, or product direction requires them.
+#### Optional Improvements (If Needed Later)
 
 ##### 1. **Email Backend Configuration**
-**Current Issue**: Using console.EmailBackend (prints to logs, not sent)
-**Problem**: Password reset, email verification can't work
+**Current Baseline:** Using console.EmailBackend (prints to logs, not sent)
+**Enhancement Opportunity:** Password reset, email verification can't work
 
-**Solution Options**:
+**Optional Implementation Options:**
 
-**Option A: SendGrid (Recommended)**
+**Option A: SendGrid**
 ```python
 # settings.py
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
@@ -4231,8 +4241,8 @@ AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 ---
 
 ##### 2. **Rate Limiting (Brute Force Protection)**
-**Current Issue**: No limit on login attempts
-**Problem**: Attackers can try thousands of passwords
+**Current Baseline:** No limit on login attempts
+**Enhancement Opportunity:** Attackers can try thousands of passwords
 
 **Solution: django-ratelimit**
 ```bash
@@ -4373,11 +4383,11 @@ AXES_LOCKOUT_TEMPLATE = 'accounts/lockout.html'
 **Behavior**:
 ```
 Attempt 1-4: Rejected, counter incremented
-  ↓
+  â†“
 Attempt 5: Account locked for 30 minutes
-  ↓
+  â†“
 After 30 min: Counter reset, can attempt again
-  ↓
+  â†“
 Success: Counter reset to 0
 ```
 
@@ -4385,7 +4395,7 @@ Success: Counter reset to 0
 
 ---
 
-#### Medium Priority (Important for Compliance)
+#### Additional Optional Enhancements
 
 ##### 1. **Audit Logging**
 **Purpose**: Track security-relevant events
@@ -4636,7 +4646,7 @@ npm start
 - **Time to Interactive**: < 3.5s
 
 ### Database Statistics
-- **Countries**: ~195 global countries
+- **Countries**: 25+ countries currently in the database
 - **Apps per Country**: 20-100 depending on research
 - **Categories**: 15+ (Navigation, Communication, Finance, etc.)
 - **Total Records**: ~15,000+ apps across all countries
@@ -4681,3 +4691,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Version**: 1.0 (Production Ready)
 
 For detailed API documentation and additional technical details, refer to the respective repository READMEs and inline code documentation.
+
+
+
+
+
+
