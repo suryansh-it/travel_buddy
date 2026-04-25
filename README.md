@@ -1,4 +1,4 @@
-﻿# Tripbozo - Travel App Discovery and Essentials Platform
+# Tripbozo - Travel App Discovery and Essentials Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Django](https://img.shields.io/badge/Django-5.1.6-green.svg)](https://djangoproject.com/)
@@ -13,17 +13,18 @@
 1. [Project Overview](#project-overview)
 2. [Goals & Objectives](#goals--objectives)
 3. [System Architecture](#system-architecture)
-4. [Tech Stack](#tech-stack)
-5. [Key Features](#key-features)
-6. [Database Schema & Models](#database-schema--models)
-7. [API Documentation](#api-documentation)
-8. [Backend Structure](#backend-structure)
-9. [Frontend Structure](#frontend-structure)
-10. [Services & Integrations](#services--integrations)
-11. [Deployment](#deployment)
-12. [Security Implementation](#security-implementation)
-13. [Setup & Development](#setup--development)
-14. [Team & Contributors](#team--contributors)
+4. [Documentation Aids](#documentation-aids)
+5. [Tech Stack](#tech-stack)
+6. [Key Features](#key-features)
+7. [Database Schema & Models](#database-schema--models)
+8. [API Documentation](#api-documentation)
+9. [Backend Structure](#backend-structure)
+10. [Frontend Structure](#frontend-structure)
+11. [Services & Integrations](#services--integrations)
+12. [Deployment](#deployment)
+13. [Security Implementation](#security-implementation)
+14. [Setup & Development](#setup--development)
+15. [Team & Contributors](#team--contributors)
 
 ---
 
@@ -113,6 +114,65 @@ The platform solves a critical traveler pain point: **discovering which apps are
 
 ---
 
+## Documentation Aids
+
+### Quick Reference Table
+
+| Area | What It Covers | Main Value |
+| --- | --- | --- |
+| Frontend | Homepage, country page, essentials page, QR bundle page, bundle redirect page | User-facing travel workflow |
+| Backend | Country data, essentials, travel updates, traveler insights, bundle sessions | Core business logic and data access |
+| Storage | PostgreSQL + Redis | Persistent data and fast session/cache handling |
+| Integrations | Google OAuth, Facebook OAuth, Analytics, AdSense, Render, Vercel, Aiven, Upstash, GoDaddy | Login, monitoring, deployment, and domain setup |
+
+### User Flow Flowchart
+
+```mermaid
+flowchart TD
+  A[Open Tripbozo Homepage] --> B[Select a Country]
+  B --> C[View Country App List]
+  C --> D[Choose Apps for Bundle]
+  D --> E[Generate QR / Share Link]
+  E --> F[Open Bundle Redirect Page]
+  F --> G[Device Detects Android or iOS]
+  G --> H[Open Correct Store Link]
+  C --> I[Open Essentials Page]
+  I --> J[Read Emergency, Phrases, Tips, Weather, Travel Updates]
+```
+
+### System Flow Diagram
+
+```mermaid
+flowchart LR
+  U[User Browser] --> V[Next.js Frontend on Vercel]
+  V --> W[Django REST API on Render]
+  W --> X[(Aiven PostgreSQL)]
+  W --> Y[(Upstash Redis)]
+  V --> Z[Google Analytics / Vercel Analytics]
+  V --> G[Google OAuth]
+  V --> F[Facebook OAuth]
+  D[GoDaddy DNS] --> V
+  D --> W
+```
+
+### Feature Summary Table
+
+| Feature | Purpose | Output |
+| --- | --- | --- |
+| Country app discovery | Show destination-specific apps | Organized app list by country |
+| Essentials page | Present travel-critical info | Emergency contacts, phrases, tips |
+| QR bundle flow | Package selected apps into shareable form | QR code + bundle link + downloadable list |
+| OS-aware redirect | Open the correct app store automatically | Android Play Store / iOS App Store |
+| Travel updates and weather | Add live travel context | Updates, climate/weather signals, traveler insight |
+
+### Reference Notes
+
+- The README is written to reflect the current implemented scope, not speculative roadmap items.
+- Mermaid blocks render well on GitHub and can be used directly in a college report draft.
+- Tables are intentionally short so they can be copied into a report with minimal editing.
+
+---
+
 ## Tech Stack
 
 ### Backend
@@ -153,10 +213,6 @@ The platform solves a critical traveler pain point: **discovering which apps are
 
 ## Key Features
 
-### Product Advantage: Clutter-Free Design
-- Tripbozo is intentionally focused and clutter-free.
-- It avoids unnecessary bloated modules and keeps the core travel workflow simple: discover apps, select apps, generate/share bundle, install quickly.
-- This focused design improves speed, usability, and clarity for real travelers.
 ### Product Advantage: Clutter-Free Design
 - Tripbozo is intentionally focused and clutter-free.
 - It avoids unnecessary bloated modules and keeps the core travel workflow simple: discover apps, select apps, generate/share bundle, install quickly.
@@ -4686,11 +4742,62 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+## References
+
+These references are useful if you want to turn this README into a formal report chapter or add a bibliography section.
+
+| Topic | Reference |
+| --- | --- |
+| Django | https://docs.djangoproject.com/ |
+| Django REST Framework | https://www.django-rest-framework.org/ |
+| Next.js | https://nextjs.org/docs |
+| React | https://react.dev/ |
+| Render | https://render.com/docs |
+| Vercel | https://vercel.com/docs |
+| Aiven PostgreSQL | https://aiven.io/docs/products/postgresql |
+| Upstash Redis | https://upstash.com/docs/redis |
+| Google OAuth | https://developers.google.com/identity/protocols/oauth2 |
+| Google Analytics | https://support.google.com/analytics |
+| Google AdSense | https://support.google.com/adsense |
+
+### Research Papers (For Report Citation)
+
+The papers below are the academic basis for Tripbozo's core concepts (recommendation, personalization, travel decision support, and mobile-first tourism workflows):
+
+1. Resnick, P., & Varian, H. R. (1997). Recommender systems. Communications of the ACM, 40(3), 56-58. https://doi.org/10.1145/245108.245121
+   - Relevance to Tripbozo: Establishes the core rationale for recommendation systems that reduce information overload. Tripbozo applies this principle by curating country-specific app choices so travelers can decide faster.
+
+2. Adomavicius, G., & Tuzhilin, A. (2005). Toward the next generation of recommender systems: A survey of the state-of-the-art and possible extensions. IEEE Transactions on Knowledge and Data Engineering, 17(6), 734-749. https://doi.org/10.1109/TKDE.2005.99
+   - Relevance to Tripbozo: Supports context-aware and personalized recommendation logic. Tripbozo uses destination context and user context (such as origin preference) to improve relevance.
+
+3. Koren, Y., Bell, R., & Volinsky, C. (2009). Matrix factorization techniques for recommender systems. Computer, 42(8), 30-37. https://doi.org/10.1109/MC.2009.263
+   - Relevance to Tripbozo: Provides strong theoretical grounding for recommendation-quality improvement at scale. This supports future personalization expansion while validating the current recommendation direction.
+
+4. Xiang, Z., & Gretzel, U. (2010). Role of social media in online travel information search. Tourism Management, 31(2), 179-188. https://doi.org/10.1016/j.tourman.2009.02.016
+   - Relevance to Tripbozo: Demonstrates how travelers rely on digital channels for trip decisions. Tripbozo addresses this behavior by centralizing practical destination app intelligence in one workflow.
+
+5. Wang, D., Park, S., & Fesenmaier, D. R. (2012). The role of smartphones in mediating the touristic experience. Journal of Travel Research, 51(4), 371-387. https://doi.org/10.1177/0047287511426341
+   - Relevance to Tripbozo: Directly aligns with mobile-first travel execution. Tripbozo's QR bundle, downloadable app list, and phone-friendly redirect flow are consistent with smartphone-mediated tourism behavior.
+
+6. Gretzel, U., Sigala, M., Xiang, Z., & Koo, C. (2015). Smart tourism: Foundations and developments. Electronic Markets, 25, 179-188. https://doi.org/10.1007/s12525-015-0196-8
+   - Relevance to Tripbozo: Frames Tripbozo as a smart-tourism style system that combines information, digital services, and context to improve traveler outcomes.
+
+7. Buhalis, D., & Law, R. (2008). Progress in information technology and tourism management: 20 years on and 10 years after the internet. Tourism Management, 29(4), 609-623. https://doi.org/10.1016/j.tourman.2008.01.005
+   - Relevance to Tripbozo: Supports the broader transformation of travel planning through digital systems, which is exactly the domain and motivation of this project.
+
+Use this citation mapping in your report:
+- Papers 1-3: Literature review for recommendation/personalization foundations.
+- Papers 4-7: Literature review for travel technology, tourist behavior, and smart tourism context.
+- Project linkage chapter: Map these studies to implemented features such as country-specific discovery, essentials, QR bundle sharing, and OS-aware store redirection.
+
+---
+
 **Last Updated**: April 24, 2026
 
 **Version**: 1.0 (Production Ready)
 
 For detailed API documentation and additional technical details, refer to the respective repository READMEs and inline code documentation.
+
 
 
 
