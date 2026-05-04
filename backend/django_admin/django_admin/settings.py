@@ -129,14 +129,26 @@ if DEBUG:
         "http://127.0.0.1:3000",
     ]
 else:
-    # Read your single comma-separated env var...
-    cors_env = os.getenv("CORS_ALLOWED_FRONTENDS", "")
-    # Split on commas, strip whitespace, drop any empty strings:
-    CORS_ALLOWED_ORIGINS = [
-        origin.strip()
-        for origin in cors_env.split(",")
-        if origin.strip()
-    ]
+    # Build production CORS origins from env values with sensible defaults.
+    configured_origins = []
+    for env_key in ("CORS_ALLOWED_FRONTENDS", "FRONTEND_URL"):
+        raw_value = os.getenv(env_key, "")
+        configured_origins.extend(
+            origin.strip()
+            for origin in raw_value.split(",")
+            if origin.strip()
+        )
+
+    if not configured_origins:
+        configured_origins = [
+            "https://tripbozo.com",
+            "https://www.tripbozo.com",
+            "https://tripbozo.vercel.app",
+            "https://tripbozo-git-master-suryanshs-projects-39c39986.vercel.app",
+            "https://tripbozo-keg5pbrpx-suryanshs-projects-39c39986.vercel.app",
+        ]
+
+    CORS_ALLOWED_ORIGINS = sorted(set(configured_origins))
 
 ROOT_URLCONF = 'django_admin.urls'
 
