@@ -108,6 +108,51 @@ def submit_country_suggestion(request):
         )
 
 
+@api_view(["POST"])
+def submit_feedback(request):
+    """Handle feedback submissions via authenticated users and email them to admin."""
+    if not request.user or not request.user.is_authenticated:
+        return Response(
+            {"result": "error", "message": "You must be logged in to submit feedback."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    name = str(request.data.get("name", "")).strip()
+    message = str(request.data.get("message", "")).strip()
+
+    if not message:
+        return Response(
+            {"result": "error", "message": "Feedback message is required."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    user_email = request.user.email
+    user_name = request.user.get_full_name() or request.user.username or name or "Traveler"
+
+    subject = "Tripbozo Feedback Submission"
+    body = (
+        f"New feedback submitted.\n\n"
+        f"Name: {user_name}\n"
+        f"Email: {user_email}\n"
+        f"Message: {message}\n"
+    )
+
+    try:
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.SUGGESTION_RECEIVER_EMAIL],
+            fail_silently=False,
+        )
+        return Response({"result": "success"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"result": "error", "message": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+
 #----------- if implementing algolia search -------------
 # @api_view(['GET'])
 # def homepage_search_view(request):
