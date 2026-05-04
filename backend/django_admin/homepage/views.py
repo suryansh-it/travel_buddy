@@ -1,9 +1,12 @@
+import logging
 from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
+
+logger = logging.getLogger(__name__)
 # from services.algolia_service import search_countries
 from country.models import Country
 from country.serializers import CountrySerializer
@@ -100,12 +103,12 @@ def submit_country_suggestion(request):
             [settings.SUGGESTION_RECEIVER_EMAIL],
             fail_silently=False,
         )
-        return Response({"result": "success"}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response(
-            {"result": "error", "message": str(e)},
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        )
+        # Log email failure but still return success to user
+        # This handles cases where SMTP is blocked/unavailable (e.g., Render blocking Gmail)
+        logger.warning(f"Failed to send country suggestion email: {str(e)}")
+    
+    return Response({"result": "success"}, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -145,12 +148,12 @@ def submit_feedback(request):
             [settings.SUGGESTION_RECEIVER_EMAIL],
             fail_silently=False,
         )
-        return Response({"result": "success"}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response(
-            {"result": "error", "message": str(e)},
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        )
+        # Log email failure but still return success to user
+        # This handles cases where SMTP is blocked/unavailable (e.g., Render blocking Gmail)
+        logger.warning(f"Failed to send feedback email: {str(e)}")
+    
+    return Response({"result": "success"}, status=status.HTTP_200_OK)
 
 
 #----------- if implementing algolia search -------------
