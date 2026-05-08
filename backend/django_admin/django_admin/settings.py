@@ -85,11 +85,14 @@ ACCOUNT_USERNAME_REQUIRED = True
 # dj-rest-auth will use ALLAUTH settings for password reset e-mails, etc.
 # Email Configuration - env-driven
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+if EMAIL_BACKEND == "django.core.mail.backends.EmailBackend":
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", "10"))
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 SUGGESTION_RECEIVER_EMAIL = os.getenv("SUGGESTION_RECEIVER_EMAIL", "bozotrip@gmail.com")
 
@@ -210,7 +213,7 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
 # If you want to isolate your “personal list” DB, you can supply REDIS_URL_PER_LISTS
 # e.g. redis://:password@hostname:6379/1
-REDIS_URL_PERSONAL_LISTS = os.getenv("REDIS_URL_PER_LISTS") or REDIS_URL
+REDIS_URL_PERSONAL_LISTS = os.getenv("REDIS_URL_PERSONAL_LISTS") or os.getenv("REDIS_URL_PER_LISTS") or REDIS_URL
 
 REDIS_URL_ONE=os.getenv("REDIS_URL_ONE", "redis://localhost:6379/2")
 
@@ -220,6 +223,12 @@ CACHES = {
     "LOCATION": REDIS_URL_ONE,
     "OPTIONS": {
       "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SOCKET_CONNECT_TIMEOUT": 5,
+            "SOCKET_TIMEOUT": 5,
+            "REDIS_CLIENT_KWARGS": {
+                    "retry_on_timeout": True,
+            },
+            "IGNORE_EXCEPTIONS": True,
     }
   }
 }

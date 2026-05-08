@@ -3,11 +3,10 @@ from django.shortcuts import get_list_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.core.mail import send_mail
-from django.conf import settings
 
 logger = logging.getLogger(__name__)
 # from services.algolia_service import search_countries
+from auth_app.models import UserCountrySuggestion, UserFeedback
 from country.models import Country
 from country.serializers import CountrySerializer
 from django.urls import reverse  # ✅ For generating URLs dynamically
@@ -65,7 +64,7 @@ def homepage_search_view(request):
 
 @api_view(["POST"])
 def submit_country_suggestion(request):
-    """Handle country suggestions and send email to admin. Requires authentication."""
+    """Handle country suggestions for authenticated users."""
     # Check if user is authenticated
     if not request.user or not request.user.is_authenticated:
         return Response(
@@ -82,38 +81,23 @@ def submit_country_suggestion(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    # Get user's email from authenticated user
     user_email = request.user.email
     user_name = request.user.get_full_name() or request.user.username
 
-    subject = f"Tripbozo Country Suggestion: {country}"
-    body = (
-        f"New country suggestion submitted.\n\n"
-        f"Country: {country}\n"
-        f"Message: {message}\n"
-        f"Submitted by: {user_name}\n"
-        f"Email: {user_email}\n"
+    UserCountrySuggestion.objects.create(
+        user=request.user,
+        country=country,
+        message=message,
+        user_email=user_email,
+        user_name=user_name,
     )
-
-    try:
-        send_mail(
-            subject,
-            body,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.SUGGESTION_RECEIVER_EMAIL],
-            fail_silently=False,
-        )
-    except Exception as e:
-        # Log email failure but still return success to user
-        # This handles cases where SMTP is blocked/unavailable (e.g., Render blocking Gmail)
-        logger.warning(f"Failed to send country suggestion email: {str(e)}")
     
-    return Response({"result": "success"}, status=status.HTTP_200_OK)
+    return Response({"result": "success", "message": "Suggestion saved."}, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
 def submit_feedback(request):
-    """Handle feedback submissions via authenticated users and email them to admin."""
+    """Handle feedback submissions via authenticated users."""
     if not request.user or not request.user.is_authenticated:
         return Response(
             {"result": "error", "message": "You must be logged in to submit feedback."},
@@ -132,28 +116,14 @@ def submit_feedback(request):
     user_email = request.user.email
     user_name = request.user.get_full_name() or request.user.username or name or "Traveler"
 
-    subject = "Tripbozo Feedback Submission"
-    body = (
-        f"New feedback submitted.\n\n"
-        f"Name: {user_name}\n"
-        f"Email: {user_email}\n"
-        f"Message: {message}\n"
+    UserFeedback.objects.create(
+        user=request.user,
+        name=user_name,
+        message=message,
+        user_email=user_email,
     )
-
-    try:
-        send_mail(
-            subject,
-            body,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.SUGGESTION_RECEIVER_EMAIL],
-            fail_silently=False,
-        )
-    except Exception as e:
-        # Log email failure but still return success to user
-        # This handles cases where SMTP is blocked/unavailable (e.g., Render blocking Gmail)
-        logger.warning(f"Failed to send feedback email: {str(e)}")
     
-    return Response({"result": "success"}, status=status.HTTP_200_OK)
+    return Response({"result": "success", "message": "Feedback saved."}, status=status.HTTP_200_OK)
 
 
 #----------- if implementing algolia search -------------
