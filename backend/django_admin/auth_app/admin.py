@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserCountrySuggestion, UserFeedback, UserOriginPreference
+from .models import UserCountrySuggestion, UserFeedback, UserOriginPreference, Bookmark
 
 
 @admin.register(UserOriginPreference)
@@ -22,3 +22,12 @@ class UserFeedbackAdmin(admin.ModelAdmin):
 	list_display = ("user", "name", "user_email", "created_at")
 	search_fields = ("user__username", "user__email", "name", "message")
 	list_filter = ("created_at",)
+
+
+@admin.register(Bookmark)
+class BookmarkAdmin(admin.ModelAdmin):
+	list_display = ("user", "bookmark_type", "country", "app", "created_at")
+	search_fields = ("user__username", "user__email", "country__name", "country__code", "app__name")
+	list_filter = ("bookmark_type", "created_at")
+	readonly_fields = ("created_at",)
+

@@ -161,3 +161,155 @@ class UserOriginCountryPreferenceView(APIView):
 
     def patch(self, request):
         return self.put(request)
+
+
+class BookmarkListView(APIView):
+	"""Get all bookmarks for the current user, optionally filtered by type."""
+	permission_classes = [IsAuthenticated]
+
+	def get(self, request):
+		bookmark_type = request.query_params.get('type')  # 'country' or 'app'
+		
+		bookmarks = Bookmark.objects.filter(user=request.user).order_by('-created_at')
+		if bookmark_type:
+			bookmarks = bookmarks.filter(bookmark_type=bookmark_type)
+		
+		from .serializers import BookmarkSerializer
+		serializer = BookmarkSerializer(bookmarks, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class BookmarkCreateView(APIView):
+	"""Create a new bookmark for a country or app."""
+	permission_classes = [IsAuthenticated]
+
+	def post(self, request):
+		bookmark_type = request.data.get('bookmark_type')
+		country_id = request.data.get('country_id')
+		app_id = request.data.get('app_id')
+
+		if not bookmark_type or bookmark_type not in ['country', 'app']:
+			return Response(
+				{"error": "Invalid bookmark_type. Must be 'country' or 'app'."},
+				status=status.HTTP_400_BAD_REQUEST,
+			)
+
+		if bookmark_type == 'country' and not country_id:
+			return Response(
+				{"error": "country_id required for country bookmarks."},
+				status=status.HTTP_400_BAD_REQUEST,
+			)
+
+		if bookmark_type == 'app' and not app_id:
+			return Response(
+				{"error": "app_id required for app bookmarks."},
+				status=status.HTTP_400_BAD_REQUEST,
+			)
+
+		try:
+			country = None
+			app = None
+			if bookmark_type == 'country':
+				from country.models import Country
+				country = Country.objects.get(id=country_id)
+			elif bookmark_type == 'app':
+				from country.models import TravelApp
+				app = TravelApp.objects.get(id=app_id)
+
+			bookmark, created = Bookmark.objects.get_or_create(
+				user=request.user,
+				bookmark_type=bookmark_type,
+				country=country,
+				app=app,
+			)
+
+			if not created:
+				return Response(
+					{"error": "Bookmark already exists."},
+					status=status.HTTP_400_BAD_REQUEST,
+				)
+
+			from .serializers import BookmarkSerializer
+			serializer = BookmarkSerializer(bookmark)
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+		except (Country.DoesNotExist, TravelApp.DoesNotExist):
+			return Response(
+				{"error": "Country or App not found."},
+				status=status.HTTP_404_NOT_FOUND,
+			)
+
+
+class BookmarkDeleteView(APIView):
+	"""Delete a specific bookmark by ID."""
+	permission_classes = [IsAuthenticated]
+
+	def delete(self, request, bookmark_id):
+		try:
+			bookmark = Bookmark.objects.get(id=bookmark_id, user=request.user)
+			bookmark.delete()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		except Bookmark.DoesNotExist:
+			return Response(
+				{"error": "Bookmark not found."},
+				status=status.HTTP_404_NOT_FOUND,
+			)
+
+
+class UserProfileStatsView(APIView):
+	"""Get user profile stats: visit history, bookmarks count, bundles count, etc."""
+	permission_classes = [IsAuthenticated]
+
+	def get(self, request):
+		from country.models import CountryVisit
+		user = request.user
+
+		# Get visited countries (sorted by most recent visit)
+		visited_countries = CountryVisit.objects.filter(
+			visit_count__gt=0
+		).order_by('-updated_at')[:10]  # Top 10 recently updated
+
+		visited_data = [
+			{
+				"id": cv.country.id,
+				"code": cv.country.code,
+				"name": cv.country.name,
+				"flag": cv.country.flag.url if cv.country.flag else None,
+				"visits": cv.visit_count,
+				"last_visited": cv.updated_at,
+			}
+			for cv in visited_countries
+		]
+
+		# Count user bookmarks by type
+		bookmark_stats = Bookmark.objects.filter(user=user).values('bookmark_type').count()
+		country_bookmarks = Bookmark.objects.filter(user=user, bookmark_type='country').count()
+		app_bookmarks = Bookmark.objects.filter(user=user, bookmark_type='app').count()
+
+		# Get recently bookmarked countries
+		recent_bookmarks = Bookmark.objects.filter(
+			user=user,
+			bookmark_type='country'
+		).order_by('-created_at')[:6]
+
+		bookmarks_data = []
+		for bm in recent_bookmarks:
+			if bm.country:
+				bookmarks_data.append({
+					"id": bm.country.id,
+					"code": bm.country.code,
+					"name": bm.country.name,
+					"flag": bm.country.flag.url if bm.country.flag else None,
+					"bookmarked_at": bm.created_at,
+				})
+
+		return Response({
+			"visited_countries": visited_data,
+			"bookmark_stats": {
+				"total": bookmark_stats,
+				"countries": country_bookmarks,
+				"apps": app_bookmarks,
+			},
+			"recent_bookmarks": bookmarks_data,
+		}, status=status.HTTP_200_OK)
+

@@ -60,4 +60,48 @@ class UserFeedback(models.Model):
 	def __str__(self):
 		return f"{self.user_id} -> feedback"
 
+
+class Bookmark(models.Model):
+	"""Stores user bookmarks for countries and travel apps."""
+	
+	BOOKMARK_TYPES = [
+		('country', 'Country'),
+		('app', 'Travel App'),
+	]
+	
+	user = models.ForeignKey(
+		settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE,
+		related_name="bookmarks",
+	)
+	bookmark_type = models.CharField(max_length=10, choices=BOOKMARK_TYPES)
+	country = models.ForeignKey(
+		'country.Country',
+		on_delete=models.CASCADE,
+		null=True,
+		blank=True,
+		related_name="bookmarks",
+	)
+	app = models.ForeignKey(
+		'country.TravelApp',
+		on_delete=models.CASCADE,
+		null=True,
+		blank=True,
+		related_name="bookmarks",
+	)
+	created_at = models.DateTimeField(auto_now_add=True)
+	
+	class Meta:
+		unique_together = [
+			('user', 'country', 'bookmark_type'),
+			('user', 'app', 'bookmark_type'),
+		]
+	
+	def __str__(self):
+		if self.bookmark_type == 'country' and self.country:
+			return f"{self.user.username} bookmarked {self.country.name}"
+		elif self.bookmark_type == 'app' and self.app:
+			return f"{self.user.username} bookmarked {self.app.name}"
+		return f"{self.user.username} bookmark"
+
     
