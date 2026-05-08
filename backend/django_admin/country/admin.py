@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import (
-    Country, AppCategory, TravelApp, AppScreenshot, Review, 
+    Country, CountryVisit, AppCategory, TravelApp, AppScreenshot, Review, 
     OriginCountryAssistance, EmergencyContact, LocalPhrase, UsefulTip
 )
 from django.urls import reverse
@@ -17,6 +17,13 @@ class CountryAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" width="40" height="25" style="border:1px solid #ddd"/>', obj.flag.url)
         return "No Flag"
     flag_preview.short_description = "Flag"
+
+
+@admin.register(CountryVisit)
+class CountryVisitAdmin(admin.ModelAdmin):
+    list_display = ('country', 'visit_count', 'updated_at')
+    search_fields = ('country__name', 'country__code')
+    list_filter = ('updated_at',)
 
 
 

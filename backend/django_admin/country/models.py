@@ -10,6 +10,15 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+
+class CountryVisit(models.Model):
+    country = models.OneToOneField(Country, on_delete=models.CASCADE, related_name="visit_stats")
+    visit_count = models.PositiveIntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.country.code}: {self.visit_count} visits"
+
 class AppCategory(models.Model):
     """
     Categories for travel apps (e.g., Navigation, Communication, Finance).

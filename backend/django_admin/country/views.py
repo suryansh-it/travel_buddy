@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
-from .models import AppCategory, TravelApp, Country, EmergencyContact, OriginCountryAssistance
+from .models import AppCategory, TravelApp, Country, CountryVisit, EmergencyContact, OriginCountryAssistance
 from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer, EssentialsSerializer
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
@@ -10,6 +10,8 @@ from django.utils.decorators import method_decorator
 from django.core.cache import cache
 from .utils import safe_cache_get, safe_cache_set
 from django.db.models import Prefetch
+from django.db.models import F
+from django.db import transaction
 from urllib.parse import quote, urlparse, parse_qs, urlencode
 from collections import Counter
 from pathlib import Path
@@ -22,6 +24,9 @@ import threading
 
 
 CACHE_TTL = 60 * 60  # 1h
+
+POPULAR_COUNTRIES_LIMIT = 6
+POPULAR_COUNTRY_FALLBACK_CODES = ["TH", "FR", "US", "JP", "AU", "IT"]
 
 # Freshness windows
 TRAVEL_UPDATES_FRESH_TTL = 10 * 60          # 10 min fresh window
@@ -128,6 +133,66 @@ def _run_async_with_jitter(refresh_callable, lock_key, cooldown_key, cooldown_se
     thread = threading.Thread(target=_runner, daemon=True)
     thread.start()
     return True
+
+
+def _record_country_visit(country):
+    with transaction.atomic():
+        visit_stats, _ = CountryVisit.objects.select_for_update().get_or_create(
+            country=country,
+            defaults={"visit_count": 0},
+        )
+        CountryVisit.objects.filter(pk=visit_stats.pk).update(
+            visit_count=F("visit_count") + 1,
+        )
+
+
+def _serialize_country_card(country, visit_count=0):
+    return {
+        "code": country.code,
+        "name": country.name,
+        "description": country.description or "",
+        "flag": country.flag.url if country.flag else None,
+        "visit_count": int(visit_count or 0),
+    }
+
+
+@api_view(["POST"])
+def country_visit_view(request, country_code):
+    country = get_object_or_404(Country, code=country_code.upper())
+    _record_country_visit(country)
+    stats = CountryVisit.objects.filter(country=country).values_list("visit_count", flat=True).first() or 0
+    return Response(_serialize_country_card(country, stats))
+
+
+@api_view(["GET"])
+def popular_countries_view(request):
+    limit = request.query_params.get("limit") or POPULAR_COUNTRIES_LIMIT
+    try:
+        limit = max(1, min(int(limit), POPULAR_COUNTRIES_LIMIT))
+    except (TypeError, ValueError):
+        limit = POPULAR_COUNTRIES_LIMIT
+
+    visits = list(
+        CountryVisit.objects.select_related("country")
+        .filter(visit_count__gt=0)
+        .order_by("-visit_count", "country__name")[:limit]
+    )
+
+    seen_codes = []
+    payload = []
+    for item in visits:
+        seen_codes.append(item.country.code)
+        payload.append(_serialize_country_card(item.country, item.visit_count))
+
+    if len(payload) < limit:
+        fallback_countries = list(
+            Country.objects.filter(code__in=POPULAR_COUNTRY_FALLBACK_CODES)
+            .exclude(code__in=seen_codes)
+            .order_by("name")[: limit - len(payload)]
+        )
+        payload.extend(_serialize_country_card(country, 0) for country in fallback_countries)
+
+    return Response(payload)
 
 
 @api_view(["GET"])
