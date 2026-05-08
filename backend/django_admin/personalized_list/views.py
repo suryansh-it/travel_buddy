@@ -5,6 +5,7 @@ from rest_framework import status
 import json
 import uuid
 from django.conf import settings
+from django.urls import reverse
 from country.models import TravelApp
 from .serializers import TravelAppSerializer
 import io
@@ -119,9 +120,13 @@ class GenerateQRCodeView(APIView):
                 # Serialize app data
         serializer = TravelAppSerializer(apps, many=True)
 
-        # Generate a shareable link
-        base_url = settings.FRONTEND_URL
-        shareable_url = f"{base_url}/bundle-redirect/{session_id}"
+        # Generate a shareable link that points to the backend redirect page
+        try:
+            shareable_url = request.build_absolute_uri(reverse('bundle_auto_redirect', kwargs={'session_id': session_id}))
+        except Exception:
+            # Fallback to BACKEND_URL env if reverse fails
+            backend = settings.BACKEND_URL or settings.FRONTEND_URL
+            shareable_url = f"{backend.rstrip('/')}/personalized_list/bundle-redirect/{session_id}/"
 
                 # Generate QR Code from the single shareable URL
         qr_base64 = generate_qr_code([shareable_url])
@@ -279,8 +284,12 @@ class DownloadQRCodeView(APIView):
             return Response({"error": "Session not found or expired"}, status=status.HTTP_404_NOT_FOUND)
 
         # ✅ Match the same logic as GenerateQRCodeView
-        base_url = settings.FRONTEND_URL
-        shareable_url = f"{base_url}/bundle-redirect/{session_id}"
+        # Build shareable URL that points to backend redirect
+        try:
+            shareable_url = request.build_absolute_uri(reverse('bundle_auto_redirect', kwargs={'session_id': session_id}))
+        except Exception:
+            backend = settings.BACKEND_URL or settings.FRONTEND_URL
+            shareable_url = f"{backend.rstrip('/')}/personalized_list/bundle-redirect/{session_id}/"
 
         # ✅ Generate QR Code from shareable URL
         qr_base64 = generate_qr_code([shareable_url])
