@@ -61,6 +61,33 @@ class TravelApp(models.Model):
     class Meta:
         unique_together = ('name', 'country')  # Ensure app names are unique **per country**
 
+
+class CountryServiceProvider(models.Model):
+    SECTION_CHOICES = [
+        ("esim", "eSIM & Connectivity"),
+        ("insurance", "Travel Insurance"),
+        ("booking", "Booking Platforms"),
+        ("utilities", "Other Useful Services"),
+    ]
+
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="service_providers")
+    section = models.CharField(max_length=32, choices=SECTION_CHOICES)
+    name = models.CharField(max_length=255)
+    price_from = models.CharField(max_length=120, blank=True, default="")
+    coverage = models.CharField(max_length=255, blank=True, default="")
+    support = models.CharField(max_length=120, blank=True, default="")
+    refund = models.CharField(max_length=120, blank=True, default="")
+    site = models.URLField(blank=True, default="")
+    is_featured = models.BooleanField(default=False)
+    notes = models.TextField(blank=True, default="")
+
+    class Meta:
+        unique_together = ("country", "section", "name")
+        ordering = ("country__name", "section", "-is_featured", "name")
+
+    def __str__(self):
+        return f"{self.country.code}: {self.section} / {self.name}"
+
     
 
 class AppScreenshot(models.Model):

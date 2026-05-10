@@ -35,6 +35,7 @@
 The platform solves a critical traveler pain point: **discovering which apps are actually useful in specific countries**. Instead of manually researching or guessing, travelers can browse curated, country-specific app recommendations organized by category, complete with download links, user reviews, and offline capabilities.
 
 ### Target Users
+
 - **Primary**: International travelers planning trips to unfamiliar countries
 - **Secondary**: Travel companies and tour operators bundling resources for clients
 - **Tertiary**: Travel bloggers and content creators sharing destination guides
@@ -44,12 +45,14 @@ The platform solves a critical traveler pain point: **discovering which apps are
 ## Goals & Objectives
 
 ### Primary Goals
+
 1. **Simplify destination app discovery** - Provide one centralized platform to find trusted, vetted travel apps per country
 2. **Reduce decision fatigue** - Pre-curate and categorize apps by use case (navigation, communication, finance, etc.)
 3. **Enable sharing** - Allow travelers to bundle and share app collections via QR codes and shareable links
 4. **Provide essential info** - Centralize country essentials (emergency contacts, phrases, travel tips)
 
 ### Secondary Goals
+
 1. Generate affiliate revenue through app store links and sponsored placements
 2. Build community insights through user reviews and ratings
 3. Create personalized recommendations based on travel style and origin country
@@ -106,6 +109,7 @@ The platform solves a critical traveler pain point: **discovering which apps are
 ```
 
 ### Architecture Principles
+
 - **Separation of Concerns**: Frontend (presentation) and Backend (logic/data) are completely decoupled
 - **REST API First**: All data access through well-defined HTTP endpoints
 - **Stateless API**: Backend maintains no session state; all auth via JWT tokens
@@ -118,11 +122,11 @@ The platform solves a critical traveler pain point: **discovering which apps are
 
 ### Quick Reference Table
 
-| Area | What It Covers | Main Value |
-| --- | --- | --- |
-| Frontend | Homepage, country page, essentials page, QR bundle page, bundle redirect page | User-facing travel workflow |
-| Backend | Country data, essentials, travel updates, traveler insights, bundle sessions | Core business logic and data access |
-| Storage | PostgreSQL + Redis | Persistent data and fast session/cache handling |
+| Area         | What It Covers                                                                            | Main Value                                      |
+| ------------ | ----------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Frontend     | Homepage, country page, essentials page, QR bundle page, bundle redirect page             | User-facing travel workflow                     |
+| Backend      | Country data, essentials, travel updates, traveler insights, bundle sessions              | Core business logic and data access             |
+| Storage      | PostgreSQL + Redis                                                                        | Persistent data and fast session/cache handling |
 | Integrations | Google OAuth, Facebook OAuth, Analytics, AdSense, Render, Vercel, Aiven, Upstash, GoDaddy | Login, monitoring, deployment, and domain setup |
 
 ### User Flow Flowchart
@@ -157,13 +161,13 @@ flowchart LR
 
 ### Feature Summary Table
 
-| Feature | Purpose | Output |
-| --- | --- | --- |
-| Country app discovery | Show destination-specific apps | Organized app list by country |
-| Essentials page | Present travel-critical info | Emergency contacts, phrases, tips |
-| QR bundle flow | Package selected apps into shareable form | QR code + bundle link + downloadable list |
-| OS-aware redirect | Open the correct app store automatically | Android Play Store / iOS App Store |
-| Travel updates and weather | Add live travel context | Updates, climate/weather signals, traveler insight |
+| Feature                    | Purpose                                   | Output                                             |
+| -------------------------- | ----------------------------------------- | -------------------------------------------------- |
+| Country app discovery      | Show destination-specific apps            | Organized app list by country                      |
+| Essentials page            | Present travel-critical info              | Emergency contacts, phrases, tips                  |
+| QR bundle flow             | Package selected apps into shareable form | QR code + bundle link + downloadable list          |
+| OS-aware redirect          | Open the correct app store automatically  | Android Play Store / iOS App Store                 |
+| Travel updates and weather | Add live travel context                   | Updates, climate/weather signals, traveler insight |
 
 ### Reference Notes
 
@@ -176,9 +180,10 @@ flowchart LR
 ## Tech Stack
 
 ### Backend
+
 - **Framework**: Django 5.1.6
 - **API Framework**: Django REST Framework (DRF)
-- **Authentication**: 
+- **Authentication**:
   - SimpleJWT for token-based auth
   - dj-rest-auth for registration/login endpoints
   - django-allauth for social OAuth (Google/Facebook)
@@ -189,11 +194,12 @@ flowchart LR
 - **Language**: Python 3.10+
 
 ### Frontend
+
 - **Framework**: Next.js 16.2.2 (App Router architecture)
 - **Library**: React 19.2.4 with Hooks
 - **Styling**: Tailwind CSS 4.1.7 with custom configuration
 - **HTTP Client**: Axios for API requests
-- **Authentication UI**: 
+- **Authentication UI**:
   - @react-oauth/google (Google Sign-In)
   - react-facebook-login-lite (Facebook Login)
 - **Analytics**: Vercel Analytics + Google Analytics (GA-4)
@@ -202,6 +208,7 @@ flowchart LR
 - **Language**: JavaScript/JSX
 
 ### External Services
+
 - **Google OAuth 2.0**: Social authentication
 - **Facebook OAuth 2.0**: Social authentication
 - **Google Analytics 4**: User behavior tracking
@@ -214,9 +221,11 @@ flowchart LR
 ## Key Features
 
 ### Product Advantage: Clutter-Free Design
+
 - Tripbozo is intentionally focused and clutter-free.
 - It avoids unnecessary bloated modules and keeps the core travel workflow simple: discover apps, select apps, generate/share bundle, install quickly.
 - This focused design improves speed, usability, and clarity for real travelers.
+
 ### For Travelers
 
 #### 1. Country-Specific App Discovery
@@ -225,6 +234,7 @@ flowchart LR
 When traveling to a new country, travelers face the challenge of discovering which apps actually work there and solve real travel problems. This feature eliminates that research burden by providing **country-curated app lists** that are pre-vetted and organized by use case.
 
 **What It Does**
+
 - Browse travel apps specifically curated and tested for each destination country
 - Filter apps by category (Navigation, Communication, Finance, Maps, Translation, Accommodation, Food, etc.)
 - View comprehensive app details:
@@ -241,6 +251,7 @@ When traveling to a new country, travelers face the challenge of discovering whi
 - Search and filter functionality for quick discovery
 
 **Business Logic**
+
 ```
 User Flow:
 1. User navigates to country page (/country/{country_code}/)
@@ -252,6 +263,7 @@ User Flow:
 ```
 
 **Why It Matters**
+
 - **Time Saving**: Instead of searching app stores, users get curated recommendations
 - **Quality Assurance**: Apps are vetted by the platform (admin-approved)
 - **Accessibility**: Solves the problem of app store language barriers in foreign countries
@@ -265,18 +277,21 @@ Travelers often need critical information like emergency contacts, local phrases
 **What It Does**
 
 **Emergency Contacts Section**
+
 - Display embassy and consulate contact information for each country
 - Include emergency services (police, ambulance, fire)
 - Medical facility information and pharmacy contacts
 - All information includes phone numbers, emails, and addresses
 
 **Local Phrases Section**
+
 - Common phrases in the local language with English translations
 - Context notes explaining when/how to use each phrase
 - Examples: greetings, "Where is the bathroom?", "How much does this cost?"
 - Helps travelers communicate in emergency or essential situations
 
 **Travel Tips Section**
+
 - Cultural etiquette and customs (e.g., tipping practices, social norms)
 - Transportation advice (public transit, taxi, rideshare reliability)
 - Safety information and areas to avoid
@@ -284,12 +299,14 @@ Travelers often need critical information like emergency contacts, local phrases
 - Local customs and traditions
 
 **Origin Assistance Section**
+
 - Information from traveler's home country's embassy
 - Resources for travelers from that country
 - Links to mission finder and consular services
 - Emergency phone numbers for citizens abroad
 
 **Business Logic**
+
 ```
 Data Flow:
 1. Admin populates EmergencyContact, LocalPhrase, UsefulTip models
@@ -300,6 +317,7 @@ Data Flow:
 ```
 
 **Why It Matters**
+
 - **Safety**: Travelers can prepare for emergencies before they happen
 - **Confidence**: Having essential phrases reduces language anxiety
 - **Cultural Sensitivity**: Understanding customs prevents offensive mistakes
@@ -313,18 +331,21 @@ Multi-country travelers need different apps for different environments (beaches 
 **What It Does**
 
 **Itinerary Creation**
+
 - Create multi-stop trips with specific locations
 - Assign each stop a type: Beach, Mountain, City, Desert, Ski Resort, etc.
 - Order stops chronologically
 - Store complete trip plan in database
 
 **Intelligent Suggestions**
+
 - System analyzes each stop type in the itinerary
 - Looks up LegSuggestionRule: "For beach stops, suggest Navigation, Communication, Finance apps"
 - Returns ranked apps from those categories for that country
 - Suggestions adapt as user adds/removes stops
 
 **Smart Recommendation Algorithm**
+
 ```
 For a beach stop in Thailand:
 1. Find LegSuggestionRule where stop_type = 'beach'
@@ -342,12 +363,14 @@ For a mountain stop in Nepal:
 ```
 
 **Business Logic**
+
 - Stop types are predefined: beach, mountain, city, desert, ski
 - Admin manages LegSuggestionRule to map stop_type â†’ app categories
 - Recommendations change dynamically as itinerary changes
 - Users can modify itinerary and get updated suggestions
 
 **Why It Matters**
+
 - **Personalization**: Each trip is unique; suggestions match trip context
 - **Efficiency**: Users don't waste time downloading wrong apps
 - **Optimization**: Recommends appropriate app categories for environment
@@ -361,29 +384,34 @@ Travelers often want to share their app research with friends or travel groups. 
 **What It Does**
 
 **Bundle Creation**
+
 - User selects multiple apps from various countries
 - Creates a named bundle (e.g., "Europe Trip 2026", "Digital Nomad Essentials")
 - System generates unique bundle ID and stores in database
 - Associates bundle with user account
 
 **QR Code Generation**
+
 - Each bundle gets a unique QR code containing the bundle ID
 - QR code can be printed, emailed, or shared on social media
 - When scanned, QR code directs to bundle redirect page
 - Mobile-friendly interface shows all apps in bundle with download links
 
 **Shareable Links**
+
 - Direct URL format: `https://tripbozo.vercel.app/bundle-redirect/{bundle_id}`
 - Link can be shared via email, messaging, social media
 - Anyone with link can view bundle without authentication
 - Includes one-click navigation to app store download links
 
 **Analytics Tracking**
+
 - System tracks how many people viewed the bundle
 - Monitors which apps were downloaded from bundle
 - Provides sharing analytics to creator
 
 **Business Logic**
+
 ```
 Bundle Flow:
 1. User selects apps â†’ clicks "Add to Bundle"
@@ -397,6 +425,7 @@ Bundle Flow:
 ```
 
 **Why It Matters**
+
 - **Social Sharing**: Enables word-of-mouth discovery
 - **Group Travel**: Families/groups can synchronize app selections
 - **Content Creator Value**: Influencers can package travel guides
@@ -410,6 +439,7 @@ Travelers have different home countries with different embassy services and curr
 **What It Does**
 
 **Origin Country Preference**
+
 - User sets their home country during onboarding
 - System stores this as UserOriginPreference
 - Used to customize:
@@ -419,18 +449,21 @@ Travelers have different home countries with different embassy services and curr
   - **Language Hints**: Provides phrases relevant to their native language
 
 **Personalized App Lists**
+
 - System can create "My Favorite Apps" collections
 - Stores user's app preferences (which apps they marked as useful)
 - Recommendations factor in what similar users found helpful
 - Over time, recommendations improve (collaborative filtering potential)
 
 **Travel History Tracking**
+
 - System tracks countries user has visited
 - Can show "Most Popular in Countries You've Visited"
 - Enables "You might also need" recommendations
 - Builds user travel profile
 
 **Business Logic**
+
 ```
 Personalization Flow:
 1. New user signs up â†’ OnboardingComponent
@@ -445,6 +478,7 @@ Personalization Flow:
 ```
 
 **Why It Matters**
+
 - **Relevance**: Users see content specific to their situation
 - **Efficiency**: Reduces information overload with personalized suggestions
 - **Convenience**: Home country resources always accessible
@@ -458,6 +492,7 @@ Users need secure access to their data with flexible authentication options. Thi
 **What It Does**
 
 **Registration & Email/Password Login**
+
 - Traditional email/password registration
 - Password hashing using Django's bcrypt
 - Email verification (optional, can be enabled)
@@ -465,17 +500,18 @@ Users need secure access to their data with flexible authentication options. Thi
 - Session management with JWT tokens
 
 **Social Sign-In (Google & Facebook)**
+
 - **Google OAuth**: Single-click login with Google account
   - No password to remember
   - Automatic user profile population (email, name, profile picture)
   - Secure token-based authentication
-  
 - **Facebook OAuth**: Single-click login with Facebook
   - Fast account creation
   - Access to Facebook friends (future feature)
   - Instant profile setup
 
 **Profile Management**
+
 - View and edit user profile information:
   - Email address
   - First name, last name
@@ -485,6 +521,7 @@ Users need secure access to their data with flexible authentication options. Thi
 - Track account creation date and last login
 
 **Account Deletion (GDPR Compliant)**
+
 - One-click account deletion
 - Permanently removes all user data:
   - Personal information
@@ -496,6 +533,7 @@ Users need secure access to their data with flexible authentication options. Thi
 - Generates deletion confirmation email
 
 **Security Features**
+
 - JWT token-based authentication (no session cookies)
 - Access tokens (15-minute expiration)
 - Refresh tokens (7-day expiration)
@@ -503,6 +541,7 @@ Users need secure access to their data with flexible authentication options. Thi
 - Logout clears tokens from frontend
 
 **Business Logic**
+
 ```
 Authentication Flow:
 1. User signs up / logs in
@@ -528,6 +567,7 @@ Social Login Flow:
 ```
 
 **Why It Matters**
+
 - **User Trust**: Multiple sign-in options increase accessibility
 - **Convenience**: Social login faster than email/password
 - **Security**: JWT tokens are more secure than cookies
@@ -537,6 +577,7 @@ Social Login Flow:
 ### For Content Managers (Admin Panel)
 
 #### Admin Features
+
 - **Country Management**: Add/edit countries with flags and descriptions
 - **App Category Management**: Create and organize app categories
 - **Travel App Management**: Upload apps with full metadata:
@@ -556,6 +597,7 @@ Social Login Flow:
 ### Core Models
 
 #### 1. **Country**
+
 ```python
 - id (PK)
 - name (CharField, unique)
@@ -565,6 +607,7 @@ Social Login Flow:
 ```
 
 #### 2. **AppCategory**
+
 ```python
 - id (PK)
 - name (CharField, unique) # e.g., "Navigation", "Communication"
@@ -572,6 +615,7 @@ Social Login Flow:
 ```
 
 #### 3. **TravelApp**
+
 ```python
 - id (PK)
 - name (CharField)
@@ -590,6 +634,7 @@ Social Login Flow:
 ```
 
 #### 4. **AppScreenshot**
+
 ```python
 - id (PK)
 - app (FK â†’ TravelApp)
@@ -597,6 +642,7 @@ Social Login Flow:
 ```
 
 #### 5. **Review**
+
 ```python
 - id (PK)
 - app (FK â†’ TravelApp)
@@ -607,6 +653,7 @@ Social Login Flow:
 ```
 
 #### 6. **EmergencyContact**
+
 ```python
 - id (PK)
 - country (FK â†’ Country)
@@ -617,6 +664,7 @@ Social Login Flow:
 ```
 
 #### 7. **LocalPhrase**
+
 ```python
 - id (PK)
 - country (FK â†’ Country)
@@ -626,6 +674,7 @@ Social Login Flow:
 ```
 
 #### 8. **UsefulTip**
+
 ```python
 - id (PK)
 - country (FK â†’ Country)
@@ -633,6 +682,7 @@ Social Login Flow:
 ```
 
 #### 9. **OriginCountryAssistance**
+
 ```python
 - id (PK)
 - country (OneToOne â†’ Country)
@@ -647,6 +697,7 @@ Social Login Flow:
 ```
 
 #### 10. **UserOriginPreference** (User Extension)
+
 ```python
 - id (PK)
 - user (OneToOne â†’ User)
@@ -655,6 +706,7 @@ Social Login Flow:
 ```
 
 #### 11. **Itinerary**
+
 ```python
 - id (PK)
 - name (CharField)
@@ -662,6 +714,7 @@ Social Login Flow:
 ```
 
 #### 12. **Stop** (Itinerary Leg)
+
 ```python
 - id (PK)
 - itinerary (FK â†’ Itinerary)
@@ -671,6 +724,7 @@ Social Login Flow:
 ```
 
 #### 13. **LegSuggestionRule**
+
 ```python
 - id (PK)
 - stop_type (CharField, unique)
@@ -682,28 +736,37 @@ Social Login Flow:
 ## API Documentation
 
 ### Base URL
+
 - **Development**: `http://localhost:8000/api`
 - **Production**: `https://tripbozo.onrender.com/api`
 
 ### Authentication
+
 All endpoints (except public ones) require JWT bearer token:
+
 ```
 Authorization: Bearer <access_token>
 ```
 
 ### API Response Format
+
 All endpoints return JSON with consistent structure:
+
 ```json
 {
   "success": true,
-  "data": { /* response payload */ },
+  "data": {
+    /* response payload */
+  },
   "error": null,
   "timestamp": "2026-04-24T10:30:00Z"
 }
 ```
 
 ### Error Handling
+
 Standard HTTP status codes:
+
 - **200 OK**: Request successful
 - **201 Created**: Resource created successfully
 - **204 No Content**: Deletion successful, no response body
@@ -722,6 +785,7 @@ Standard HTTP status codes:
 #### **Authentication & User Management**
 
 ##### 1. User Registration
+
 ```
 POST /api/auth/registration/
 Content-Type: application/json
@@ -754,12 +818,14 @@ Error Response: 400 Bad Request
 ```
 
 **Purpose**
+
 - Enables new users to create accounts with email/password
 - Validates email uniqueness and password strength
 - Automatically generates JWT token for immediate login
 - Returns access token so user doesn't need to login separately
 
 **Business Logic**
+
 1. Check if email already exists â†’ Error if duplicate
 2. Validate password meets security requirements (length, complexity)
 3. Hash password using bcrypt before storing
@@ -768,9 +834,10 @@ Error Response: 400 Bad Request
 6. Return token so user is immediately authenticated
 
 **Real-World Scenario**
+
 ```
 User: "I want to sign up for Tripbozo to plan my Thailand trip"
-Flow: 
+Flow:
 1. User enters email, password, and username
 2. System validates all requirements
 3. System creates account and returns JWT token
@@ -781,6 +848,7 @@ Flow:
 ---
 
 ##### 2. Email/Password Login
+
 ```
 POST /api/auth/login/
 Content-Type: application/json
@@ -809,11 +877,13 @@ Error Response: 401 Unauthorized
 ```
 
 **Purpose**
+
 - Allows existing users to log back into their accounts
 - Returns JWT token for authenticated API access
 - Supports email or username as login identifier
 
 **Business Logic**
+
 1. Look up User by email or username
 2. Compare provided password with hashed password in database
 3. If match â†’ Generate JWT token and return
@@ -821,6 +891,7 @@ Error Response: 401 Unauthorized
 5. Token valid for 15 minutes, can be refreshed
 
 **Security Considerations**
+
 - Password never stored or returned in response
 - 401 error message intentionally vague (prevents username enumeration)
 - Should implement rate limiting (5 attempts per hour per IP)
@@ -829,6 +900,7 @@ Error Response: 401 Unauthorized
 ---
 
 ##### 3. Google OAuth Login
+
 ```
 POST /api/auth/social/google/
 Content-Type: application/json
@@ -863,12 +935,14 @@ Error Response: 502 Bad Gateway
 ```
 
 **Purpose**
+
 - Enables seamless "Sign in with Google" functionality
 - Creates account automatically if user doesn't exist
 - Links Google identity to Tripbozo account
 - No password required (Google manages authentication)
 
 **Business Logic**
+
 ```
 Google OAuth Flow:
 1. Frontend displays Google sign-in button (OAuth consent screen)
@@ -900,6 +974,7 @@ Response includes:
 ```
 
 **Real-World Scenario**
+
 ```
 User: "I want to sign in to Tripbozo using my Google account"
 Flow:
@@ -914,6 +989,7 @@ Flow:
 ```
 
 **Advantages**
+
 - **User Convenience**: One-click login, no password to remember
 - **Auto Population**: User profile data comes from Google
 - **Account Linking**: User can later add password login to same account
@@ -922,6 +998,7 @@ Flow:
 ---
 
 ##### 4. Facebook OAuth Login
+
 ```
 POST /api/auth/social/facebook/
 Content-Type: application/json
@@ -951,17 +1028,20 @@ Error Response: 400 Bad Request
 ```
 
 **Purpose**
+
 - Enables "Sign in with Facebook" functionality
 - Provides alternative authentication for users with Facebook accounts
 - Similar to Google OAuth but using Facebook identity
 
 **Business Logic**
+
 - Same as Google OAuth but:
   - Validates token with Facebook's Graph API
   - Extracts user info from Facebook profile
   - Creates Tripbozo account linked to Facebook identity
 
 **Implementation Details**
+
 - Uses django-allauth library for OAuth handling
 - Supports account linking (user can have both Google and Facebook)
 - Profile picture pulled from Facebook if available
@@ -969,6 +1049,7 @@ Error Response: 400 Bad Request
 ---
 
 ##### 5. JWT Token Refresh
+
 ```
 POST /api/auth/jwt/refresh/
 Content-Type: application/json
@@ -991,11 +1072,13 @@ Error Response: 401 Unauthorized
 ```
 
 **Purpose**
+
 - Extends user session without requiring re-authentication
 - Issues new access token when current one expires
 - Keeps refresh token valid until its own expiration (7 days)
 
 **Business Logic**
+
 ```
 Token Lifecycle:
 1. User logs in â†’ Receives access_token (15 min) + refresh_token (7 days)
@@ -1013,30 +1096,32 @@ After 7 days:
 ```
 
 **Automatic Refresh Pattern (Frontend)**
+
 ```javascript
 // api.js axios interceptor
 apiClient.interceptors.response.use(
-  response => response,
-  async error => {
+  (response) => response,
+  async (error) => {
     if (error.response?.status === 401) {
       // Access token expired
-      const refreshToken = localStorage.getItem('refreshToken');
-      const response = await axios.post('/auth/jwt/refresh/', {
-        refresh: refreshToken
+      const refreshToken = localStorage.getItem("refreshToken");
+      const response = await axios.post("/auth/jwt/refresh/", {
+        refresh: refreshToken,
       });
       // Store new access token
-      localStorage.setItem('accessToken', response.data.access);
+      localStorage.setItem("accessToken", response.data.access);
       // Retry original request with new token
       return apiClient(error.config);
     }
     return Promise.reject(error);
-  }
+  },
 );
 ```
 
 ---
 
 ##### 6. Get User Details
+
 ```
 GET /api/auth/user/
 Authorization: Bearer <access_token>
@@ -1060,12 +1145,14 @@ Error Response: 401 Unauthorized
 ```
 
 **Purpose**
+
 - Allows frontend to fetch current logged-in user's profile
 - Used to populate user profile UI
 - Verify user is still authenticated
 - Display user info in navbar/profile sections
 
 **Business Logic**
+
 1. Extract JWT token from Authorization header
 2. Validate token signature and expiration
 3. Look up User ID from token payload
@@ -1073,21 +1160,23 @@ Error Response: 401 Unauthorized
 5. Hide sensitive data (password_hash, etc.)
 
 **Real-World Usage**
+
 ```javascript
 // Frontend - AuthInitializer.jsx
 useEffect(() => {
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem("authToken");
   if (token) {
     // Verify token is still valid
-    apiClient.get('/auth/user/')
-      .then(response => {
+    apiClient
+      .get("/auth/user/")
+      .then((response) => {
         // User is authenticated
         setUser(response.data);
         setIsLoggedIn(true);
       })
       .catch(() => {
         // Token invalid or expired, clear localStorage
-        localStorage.removeItem('authToken');
+        localStorage.removeItem("authToken");
         setIsLoggedIn(false);
       });
   }
@@ -1097,6 +1186,7 @@ useEffect(() => {
 ---
 
 ##### 7. Delete User Account
+
 ```
 DELETE /api/auth/user/delete/
 Authorization: Bearer <access_token>
@@ -1112,12 +1202,14 @@ Error Response: 401 Unauthorized
 ```
 
 **Purpose**
+
 - Allows users to permanently delete their account
 - Implements GDPR right-to-be-forgotten
 - Complete data removal for privacy compliance
 - Irreversible action for user autonomy
 
 **Business Logic - What Gets Deleted**
+
 ```
 When user calls DELETE /auth/user/delete/:
 1. Delete User record (email, username, password)
@@ -1132,12 +1224,14 @@ When user calls DELETE /auth/user/delete/:
 ```
 
 **Security Considerations**
+
 - Cannot be undone (no recovery option)
 - Confirmation email sent to account email
 - Should implement confirmation flow (email verification)
 - Future: Add confirmation dialog on frontend
 
 **Real-World Scenario**
+
 ```
 User: "I want to permanently delete my Tripbozo account"
 Flow:
@@ -1156,6 +1250,7 @@ Flow:
 #### **Country & App Discovery**
 
 ##### 1. Get Country Page (Complete Country Data)
+
 ```
 GET /api/country/{country_code}/
 Query Parameters:
@@ -1263,12 +1358,14 @@ Error Response: 404 Not Found
 ```
 
 **Purpose**
+
 - Single comprehensive endpoint providing all data needed for country page
 - Eliminates multiple API calls, improves performance
 - Combines: country info, apps, categories, essentials, emergency contacts
 - Cached heavily (1 hour TTL) to reduce database load
 
 **Business Logic**
+
 ```
 Request Flow:
 1. Frontend requests /country/TH/
@@ -1291,6 +1388,7 @@ TTL: 3600 seconds (1 hour)
 ```
 
 **Real-World Usage**
+
 ```
 User lands on homepage:
 1. User sees "Thailand" in featured countries
@@ -1308,6 +1406,7 @@ Performance Impact:
 ```
 
 **Why This Endpoint**
+
 - **Performance**: Caching reduces load on database
 - **User Experience**: Single request provides complete data
 - **Flexibility**: Frontend gets data in expected structure
@@ -1316,6 +1415,7 @@ Performance Impact:
 ---
 
 ##### 2. Get Apps by Country
+
 ```
 GET /api/country/{country_code}/apps/
 Query Parameters:
@@ -1357,12 +1457,14 @@ GET /api/country/TH/apps/?category=Finance&rating_min=4.0
 ```
 
 **Purpose**
+
 - Lightweight endpoint returning only app data (not full country details)
 - Supports filtering and sorting for app discovery
 - Useful for building app cards, lists, recommendations
 - Lower bandwidth than full country endpoint
 
 **Business Logic**
+
 ```
 1. Query TravelApp model with filters:
    - country__code = country_code
@@ -1375,6 +1477,7 @@ GET /api/country/TH/apps/?category=Finance&rating_min=4.0
 ```
 
 **Use Cases**
+
 ```
 // Filter apps by capability
 GET /api/country/TH/apps/?works_offline=true
@@ -1398,6 +1501,7 @@ Response: [
 ---
 
 ##### 3. Get Categories by Country
+
 ```
 GET /api/country/{country_code}/categories/
 Query Parameters:
@@ -1434,12 +1538,14 @@ Error Response: 404 Not Found
 ```
 
 **Purpose**
+
 - Returns unique categories available for a country
 - Used to build category filter buttons on country page
 - Shows app count per category
 - Helps users understand what's available
 
 **Business Logic**
+
 ```
 1. Get Country by country_code
 2. Query AppCategory objects linked to TravelApps in this country
@@ -1449,6 +1555,7 @@ Error Response: 404 Not Found
 ```
 
 **Real-World Usage**
+
 ```
 Country page UI:
 - User sees category tabs/buttons:
@@ -1463,6 +1570,7 @@ Country page UI:
 ---
 
 ##### 4. Get Country Essentials
+
 ```
 GET /api/country/{country_code}/essentials/
 Query Parameters:
@@ -1548,12 +1656,14 @@ Error Response: 404 Not Found
 ```
 
 **Purpose**
+
 - Comprehensive endpoint for all travel essentials
 - Provides emergency info, language phrases, cultural tips
 - Essential for traveler preparation and safety
 - Cached heavily (2-hour TTL) as data changes infrequently
 
 **Business Logic**
+
 ```
 1. Get Country by country_code
 2. Query all EmergencyContact records for this country
@@ -1564,6 +1674,7 @@ Error Response: 404 Not Found
 ```
 
 **Pre-Trip Preparation Flow**
+
 ```
 User plans trip to Thailand:
 1. Calls /country/TH/essentials/
@@ -1577,6 +1688,7 @@ User plans trip to Thailand:
 ---
 
 ##### 5. Get Country Travel Updates
+
 ```
 GET /api/country/{country_code}/travel-updates/
 Query Parameters:
@@ -1619,12 +1731,14 @@ Response: 200 OK
 ```
 
 **Purpose**
+
 - Alerts travelers to important travel updates
 - Covers: visa changes, health requirements, weather, security
 - Helps travelers prepare for current conditions
 - Admin-curated reliable information
 
 **Business Logic**
+
 ```
 1. Query TravelUpdate model for country
 2. Filter by date (most recent first)
@@ -1641,6 +1755,7 @@ Categories:
 ```
 
 **Real-World Scenario**
+
 ```
 User considering Thailand trip in June:
 1. Checks /country/TH/travel-updates/
@@ -1653,6 +1768,7 @@ User considering Thailand trip in June:
 ---
 
 ##### 6. Get App Traveler Insights
+
 ```
 GET /api/country/{country_code}/apps/{app_id}/insights/
 Query Parameters:
@@ -1718,12 +1834,14 @@ Error Response: 404 Not Found
 ```
 
 **Purpose**
+
 - Shows comprehensive reviews and ratings for specific app
 - Helps travelers make download decisions
 - Shows real user feedback from travelers
 - Builds trust through community insights
 
 **Business Logic**
+
 ```
 1. Fetch TravelApp by country_code + app_id
 2. Aggregate Review records:
@@ -1736,6 +1854,7 @@ Error Response: 404 Not Found
 ```
 
 **Decision-Making Flow**
+
 ```
 User sees Google Maps and Maps.ME in results:
 1. User clicks on Google Maps to see details
@@ -1751,6 +1870,7 @@ User sees Google Maps and Maps.ME in results:
 #### **User Preferences & Personalization**
 
 ##### 1. Get User Origin Country Preference
+
 ```
 GET /api/auth/user/origin-country/
 Authorization: Bearer <access_token>
@@ -1782,12 +1902,14 @@ Error Response: 401 Unauthorized
 ```
 
 **Purpose**
+
 - Retrieves user's selected origin country
 - Used to customize essentials and resources shown
 - Part of user personalization system
 - Shows when preference was last updated
 
 **Business Logic**
+
 ```
 1. Extract user ID from JWT token
 2. Query UserOriginPreference for this user
@@ -1797,6 +1919,7 @@ Error Response: 401 Unauthorized
 ```
 
 **Usage Flow**
+
 ```
 Frontend loads:
 1. AuthInitializer.jsx calls GET /auth/user/
@@ -1810,6 +1933,7 @@ Frontend loads:
 ---
 
 ##### 2. Update User Origin Country Preference
+
 ```
 PATCH /api/auth/user/origin-country/
 Authorization: Bearer <access_token>
@@ -1845,12 +1969,14 @@ Error Response: 401 Unauthorized
 ```
 
 **Purpose**
+
 - Allows users to set/update their origin country
 - Used during onboarding and profile settings
 - Triggers personalization system
 - Updates timestamp for tracking
 
 **Business Logic**
+
 ```
 1. Extract user_id from JWT token
 2. Validate country_code exists in Country model
@@ -1863,6 +1989,7 @@ Error Response: 401 Unauthorized
 ```
 
 **Onboarding Flow**
+
 ```
 New user completes signup:
 1. User is redirected to Onboarding page
@@ -1878,6 +2005,7 @@ New user completes signup:
 ```
 
 **Profile Update Flow**
+
 ```
 Existing user moves to new country:
 1. User goes to Settings/Profile
@@ -1893,6 +2021,7 @@ Existing user moves to new country:
 #### **Itinerary Management**
 
 ##### 1. Create Itinerary
+
 ```
 POST /api/itinerary/
 Authorization: Bearer <access_token>
@@ -1971,12 +2100,14 @@ Error Response: 400 Bad Request
 ```
 
 **Purpose**
+
 - Creates multi-stop trip plans
 - Foundation for smart app recommendations
 - Stores user's travel structure
 - Enables personalized suggestions based on trip
 
 **Business Logic**
+
 ```
 1. Extract user_id from JWT token
 2. Validate request data:
@@ -1994,6 +2125,7 @@ Error Response: 400 Bad Request
 ```
 
 **Real-World Scenario**
+
 ```
 User planning 4-week USA trip:
 1. User selects Itinerary from menu
@@ -2011,6 +2143,7 @@ User planning 4-week USA trip:
 ---
 
 ##### 2. Get Leg Suggestions
+
 ```
 GET /api/itinerary/{itinerary_id}/leg-suggestions/?leg_id={stop_id}
 Authorization: Bearer <access_token>
@@ -2089,12 +2222,14 @@ Error Response: 404 Not Found
 ```
 
 **Purpose**
+
 - Provides smart app recommendations based on stop type
 - Only suggests apps relevant to specific environment
 - Helps users prepare with right tools for each location
 - Matches stop type to app categories intelligently
 
 **Business Logic**
+
 ```
 Recommendation Algorithm:
 1. Get Stop record by leg_id
@@ -2120,6 +2255,7 @@ Example for mountain stop:
 ```
 
 **Smart Personalization**
+
 ```
 Mountain stop in Yosemite:
 âœ“ AllTrails - hiking specific
@@ -2143,6 +2279,7 @@ City stop in San Francisco:
 #### **Homepage**
 
 ##### 1. Get Homepage Data
+
 ```
 GET /api/homepage/
 Query Parameters: None
@@ -2199,12 +2336,14 @@ Response: 200 OK
 ```
 
 **Purpose**
+
 - Provides homepage content
 - Shows featured countries and apps
 - Displays trending destinations
 - Drives user engagement through marketing
 
 **Business Logic**
+
 ```
 1. Query top 6 featured countries:
    - Sorted by app_count and essentials_count
@@ -2224,6 +2363,7 @@ Response: 200 OK
 #### **Health Check**
 
 ##### 1. API Health Status
+
 ```
 GET /healthz/
 Authentication: Not required
@@ -2252,12 +2392,14 @@ Error Response: 503 Service Unavailable
 ```
 
 **Purpose**
+
 - Monitors API availability and health
 - Used by UptimeRobot for uptime monitoring
 - Checks critical system components
 - Alerts on failures
 
 **Business Logic**
+
 ```
 1. Test database connection
 2. Test Redis connection
@@ -2274,6 +2416,7 @@ Error Response: 503 Service Unavailable
 ### Common Error Responses
 
 #### 400 Bad Request
+
 ```json
 {
   "email": ["User with this email already exists."],
@@ -2282,6 +2425,7 @@ Error Response: 503 Service Unavailable
 ```
 
 #### 401 Unauthorized
+
 ```json
 {
   "detail": "Authentication credentials were not provided."
@@ -2289,6 +2433,7 @@ Error Response: 503 Service Unavailable
 ```
 
 #### 429 Too Many Requests
+
 ```json
 {
   "detail": "Request was throttled. Expected available in 60 seconds."
@@ -2499,6 +2644,7 @@ backend/
 #### **auth_app: Authentication & User Management**
 
 **Core Responsibilities**
+
 - Handle all user authentication flows
 - Manage JWT tokens with secure expiration
 - Implement social OAuth (Google, Facebook)
@@ -2507,7 +2653,8 @@ backend/
 
 **Key Workflows**
 
-*Email/Password Registration*
+_Email/Password Registration_
+
 ```
 User â†’ POST /auth/registration/ â†’
 Backend: Validate email uniqueness, hash password â†’
@@ -2516,7 +2663,8 @@ Return: access_token + refresh_token
 Frontend: Store tokens, redirect to onboarding
 ```
 
-*Google OAuth Login*
+_Google OAuth Login_
+
 ```
 User â†’ Click "Sign in with Google" â†’
 Google OAuth popup â†’ User grants permission â†’
@@ -2529,7 +2677,8 @@ Return: Tripbozo JWT token â†’
 Frontend: User is now logged in
 ```
 
-*Token Refresh (Automatic)*
+_Token Refresh (Automatic)_
+
 ```
 Frontend: access_token expiring in 1 minute â†’
 Frontend: POST /auth/jwt/refresh/ (with refresh_token) â†’
@@ -2542,6 +2691,7 @@ Frontend: Update stored token, user stays logged in
 #### **country: Country & App Discovery**
 
 **Core Responsibilities**
+
 - Manage country information and app catalogs
 - Provide country page with all apps + essentials
 - Cache heavily for performance
@@ -2585,6 +2735,7 @@ UsefulTip
 ```
 
 **Caching Strategy**
+
 ```
 /country/{code}/              â†’ 1 hour TTL
   â””â”€ Complete country data
@@ -2683,6 +2834,7 @@ Popular Apps
 Provides health status for uptime monitoring services.
 
 **What Gets Checked**
+
 ```
 âœ“ Database connectivity (PostgreSQL)
 âœ“ Redis connectivity (Upstash)
@@ -2703,6 +2855,7 @@ Overall Status = all components "ok"
 ```
 
 **Integration**
+
 - UptimeRobot calls /healthz/ every 5 minutes
 - If unhealthy â†’ Sends alert email
 - Tracks uptime percentage on Render dashboard
@@ -2802,6 +2955,7 @@ Mountain stop in Nepal â†’
 ### Database Connection Configuration
 
 **PostgreSQL (Aiven)**
+
 ```python
 DATABASES = {
     'default': {
@@ -2822,6 +2976,7 @@ DATABASES = {
 ```
 
 **Redis (Upstash)**
+
 ```python
 CACHES = {
     'default': {
@@ -3009,6 +3164,7 @@ tripbozofrontend/
 ```
 
 **Frontend has been significantly expanded in the Backend Structure section above. The frontend documentation includes:**
+
 - Complete component hierarchy with descriptions
 - Each page route explained (login, register, country, etc.)
 - Component props and usage patterns
@@ -3019,6 +3175,7 @@ tripbozofrontend/
 - Global animations and styling system
 
 **Key Areas Documented:**
+
 1. Every component's purpose and responsibility
 2. Homepage flow (HeroSection, PopularDestinations, etc.)
 3. Authentication components (Google, Facebook OAuth)
@@ -3037,9 +3194,11 @@ tripbozofrontend/
 ### Internal Services (Backend Business Logic)
 
 #### 1. **Country Service** (Backend)
+
 **Purpose**: Manages all country-related data operations and caching
 
 **Responsibilities**:
+
 - Fetch country metadata, associated apps, and essentials data
 - Implement Redis caching with 1-hour TTL for frequently accessed countries
 - Optimize search functionality with full-text indexing for quick country lookups
@@ -3047,31 +3206,36 @@ tripbozofrontend/
 - Handle multi-language country information (future feature)
 
 **Key Functions**:
+
 - `get_country_with_apps(country_code)` - Fetch country + all apps, with cache
 - `search_countries(query)` - Full-text search with suggestions
 - `get_country_essentials(country_code)` - Fetch emergency contacts, phrases, tips
 - `invalidate_country_cache(country_code)` - Clear cache on data updates
 
 **Caching Strategy**:
+
 ```
 Request â†’ Check Redis Cache
   â”œâ”€ Cache HIT: Return cached data immediately
-  â””â”€ Cache MISS: 
+  â””â”€ Cache MISS:
       â”œâ”€ Query PostgreSQL
       â”œâ”€ Store in Redis (TTL: 1 hour)
       â””â”€ Return data
 ```
 
 #### 2. **App Recommendation Service**
+
 **Purpose**: Intelligent app suggestions based on travel scenarios
 
 **Business Logic**:
+
 - Analyze itinerary stop type (beach, mountain, city, desert, ski resort)
 - Map stop_type â†’ LegSuggestionRule â†’ Associated AppCategories
 - Query all apps in those categories from the destination country
 - Rank results by rating, sponsorship status, and relevance score
 
 **Example Flow**:
+
 ```
 User itinerary: "Yosemite (mountain) â†’ San Francisco (city)"
   â†“
@@ -3087,6 +3251,7 @@ Return: Top 10 apps (e.g., AllTrails, Maps.me, WeatherChannel, etc.)
 ```
 
 **Ranking Algorithm**:
+
 1. **Sponsored apps first** (business logic for monetization)
 2. **High ratings** (4.5+ stars get priority)
 3. **Recently added** (newer apps boost visibility)
@@ -3094,15 +3259,18 @@ Return: Top 10 apps (e.g., AllTrails, Maps.me, WeatherChannel, etc.)
 5. **Relevant features** (offline support, foreign cards)
 
 #### 3. **Cache Service**
+
 **Purpose**: Centralized caching layer for performance optimization
 
 **Responsibilities**:
+
 - Generate consistent Redis keys with prefix patterns
 - Implement cache invalidation strategy (TTL + event-based)
 - Store user session data (auth tokens, preferences)
 - Cache frequently accessed queries (countries, popular apps)
 
 **Cache Key Patterns**:
+
 ```
 country:{country_code}:apps        â†’ All apps for country (TTL: 1hr)
 country:{country_code}:essentials  â†’ Essentials data (TTL: 2hrs)
@@ -3112,27 +3280,31 @@ search_results:{query}             â†’ Search results (TTL: 30min)
 ```
 
 **Cache Invalidation Events**:
-- Admin adds/updates country â†’ Invalidate all country:* keys
+
+- Admin adds/updates country â†’ Invalidate all country:\* keys
 - Admin updates app â†’ Invalidate app-related keys
-- User changes origin preference â†’ Invalidate user:* keys
+- User changes origin preference â†’ Invalidate user:\* keys
 - Redis memory full â†’ LRU eviction (least recently used)
 
 #### 4. **Bundle Generation Service**
+
 **Purpose**: Create shareable app collections for travelers
 
 **Features**:
+
 - Combine multiple apps into a single "bundle" (e.g., "Europe Trip 2026")
 - Generate unique shareable links for bundle distribution
 - Create QR codes encoding bundle metadata
 - Track bundle usage and sharing analytics
 
 **Bundle Data Structure**:
+
 ```json
 {
   "id": "bundle_xyz123",
   "name": "Europe Trip Bundle",
   "created_by": "user_id",
-  "apps": [5, 12, 23],  // App IDs
+  "apps": [5, 12, 23], // App IDs
   "countries": ["FR", "IT", "ES"],
   "created_at": "2026-04-24T10:30:00Z",
   "expires_at": "2027-04-24T10:30:00Z",
@@ -3141,6 +3313,7 @@ search_results:{query}             â†’ Search results (TTL: 30min)
 ```
 
 **Use Cases**:
+
 - Travel agent bundles apps for client trips
 - Blogger creates "Southeast Asia essentials" bundle
 - Family shares curated apps for group vacation
@@ -3150,9 +3323,11 @@ search_results:{query}             â†’ Search results (TTL: 30min)
 ### External Services & Integrations
 
 #### 1. **Google OAuth 2.0 (Authentication)**
+
 **Purpose**: Allow users to sign in using Google accounts
 
 **Integration Flow**:
+
 ```
 Frontend                Backend              Google
   â†“                       â†“                    â†“
@@ -3174,6 +3349,7 @@ Frontend stores JWT â†’ Now authenticated
 ```
 
 **Technical Details**:
+
 - **OAuth Endpoint**: `https://accounts.google.com/o/oauth2/auth`
 - **Token Validation**: `openidconnect.googleapis.com/v1/userinfo`
 - **User Info Extracted**: email, given_name, family_name, picture
@@ -3181,12 +3357,14 @@ Frontend stores JWT â†’ Now authenticated
 - **Implementation**: django-allauth library handles OAuth flow
 
 **Benefits**:
+
 - No password storage needed for Google users
 - Automatic user creation on first login
 - Linked account support (multiple OAuth providers)
 - Account recovery via email
 
 **Configuration**:
+
 ```python
 # settings.py
 SOCIALACCOUNT_PROVIDERS = {
@@ -3200,20 +3378,24 @@ SOCIALACCOUNT_PROVIDERS = {
 ```
 
 #### 2. **Facebook OAuth 2.0 (Authentication)**
+
 **Purpose**: Alternative social authentication provider
 
 **Integration Flow**:
+
 - Similar to Google OAuth
 - Uses Facebook SDK on frontend
 - Backend validates via allauth's FacebookOAuth2Adapter
 - Returns JWT on successful validation
 
 **Key Differences**:
+
 - Facebook returns different user info structure
 - Mobile SDK support better than Google for Facebook app
 - Useful for geographic regions where Facebook dominates
 
 **Integration Details**:
+
 ```python
 # Backend
 class FacebookLogin(SocialLoginView):
@@ -3223,15 +3405,18 @@ class FacebookLogin(SocialLoginView):
 ```
 
 **Affiliate Benefit**:
+
 - Facebook audience data can inform marketing campaigns
 - User preferences help with app recommendations
 
 #### 3. **Google Analytics 4 (User Analytics & Insights)**
+
 **Purpose**: Track user behavior, traffic sources, and conversion metrics
 
 **Tracking ID**: `G-YG8W7MQRE5`
 
 **Metrics Tracked**:
+
 - **Page Views**: Which pages users visit most
 - **User Behavior**: Time on page, scroll depth, interactions
 - **Traffic Source**: Organic search, direct, referral, social
@@ -3242,29 +3427,31 @@ class FacebookLogin(SocialLoginView):
   - Sign-up completion (registration flow)
 
 **Custom Events Implemented**:
+
 ```javascript
 // Event: User searches for country
-gtag('event', 'country_search', {
-  'country_code': 'US',
-  'result_count': 12
+gtag("event", "country_search", {
+  country_code: "US",
+  result_count: 12,
 });
 
 // Event: User downloads app
-gtag('event', 'app_download', {
-  'app_id': 5,
-  'app_name': 'Google Maps',
-  'platform': 'iOS'
+gtag("event", "app_download", {
+  app_id: 5,
+  app_name: "Google Maps",
+  platform: "iOS",
 });
 
 // Event: User creates bundle
-gtag('event', 'bundle_created', {
-  'bundle_id': 'xyz123',
-  'app_count': 8,
-  'country_count': 3
+gtag("event", "bundle_created", {
+  bundle_id: "xyz123",
+  app_count: 8,
+  country_count: 3,
 });
 ```
 
 **Dashboard Insights**:
+
 - User demographics and interests
 - Device types (mobile vs desktop)
 - Geographic distribution of users
@@ -3272,17 +3459,20 @@ gtag('event', 'bundle_created', {
 - User acquisition cost (UAC) by source
 
 **Business Value**:
+
 - Identify popular destinations (top traffic countries)
 - Optimize app selection based on user interactions
 - Guide marketing spend to highest-ROI channels
 - A/B test features with traffic segmentation
 
 #### 4. **Google AdSense (Monetization)**
+
 **Purpose**: Display ads on platform to generate revenue
 
 **Publisher ID**: `ca-pub-8457921153251875`
 
 **Implementation**:
+
 ```jsx
 // Rendered in layout.js (root layout)
 <script
@@ -3293,31 +3483,37 @@ gtag('event', 'bundle_created', {
 ```
 
 **Ad Placements**:
+
 - **Hero Section**: Banner ads above country search
 - **Sidebar**: Vertical ads on country page
 - **Below Fold**: Content ads at page bottom
 - **Between Sections**: Native ad formats
 
 **Revenue Model**:
+
 - **CPM (Cost Per Mille)**: Advertisers pay per 1000 impressions ($5-20 typical)
 - **CPC (Cost Per Click)**: Advertisers pay per click ($0.25-3 typical)
 - **Revenue Share**: Google keeps 32%, platform gets 68%
 
 **Optimization Strategies**:
+
 - Responsive ad units (auto-size to screen)
 - Placement near high-engagement content
 - Frequency capping (prevent banner blindness)
 - Ad relevance filters (exclude competing apps/travel sites)
 
 **Projected Revenue** (Estimates):
+
 - 10,000 monthly users Ã— 4 pages/session Ã— CPM $10 = ~$400/month
 - With CPC: 2% click-through Ã— 100 clicks Ã— $0.80 = ~$80/month
 - **Total: $480-500/month potential**
 
 #### 5. **Vercel Analytics (Frontend Performance Monitoring)**
+
 **Purpose**: Track frontend performance metrics and Core Web Vitals
 
 **Metrics Measured**:
+
 - **LCP (Largest Contentful Paint)**: When main content appears
 - **FID (First Input Delay)**: Response time to user interaction
 - **CLS (Cumulative Layout Shift)**: Unexpected layout changes
@@ -3325,6 +3521,7 @@ gtag('event', 'bundle_created', {
 - **FCP (First Contentful Paint)**: When any content appears
 
 **Targets**:
+
 ```
 LCP < 2.5s (Good)
 FID < 100ms (Good)
@@ -3332,44 +3529,52 @@ CLS < 0.1 (Good)
 ```
 
 **Real User Monitoring (RUM)**:
+
 - Collects data from actual user browsers
 - Geographic distribution of performance
 - Device/browser breakdown
 - Page-by-page analysis
 
 **Optimization Alerts**:
+
 - Auto-detect performance regressions
 - Alert developers when metrics degrade
 - Historical trend analysis
 
 **Implementation**:
+
 ```jsx
 // In Next.js app, automatic via Vercel deployment
 // No manual configuration needed
 ```
 
 #### 6. **UptimeRobot (API Uptime Monitoring)**
+
 **Purpose**: Monitor backend API availability and alert on downtime
 
 **Monitoring Configuration**:
+
 - **Check Frequency**: Every 5 minutes
 - **Timeout**: 30 seconds per request
 - **Endpoint**: `https://tripbozo.onrender.com/healthz/`
 - **Uptime Target**: 99.5% SLA
 
 **Monitoring Locations**:
+
 - US (Ohio)
 - Europe (Frankfurt)
 - Asia (Singapore)
 - Australia
 
 **Downtime Alerts**:
+
 - Email notification within 5 minutes of downtime
 - SMS alerts for critical outages (optional)
 - Slack integration for team notification
 - Historical uptime report (monthly/yearly)
 
 **Dashboard Metrics**:
+
 ```
 Current Status: Up âœ“
 Uptime (30 days): 99.94%
@@ -3378,6 +3583,7 @@ Average Response Time: 145ms
 ```
 
 **Incident Response**:
+
 1. UptimeRobot detects downtime
 2. Alert email sent to ops team
 3. Team investigates Render logs
@@ -3390,9 +3596,11 @@ Average Response Time: 145ms
 ### Database & Persistence Layer
 
 #### PostgreSQL Database (Aiven)
+
 **Purpose**: Primary relational database for all persistent data
 
 **Connection Details**:
+
 - **Hosting**: Aiven (managed PostgreSQL)
 - **Region**: US (optimized for Render backend)
 - **Connection Method**: SSL-required (TLS 1.2+)
@@ -3402,12 +3610,14 @@ Average Response Time: 145ms
   ```
 
 **Database Statistics**:
+
 - **Size**: ~500MB (scalable with growth)
 - **Tables**: 13 core models + Django system tables
 - **Total Records**: ~15,000+ (countries, apps, users)
 - **Daily Backups**: Automatic 30-day retention
 
 **Schema Highlights**:
+
 ```
 Tables:
 â”œâ”€â”€ auth_app_user (Django built-in)
@@ -3474,6 +3684,7 @@ Tables:
 ```
 
 **Performance Optimizations**:
+
 - **Indexes on frequent queries**:
   ```sql
   CREATE INDEX country_code_idx ON country_country(code);
@@ -3484,6 +3695,7 @@ Tables:
 - **Read replicas** (future) for scaling read queries
 
 **Security Measures**:
+
 - **SSL/TLS encryption** in transit
 - **IP whitelisting** (only Render backend IPs)
 - **No password exposure** in code (env vars only)
@@ -3491,12 +3703,14 @@ Tables:
 - **Regular security audits** (Aiven's responsibility)
 
 **Disaster Recovery**:
+
 - **PITR (Point-in-time recovery)**: Restore to any point in last 30 days
 - **Backup retention**: 30 days of daily backups
 - **RTO (Recovery Time Objective)**: < 1 hour
 - **RPO (Recovery Point Objective)**: < 1 minute
 
 #### Redis Cache (Upstash)
+
 **Purpose**: High-speed in-memory caching layer for performance
 
 **Hosting**: Upstash (serverless Redis REST API)
@@ -3529,6 +3743,7 @@ Tables:
    - Implement DDoS protection
 
 **Cache Configuration**:
+
 ```python
 # settings.py
 CACHES = {
@@ -3544,6 +3759,7 @@ CACHES = {
 ```
 
 **Key Pattern Examples**:
+
 ```
 country:US:data              â†’ Full country page data
 country:US:apps             â†’ All US apps
@@ -3555,12 +3771,14 @@ rate_limit:192.168.1.1:api  â†’ Rate limit counter
 ```
 
 **Memory Management**:
+
 - **Max Memory**: 100MB (Upstash paid plan)
 - **Eviction Policy**: LRU (least recently used)
 - **Monitoring**: Upstash dashboard shows memory usage
 - **Scaling**: Auto-scale plan if memory exceeded
 
 **Performance Impact**:
+
 - **With cache**: 50ms average response time
 - **Without cache**: 500ms average response time
 - **Improvement**: 10x faster for cached queries
@@ -3570,9 +3788,11 @@ rate_limit:192.168.1.1:api  â†’ Rate limit counter
 ### Domain Management & DNS Configuration
 
 #### GoDaddy Domain Registration
+
 **Purpose**: Own and manage the Tripbozo domain
 
 **Domain Details**:
+
 - **Domain**: `tripbozo.com`
 - **Registrar**: GoDaddy
 - **Renewal**: Annual renewal required
@@ -3581,6 +3801,7 @@ rate_limit:192.168.1.1:api  â†’ Rate limit counter
 - **Auto-Renewal**: Enabled (prevent accidental expiration)
 
 **DNS Records Configuration**:
+
 ```
 A Record:
   Host: @
@@ -3593,7 +3814,7 @@ CNAME Records:
   Type: CNAME
   Value: cname.vercel-dns.com
   TTL: 3600 seconds
-  
+
   Host: api
   Type: CNAME
   Value: tripbozo.onrender.com
@@ -3605,24 +3826,28 @@ MX Records (for future email):
 ```
 
 **SSL/TLS Certificate**:
+
 - **Type**: Free HTTPS via Vercel
 - **Provider**: Let's Encrypt (auto-renewal)
 - **Status**: Active (green padlock)
 - **Validity**: 90 days (auto-renewed before expiry)
 
 **GoDaddy Management**:
+
 1. **Admin Panel**: https://www.godaddy.com/account
 2. **DNS Management**: My Products â†’ Domain â†’ Manage DNS
 3. **Renewal**: Auto-renewal enabled (saves manual steps)
 4. **Support**: 24/7 GoDaddy support for domain issues
 
 **Cost**:
+
 - **Domain Registration**: ~$10/year
 - **WHOIS Privacy**: ~$3/year (included in many plans)
 - **Email Forwarding**: Free (GoDaddy feature)
 - **SSL Certificate**: Free (Vercel provides)
 
 **Future Enhancements**:
+
 - Custom email accounts (hello@tripbozo.com)
 - Email forwarding to team members
 - Subdomain setup (blog.tripbozo.com, docs.tripbozo.com)
@@ -3632,13 +3857,14 @@ MX Records (for future email):
 ### Integrated Service Summary
 
 **Data Flow Architecture**:
+
 ```
 User Browser (Vercel CDN)
     â†“
     â”œâ†’ Vercel Analytics (performance metrics)
     â”œâ†’ Google Analytics (user behavior)
     â””â†’ Google AdSense (ads display)
-    
+
 API Requests
     â†“
 Render Backend (Django REST)
@@ -3647,7 +3873,7 @@ Render Backend (Django REST)
         â”œâ†’ Auth: Google/Facebook OAuth
         â”œâ†’ Query: PostgreSQL (via Aiven)
         â””â†’ Cache: Redis (via Upstash)
-    
+
 Domain Management
     â†“
 GoDaddy DNS
@@ -3656,6 +3882,7 @@ GoDaddy DNS
 ```
 
 **Service Redundancy**:
+
 - **Caching**: Redis fallback to PostgreSQL if cache miss
 - **Authentication**: Multiple OAuth providers (Google + Facebook)
 - **Monitoring**: UptimeRobot + Vercel/Render built-in monitoring
@@ -3672,6 +3899,7 @@ GoDaddy DNS
 **Purpose**: Host and run the Django REST API server
 
 **Service Configuration**:
+
 ```yaml
 Service Type: Web Service (Gunicorn WSGI)
 Platform: Render (render.com)
@@ -3684,6 +3912,7 @@ Auto-scaling: Manual (can upgrade to pro plan)
 ```
 
 **Render Environment Variables**:
+
 ```
 # Security
 DEBUG=False
@@ -3717,6 +3946,7 @@ CELERY_RESULT_BACKEND=redis://...
 ```
 
 **Deployment Workflow**:
+
 1. Developer pushes code to GitHub `main` branch
 2. Render detects push (GitHub integration enabled)
 3. Render pulls latest code
@@ -3734,6 +3964,7 @@ CELERY_RESULT_BACKEND=redis://...
 **Build & Deploy Time**: ~2-3 minutes
 
 **Server Process**:
+
 ```bash
 # Render starts the web service with:
 gunicorn \
@@ -3746,6 +3977,7 @@ gunicorn \
 ```
 
 **Scaling Considerations**:
+
 - **Current**: 1 dyno (512MB) handles ~100 concurrent users
 - **Growth Path**:
   - 500 users â†’ 2 dynos (Standard)
@@ -3753,12 +3985,14 @@ gunicorn \
   - 50k+ users â†’ Horizontal scaling + read replicas
 
 **Monitoring on Render**:
+
 - Real-time logs accessible via dashboard
 - HTTP request logs (method, path, status, response time)
 - Crash detection and auto-restart
 - Memory usage monitoring
 
 **Cost**:
+
 - **Free tier**: Limited dyno hours per month
 - **Starter**: $7/month (512MB, shared CPU)
 - **Standard**: $12-50/month (2GB+, dedicated CPU)
@@ -3771,6 +4005,7 @@ gunicorn \
 **Purpose**: Serve the Next.js frontend globally via CDN
 
 **Service Configuration**:
+
 ```yaml
 Platform: Vercel (vercel.com)
 Framework: Next.js 16.2.2
@@ -3782,6 +4017,7 @@ Build Framework: Next.js
 ```
 
 **Vercel Environment Variables**:
+
 ```
 # Public environment variables (exposed to browser)
 NEXT_PUBLIC_API_BASE_URL=https://tripbozo.onrender.com/api
@@ -3794,6 +4030,7 @@ NEXT_PUBLIC_ADCLIENT=ca-pub-8457921153251875
 ```
 
 **Deployment Workflow**:
+
 1. Developer pushes code to GitHub `main` branch
 2. GitHub webhook notifies Vercel
 3. Vercel clones repository
@@ -3809,6 +4046,7 @@ NEXT_PUBLIC_ADCLIENT=ca-pub-8457921153251875
 8. Deployment to 35+ regions (~30 seconds total)
 
 **Build Process Details**:
+
 ```bash
 # Install dependencies
 npm install
@@ -3832,6 +4070,7 @@ Edge Functions: 0 (can add middleware)
 ```
 
 **Vercel Edge Network**:
+
 - **Locations**: 35+ edge locations globally
 - **Cache Strategy**: Automatic HTTP caching
   - Static HTML pages: Cached indefinitely (revalidate on deploy)
@@ -3840,6 +4079,7 @@ Edge Functions: 0 (can add middleware)
 - **CDN Distribution**: Automatic geolocation-based routing
 
 **Performance Optimizations**:
+
 ```
 Next.js Features:
 â”œâ”€â”€ Image Optimization (next/image component)
@@ -3857,17 +4097,20 @@ Vercel Features:
 ```
 
 **Deploy Preview**:
+
 - Each pull request gets a preview URL
 - Preview is copy of production with PR's changes
 - Allows QA testing before merge
 - Performance metrics included
 
 **Rollback Strategy**:
+
 - Click "Revert" in Vercel dashboard
 - Previous version deployed instantly (< 1 second)
 - No downtime (requests served from edge cache)
 
 **Cost**:
+
 - **Free tier**: Up to 3 deployments/month
 - **Pro**: $20/month (unlimited deployments)
 - **Enterprise**: Custom pricing
@@ -3880,6 +4123,7 @@ Vercel Features:
 **Purpose**: Host and manage relational database
 
 **Service Details**:
+
 ```yaml
 Provider: Aiven (managed PostgreSQL)
 Database Type: PostgreSQL 13+
@@ -3892,6 +4136,7 @@ HA Option: Available for upgrade (multi-zone failover)
 ```
 
 **Connection Configuration**:
+
 ```python
 # Django Database Setting
 DATABASES = {
@@ -3913,12 +4158,14 @@ DATABASES = {
 ```
 
 **Maintenance Schedule**:
+
 - **Backups**: Daily at 2 AM UTC (30-day retention)
 - **Updates**: Applied during maintenance window (Sundays 3-4 AM UTC)
 - **Monitoring**: 24/7 uptime checks
 - **Alerts**: Email if connection fails or disk 80% full
 
 **Disaster Recovery**:
+
 ```
 Backup Locations:
 â”œâ”€â”€ Primary backup: Aiven object storage (AWS S3 equivalent)
@@ -3928,13 +4175,15 @@ Backup Locations:
 ```
 
 **Scaling Strategy**:
+
 - **Current**: db-startup-4 (4 GB RAM, 80 GB storage)
-- **Growth limits**: 
+- **Growth limits**:
   - 10GB â†’ db-business-4 (8GB RAM, 240GB storage)
   - 50GB â†’ db-business-8 (16GB RAM, 480GB storage)
 - **Index optimization** as primary scaling strategy
 
 **Cost**:
+
 - **Startup-4**: ~$19/month
 - **Business-4**: ~$49/month
 - **Enterprise**: Custom pricing
@@ -3947,6 +4196,7 @@ Backup Locations:
 **Purpose**: Manage high-speed in-memory caching layer
 
 **Service Details**:
+
 ```yaml
 Provider: Upstash (serverless Redis)
 Region: US-East (AWS)
@@ -3957,6 +4207,7 @@ Commands/Day Limit: 1M free, then $0.2 per 100k
 ```
 
 **Connection Configuration**:
+
 ```python
 # Redis Configuration
 CACHES = {
@@ -3978,6 +4229,7 @@ CACHES = {
 ```
 
 **Usage Monitoring**:
+
 ```
 Current Redis Usage:
 â”œâ”€â”€ Active keys: ~500
@@ -3988,6 +4240,7 @@ Current Redis Usage:
 ```
 
 **Scaling Plan**:
+
 - **100k users**: 50-100 MB cache size, ~500k daily commands
 - **1M users**: 200+ MB cache, upgrade to Pro plan ($10-50/month)
 
@@ -3998,6 +4251,7 @@ Current Redis Usage:
 **Purpose**: Manage domain and DNS routing
 
 **DNS Configuration**:
+
 ```
 Domain: tripbozo.com (registered with GoDaddy)
 
@@ -4023,12 +4277,14 @@ Records:
 ```
 
 **SSL/TLS Certificate**:
+
 - **Issuer**: Let's Encrypt (free via Vercel)
-- **Type**: Wildcard certificate (*.tripbozo.com)
+- **Type**: Wildcard certificate (\*.tripbozo.com)
 - **Auto-renewal**: 60 days before expiry
 - **Status**: Active (automatic green padlock)
 
 **GoDaddy Management Dashboard**:
+
 1. Login: https://www.godaddy.com/account
 2. Navigate: My Products â†’ Domains â†’ tripbozo.com
 3. Manage DNS: Edit DNS records as needed
@@ -4039,6 +4295,7 @@ Records:
 ### Integrated Deployment Architecture
 
 **Data Flow Diagram**:
+
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
 â”‚                    User Browser                              â”‚
@@ -4075,6 +4332,7 @@ Records:
 ```
 
 **Deployment Process Summary**:
+
 ```
 Developer Workflow:
   1. git push origin main
@@ -4101,6 +4359,7 @@ Rollback Time: < 1 minute
 #### 1. **Production Configuration Security**
 
 **DEBUG Mode Disabled**
+
 - **Setting**: `DEBUG = False` in production
 - **Purpose**: Prevents exposure of sensitive information
 - **What it prevents**:
@@ -4111,6 +4370,7 @@ Rollback Time: < 1 minute
 - **Impact**: Reduces information disclosure severity from CRITICAL to LOW
 
 **ALLOWED_HOSTS Restriction**
+
 - **Setting**: `ALLOWED_HOSTS = ['tripbozo.onrender.com', 'localhost', '127.0.0.1']`
 - **Purpose**: Prevent Host Header Injection attacks
 - **How it works**: Django rejects requests with unknown Host headers
@@ -4123,6 +4383,7 @@ Rollback Time: < 1 minute
 - **Impact**: Prevents cache poisoning, email validation bypasses
 
 **Secret Key Management**
+
 - **Where stored**: Environment variable (never in code)
 - **Length**: 50+ random characters
 - **Rotation**: Should rotate every 6-12 months
@@ -4133,19 +4394,22 @@ Rollback Time: < 1 minute
 #### 2. **Authentication & Authorization**
 
 **JWT (JSON Web Tokens)**
+
 - **Library**: SimpleJWT
 - **Token Types**:
+
   ```
   Access Token: 15-minute expiration
   â”œâ”€ Used for API requests
   â”œâ”€ Short-lived (prevents token theft impact)
   â””â”€ Refreshed via refresh token
-  
+
   Refresh Token: 7-day expiration
   â”œâ”€ Used to obtain new access tokens
   â”œâ”€ Longer-lived (stay logged in longer)
   â””â”€ Can be rotated/revoked
   ```
+
 - **Token Payload**:
   ```json
   {
@@ -4158,6 +4422,7 @@ Rollback Time: < 1 minute
   ```
 
 **Password Hashing**
+
 - **Algorithm**: PBKDF2-SHA256 (Django default)
 - **Iterations**: 600,000+ (depends on Django version)
 - **Salt**: Randomly generated per password
@@ -4165,6 +4430,7 @@ Rollback Time: < 1 minute
 - **Upgrade path**: Can upgrade to bcrypt/Argon2 if needed
 
 **Social OAuth Security**
+
 - **Google OAuth**:
   ```
   â”œâ”€ Token validation: Query Google's userinfo endpoint
@@ -4177,6 +4443,7 @@ Rollback Time: < 1 minute
 - **No password exposure**: Credentials never sent to backend
 
 **Session Management**
+
 - **Session storage**: Redis (in-memory, secure)
 - **CSRF tokens**: Included in all state-changing requests
 - **HttpOnly cookies**: (if used) Not accessible via JavaScript
@@ -4187,23 +4454,27 @@ Rollback Time: < 1 minute
 #### 3. **Database Security**
 
 **SSL/TLS Connection**
+
 - **Enforcement**: `sslmode=require` (no unencrypted connections)
 - **Certificate validation**: Enabled (prevents MITM attacks)
 - **Encryption**: AES-256 in transit
 - **Result**: Data encrypted between app and database
 
 **IP Whitelisting**
+
 - **Aiven PostgreSQL**: Only allow traffic from Render backend IP
 - **Effect**: Database not accessible from internet
 - **Prevents**: Direct database access by attackers
 
 **Credentials Management**
+
 - **Storage**: Environment variables only (not in code)
 - **Access**: Limited to Render environment
 - **Rotation**: Database user passwords reviewed quarterly
 - **Audit logging**: Connection attempts logged by Aiven
 
 **Data Minimization**
+
 - **Stored data**: Only what's necessary
 - **User data**: Email, name, origin country (minimal)
 - **No sensitive fields**: PII stored minimally, encrypted if needed
@@ -4214,6 +4485,7 @@ Rollback Time: < 1 minute
 #### 4. **API Security**
 
 **CORS (Cross-Origin Resource Sharing)**
+
 - **Configuration**:
   ```python
   CORS_ALLOWED_ORIGINS = [
@@ -4227,6 +4499,7 @@ Rollback Time: < 1 minute
 - **Preflight**: Browser sends OPTIONS request first
 
 **Rate Limiting** (optional hardening step for higher-traffic phases)
+
 - **Purpose**: Prevent brute force attacks, DDoS
 - **Strategy**:
   ```
@@ -4237,6 +4510,7 @@ Rollback Time: < 1 minute
   ```
 
 **API Authentication**
+
 - **Method**: Bearer token in Authorization header
   ```
   Authorization: Bearer <access_token>
@@ -4251,44 +4525,53 @@ Rollback Time: < 1 minute
 
 The current implementation is complete and fully usable for the present project scope. The items below are optional upgrades that can be considered later only if scale, policy, or product direction requires them.
 The current implementation is complete and fully usable for the present project scope. The items below are optional upgrades that can be considered later only if scale, policy, or product direction requires them.
+
 #### Optional Improvements (If Needed Later)
 
 ##### 1. **Email Backend Configuration**
+
 **Current Baseline:** Using console.EmailBackend (prints to logs, not sent)
 **Enhancement Opportunity:** Password reset, email verification can't work
 
 **Optional Implementation Options:**
 
 **Option A: SendGrid**
+
 ```python
 # settings.py
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 DEFAULT_FROM_EMAIL = 'noreply@tripbozo.com'
 ```
+
 - **Cost**: Free tier: 100 emails/day
 - **Reliability**: 99.9% delivery
 - **Features**: Bounce handling, unsubscribe tracking
 
 **Option B: Mailgun**
+
 ```python
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
 MAILGUN_ACCESS_KEY = os.getenv('MAILGUN_ACCESS_KEY')
 MAILGUN_SERVER_NAME = 'mail.tripbozo.com'
 ```
+
 - **Cost**: Free tier: 5,000 emails/month
 - **Features**: Webhook integration, detailed logs
 
 **Option C: AWS SES**
+
 ```python
 EMAIL_BACKEND = 'django_ses.SESBackend'
 AWS_SES_REGION_NAME = 'us-east-1'
 AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 ```
+
 - **Cost**: ~$0.10 per 1,000 emails
 - **Features**: Integrated with AWS ecosystem
 
 **Implementation Impact**:
+
 - Enables password reset functionality
 - Enables email verification
 - Enables account notifications
@@ -4297,15 +4580,18 @@ AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
 ---
 
 ##### 2. **Rate Limiting (Brute Force Protection)**
+
 **Current Baseline:** No limit on login attempts
 **Enhancement Opportunity:** Attackers can try thousands of passwords
 
 **Solution: django-ratelimit**
+
 ```bash
 pip install django-ratelimit
 ```
 
 **Implementation**:
+
 ```python
 # views.py
 from django_ratelimit.decorators import ratelimit
@@ -4318,6 +4604,7 @@ class LoginView(APIView):
 ```
 
 **Rate Limit Rules**:
+
 ```
 POST /api/auth/login/: 5 attempts/hour per IP
 POST /api/auth/registration/: 3 attempts/hour per IP
@@ -4327,6 +4614,7 @@ Default /api/*: 1000 requests/hour per IP
 ```
 
 **Benefits**:
+
 - Prevents brute force attacks
 - Prevents automated scraping
 - Protects against DDoS
@@ -4337,9 +4625,11 @@ Default /api/*: 1000 requests/hour per IP
 ---
 
 ##### 3. **CSRF Protection Configuration**
+
 **Current Status**: Django has CSRF protection, but needs frontend integration
 
 **Configuration**:
+
 ```python
 # settings.py
 CSRF_TRUSTED_ORIGINS = [
@@ -4352,6 +4642,7 @@ CSRF_COOKIE_SAMESITE = 'Strict'  # Cross-site policy
 ```
 
 **Frontend Integration** (Next.js):
+
 ```javascript
 // api.js - Add CSRF token to requests
 import axios from 'axios';
@@ -4374,9 +4665,11 @@ apiClient.interceptors.request.use((config) => {
 ---
 
 ##### 4. **Security Headers**
+
 **Purpose**: Instruct browsers on security policies
 
 **Implementation**:
+
 ```python
 # settings.py
 SECURE_HSTS_SECONDS = 31536000  # 1 year
@@ -4398,6 +4691,7 @@ SECURE_CONTENT_SECURITY_POLICY = {...}
 ```
 
 **Headers Sent**:
+
 ```
 Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 X-Content-Type-Options: nosniff
@@ -4407,6 +4701,7 @@ Content-Security-Policy: default-src 'self'; ...
 ```
 
 **Benefits**:
+
 - XSS attack mitigation
 - Clickjacking prevention
 - MIME type sniffing prevention
@@ -4417,14 +4712,17 @@ Content-Security-Policy: default-src 'self'; ...
 ---
 
 ##### 5. **Account Lockout After Failed Attempts**
+
 **Purpose**: Lock account after multiple failed login attempts
 
 **Solution: django-axes**
+
 ```bash
 pip install django-axes
 ```
 
 **Configuration**:
+
 ```python
 # settings.py
 INSTALLED_APPS = [..., 'axes', ...]
@@ -4437,6 +4735,7 @@ AXES_LOCKOUT_TEMPLATE = 'accounts/lockout.html'
 ```
 
 **Behavior**:
+
 ```
 Attempt 1-4: Rejected, counter incremented
   â†“
@@ -4454,9 +4753,11 @@ Success: Counter reset to 0
 #### Additional Optional Enhancements
 
 ##### 1. **Audit Logging**
+
 **Purpose**: Track security-relevant events
 
 **Events to Log**:
+
 - User registration (email, IP, timestamp)
 - Login attempts (success/failure, IP, timestamp)
 - Password changes (user ID, timestamp)
@@ -4466,6 +4767,7 @@ Success: Counter reset to 0
 - Permission changes
 
 **Implementation**:
+
 ```python
 # models.py
 class AuditLog(models.Model):
@@ -4474,7 +4776,7 @@ class AuditLog(models.Model):
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
     details = models.JSONField()
-    
+
     class Meta:
         ordering = ['-timestamp']
 ```
@@ -4485,9 +4787,11 @@ class AuditLog(models.Model):
 ---
 
 ##### 2. **Input Validation Enhancements**
+
 **Current**: Basic Django model validation
 
 **Improvements**:
+
 ```python
 # Stricter validators
 from django.core.validators import EmailValidator, URLValidator
@@ -4503,7 +4807,7 @@ class TravelApp(models.Model):
     icon_url = models.URLField(
         validators=[URLValidator(schemes=['https'])]  # HTTPS only
     )
-    
+
     def clean(self):
         # Custom validation
         if self.android_link and 'play.google.com' not in self.android_link:
@@ -4516,9 +4820,11 @@ class TravelApp(models.Model):
 ---
 
 ##### 3. **API Versioning**
+
 **Purpose**: Maintain backward compatibility as API evolves
 
 **Implementation**:
+
 ```python
 # urls.py
 from rest_framework import routers
@@ -4530,6 +4836,7 @@ urlpatterns = [
 ```
 
 **Benefits**:
+
 - Old clients continue working
 - New clients can use improved endpoints
 - Gradual migration path
@@ -4537,9 +4844,11 @@ urlpatterns = [
 ---
 
 ##### 4. **Two-Factor Authentication (2FA)**
+
 **Purpose**: Additional security for sensitive accounts
 
 **Implementation Options**:
+
 - TOTP (Time-based OTP) - Google Authenticator, Authy
 - SMS-based OTP
 - Email-based OTP
@@ -4557,6 +4866,7 @@ urlpatterns = [
 # Production Security Readiness
 
 ## Authentication & Authorization
+
 - [x] JWT tokens with expiration
 - [x] Password hashing (PBKDF2)
 - [x] Social OAuth (Google, Facebook)
@@ -4565,6 +4875,7 @@ urlpatterns = [
 - [x] CORS properly configured
 
 ## Data Protection
+
 - [x] Database SSL/TLS connection
 - [x] Environment secrets (not in code)
 - [x] HTTPS enforcement
@@ -4573,6 +4884,7 @@ urlpatterns = [
 - [ ] Secure deletion on account removal
 
 ## API Security
+
 - [x] DEBUG=False in production
 - [ ] Rate limiting
 - [x] ALLOWED_HOSTS restricted
@@ -4582,6 +4894,7 @@ urlpatterns = [
 - [ ] Request validation
 
 ## Monitoring & Response
+
 - [ ] Audit logging
 - [x] UptimeRobot monitoring
 - [x] Error alerting
@@ -4590,6 +4903,7 @@ urlpatterns = [
 - [ ] Intrusion detection
 
 ## Compliance
+
 - [ ] Privacy policy (GDPR)
 - [ ] Terms of service
 - [ ] GDPR data handling
@@ -4598,6 +4912,7 @@ urlpatterns = [
 - [ ] Accessibility (WCAG)
 
 ## Infrastructure
+
 - [x] Managed database (Aiven)
 - [x] Managed cache (Upstash)
 - [x] Platform-managed hosting (Render, Vercel)
@@ -4606,6 +4921,7 @@ urlpatterns = [
 - [ ] Incident response plan
 
 ## Testing
+
 - [ ] Security testing (OWASP Top 10)
 - [ ] Penetration testing
 - [ ] SQL injection tests
@@ -4690,18 +5006,21 @@ npm start
 ## Project Metrics & Performance
 
 ### Backend Performance (Target)
+
 - **API Response Time**: < 200ms for country page
 - **Cache Hit Rate**: > 80% for popular countries
 - **Database Connections**: Pooled max 20 per environment
 - **Uptime**: > 99% (monitored by UptimeRobot)
 
 ### Frontend Performance (Target)
+
 - **Lighthouse Score**: > 80 (Performance, Accessibility)
 - **Core Web Vitals**: LCP < 2.5s, FID < 100ms, CLS < 0.1
 - **Bundle Size**: < 150KB (main JS)
 - **Time to Interactive**: < 3.5s
 
 ### Database Statistics
+
 - **Countries**: 25+ countries currently in the database
 - **Apps per Country**: 20-100 depending on research
 - **Categories**: 15+ (Navigation, Communication, Finance, etc.)
@@ -4712,12 +5031,14 @@ npm start
 ## Team & Contributors
 
 ### Development Team
+
 - **Backend Developer**: Built Django API, authentication, caching
 - **Frontend Developer**: Built Next.js UI, components, integrations
 - **Project Manager**: Coordinated features, timelines, deployment
 - **QA/Testing**: Tested API endpoints, user flows, edge cases
 
 ### Contact & Support
+
 - **GitHub Repositories**:
   - Backend: https://github.com/suryansh-it/travel_buddy
   - Frontend: https://github.com/suryansh-it/tripbozofrontend
@@ -4746,19 +5067,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 These references are useful if you want to turn this README into a formal report chapter or add a bibliography section.
 
-| Topic | Reference |
-| --- | --- |
-| Django | https://docs.djangoproject.com/ |
-| Django REST Framework | https://www.django-rest-framework.org/ |
-| Next.js | https://nextjs.org/docs |
-| React | https://react.dev/ |
-| Render | https://render.com/docs |
-| Vercel | https://vercel.com/docs |
-| Aiven PostgreSQL | https://aiven.io/docs/products/postgresql |
-| Upstash Redis | https://upstash.com/docs/redis |
-| Google OAuth | https://developers.google.com/identity/protocols/oauth2 |
-| Google Analytics | https://support.google.com/analytics |
-| Google AdSense | https://support.google.com/adsense |
+| Topic                 | Reference                                               |
+| --------------------- | ------------------------------------------------------- |
+| Django                | https://docs.djangoproject.com/                         |
+| Django REST Framework | https://www.django-rest-framework.org/                  |
+| Next.js               | https://nextjs.org/docs                                 |
+| React                 | https://react.dev/                                      |
+| Render                | https://render.com/docs                                 |
+| Vercel                | https://vercel.com/docs                                 |
+| Aiven PostgreSQL      | https://aiven.io/docs/products/postgresql               |
+| Upstash Redis         | https://upstash.com/docs/redis                          |
+| Google OAuth          | https://developers.google.com/identity/protocols/oauth2 |
+| Google Analytics      | https://support.google.com/analytics                    |
+| Google AdSense        | https://support.google.com/adsense                      |
 
 ### Research Papers (For Report Citation)
 
@@ -4786,6 +5107,7 @@ The papers below are the academic basis for Tripbozo's core concepts (recommenda
    - Relevance to Tripbozo: Supports the broader transformation of travel planning through digital systems, which is exactly the domain and motivation of this project.
 
 Use this citation mapping in your report:
+
 - Papers 1-3: Literature review for recommendation/personalization foundations.
 - Papers 4-7: Literature review for travel technology, tourist behavior, and smart tourism context.
 - Project linkage chapter: Map these studies to implemented features such as country-specific discovery, essentials, QR bundle sharing, and OS-aware store redirection.
@@ -4797,11 +5119,3 @@ Use this citation mapping in your report:
 **Version**: 1.0 (Production Ready)
 
 For detailed API documentation and additional technical details, refer to the respective repository READMEs and inline code documentation.
-
-
-
-
-
-
-
-

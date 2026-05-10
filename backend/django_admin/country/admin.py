@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import (
-    Country, CountryVisit, AppCategory, TravelApp, AppScreenshot, Review, 
+    Country, CountryVisit, AppCategory, TravelApp, CountryServiceProvider, AppScreenshot, Review, 
     OriginCountryAssistance, EmergencyContact, LocalPhrase, UsefulTip
 )
 from django.urls import reverse
@@ -40,6 +40,14 @@ class TravelAppAdmin(admin.ModelAdmin):
     list_editable = ('supports_foreign_cards', 'works_offline')
     raw_id_fields = ('category', 'country')  # Optimized selection for large data
     ordering = ("-is_sponsored", "name")  # bring sponsored to top
+
+
+@admin.register(CountryServiceProvider)
+class CountryServiceProviderAdmin(admin.ModelAdmin):
+    list_display = ('country', 'section', 'name', 'price_from', 'is_featured')
+    search_fields = ('country__name', 'country__code', 'section', 'name', 'coverage', 'support', 'refund')
+    list_filter = ('section', 'country', 'is_featured')
+    raw_id_fields = ('country',)
 
 @admin.register(AppScreenshot)
 class AppScreenshotAdmin(admin.ModelAdmin):

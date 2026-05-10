@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import generics
-from .models import AppCategory, TravelApp, Country, CountryVisit, EmergencyContact, OriginCountryAssistance
-from .serializers import AppCategorySerializer, TravelAppSerializer,CountrySerializer, EssentialsSerializer
+from .models import AppCategory, TravelApp, Country, CountryVisit, EmergencyContact, OriginCountryAssistance, CountryServiceProvider
+from .serializers import AppCategorySerializer, TravelAppSerializer, CountrySerializer, EssentialsSerializer
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 from django.utils.decorators import method_decorator
@@ -156,6 +156,28 @@ def _serialize_country_card(country, visit_count=0):
     }
 
 
+SERVICE_SECTION_META = {
+    "esim": {"title": "eSIM & Connectivity", "icon": "bolt", "accent": "from-cyan-500 to-blue-500", "border": "border-cyan-200", "badge": "bg-cyan-100 text-cyan-700"},
+    "insurance": {"title": "Travel Insurance", "icon": "shield", "accent": "from-rose-500 to-orange-500", "border": "border-rose-200", "badge": "bg-rose-100 text-rose-700"},
+    "booking": {"title": "Booking Platforms", "icon": "hotel", "accent": "from-emerald-500 to-teal-500", "border": "border-emerald-200", "badge": "bg-emerald-100 text-emerald-700"},
+    "utilities": {"title": "Other Useful Services", "icon": "globe", "accent": "from-violet-500 to-fuchsia-500", "border": "border-violet-200", "badge": "bg-violet-100 text-violet-700"},
+}
+
+
+def _serialize_service_provider(provider):
+    return {
+        "id": provider.id,
+        "name": provider.name,
+        "priceFrom": provider.price_from,
+        "coverage": provider.coverage,
+        "support": provider.support,
+        "refund": provider.refund,
+        "site": provider.site,
+        "isFeatured": provider.is_featured,
+        "notes": provider.notes,
+    }
+
+
 @api_view(["POST"])
 def country_visit_view(request, country_code):
     country = get_object_or_404(Country, code=country_code.upper())
@@ -231,6 +253,39 @@ def country_page_view(request, country_code):
         safe_cache_set(key, data, CACHE_TTL)
 
     return Response(data)
+
+
+@api_view(["GET"])
+def country_services_view(request, country_code):
+    country = get_object_or_404(Country, code=country_code.upper())
+    visit_count = CountryVisit.objects.filter(country=country).values_list("visit_count", flat=True).first() or 0
+    providers = CountryServiceProvider.objects.filter(country=country).order_by("section", "-is_featured", "name")
+    grouped = {key: [] for key in SERVICE_SECTION_META.keys()}
+
+    for provider in providers:
+        grouped.setdefault(provider.section, []).append(_serialize_service_provider(provider))
+
+    sections = []
+    for key in ["esim", "insurance", "booking", "utilities"]:
+        meta = SERVICE_SECTION_META[key]
+        sections.append(
+            {
+                "key": key,
+                "title": meta["title"],
+                "icon": meta["icon"],
+                "accent": meta["accent"],
+                "border": meta["border"],
+                "badge": meta["badge"],
+                "providers": grouped.get(key, []),
+            }
+        )
+
+    return Response(
+        {
+            "country": _serialize_country_card(country, visit_count),
+            "sections": sections,
+        }
+    )
 
 
 # ✅ API to fetch all categories

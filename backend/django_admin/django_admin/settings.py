@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'personalized_list',  # Personalized App List Page
     'itinerary', #itinerary app for dynamic leg suggestion
     'django_admin',
+    'admin_panel',
     'rest_framework_simplejwt',
     'auth_app',  # authentication app
     
@@ -95,6 +96,7 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", "10"))
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 SUGGESTION_RECEIVER_EMAIL = os.getenv("SUGGESTION_RECEIVER_EMAIL", "bozotrip@gmail.com")
+ADMIN_PANEL_EMAIL = os.getenv("ADMIN_PANEL_EMAIL", "bozotrip@gmail.com")
 
 
 

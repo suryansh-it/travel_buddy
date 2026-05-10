@@ -21,6 +21,7 @@ from healthz.views import healthz
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/admin/', include('admin_panel.urls')),
     path('api/homepage/', include('homepage.urls')),
     path('api/country/', include('country.urls')),
     path('api/personalized-list/', include('personalized_list.urls')),

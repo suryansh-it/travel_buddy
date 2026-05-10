@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Country, TravelApp, AppCategory, Review, AppScreenshot, EmergencyContact,LocalPhrase, UsefulTip
+from .models import Country, TravelApp, AppCategory, Review, AppScreenshot, EmergencyContact, LocalPhrase, UsefulTip, CountryServiceProvider
 
 class TravelAppSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source="category.name", read_only=True)
@@ -78,6 +78,24 @@ class UsefulTipSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsefulTip
         fields = ["tip"]
+
+
+class CountryServiceProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CountryServiceProvider
+        fields = [
+            "id",
+            "country",
+            "section",
+            "name",
+            "price_from",
+            "coverage",
+            "support",
+            "refund",
+            "site",
+            "is_featured",
+            "notes",
+        ]
 
 class EssentialsSerializer(serializers.ModelSerializer):
     emergencies = EmergencyContactSerializer(many=True)
